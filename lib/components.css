@@ -861,7 +861,7 @@
 /* Rail (collapsed) — icon-only sidebar at --sidebar-w. Reuses every .sidebar* rule;
    hide labels, center icons. Add .sidebar--rail to .sidebar. */
 .sidebar--rail { width: var(--sidebar-w); }
-.sidebar--rail .sidebar-header { align-items: center; justify-content: center; padding: var(--space-12) var(--space-8); }
+.sidebar--rail .sidebar-header { display: flex; align-items: center; justify-content: center; padding: var(--space-12) var(--space-8); }
 .sidebar--rail .sidebar-group { display: flex; flex-direction: column; align-items: center; gap: var(--space-6); }
 .sidebar--rail .sidebar-link { justify-content: center; gap: 0; padding: var(--space-10); width: 100%; }
 .sidebar--rail .sidebar-link-label { display: none; }

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Tiny Wire — v1.1 Audit</title>
+<title>Tiny Wire — Audit &amp; release notes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet" />
@@ -244,9 +244,9 @@
 
 <main class="docs-main">
 
-  <div class="docs-eyebrow">Release notes · v1.1</div>
-  <h1 class="docs-h1">The v1.1 audit</h1>
-  <p class="docs-lede">A design system isn't done at launch — it's done when it stays right under pressure. This page is the public artifact of the first maintenance pass after v1.0 shipped: every finding, every decision, every fix, in the open.</p>
+  <div class="docs-eyebrow">Release notes</div>
+  <h1 class="docs-h1">Audit &amp; release notes</h1>
+  <p class="docs-lede">A design system isn't done at launch — it's done when it stays right under pressure. This page is the public artifact of every maintenance pass since v1.0 shipped — each finding, decision, and fix, in the open. Newest first.</p>
 
   <!-- Stats -->
   <div class="audit-meta">
@@ -279,8 +279,15 @@
 
   <div class="docs-divider"></div>
 
-  <!-- Filters -->
-  <h2 class="docs-h2" id="findings">Findings</h2>
+  <!-- v1.2 -->
+  <h2 class="docs-h2" id="v1-2">v1.2 — Sidebar rail</h2>
+  <p class="docs-h2-sub">2026-06-11 · additive, zero breaking changes.</p>
+  <p class="docs-text" style="max-width:720px;">Added <code>.sidebar--rail</code> — the collapsed, icon-only form of the app sidebar (56px, driven by <code>--sidebar-w</code>). It reuses every existing <code>.sidebar*</code> rule and token: labels hide, icons center and grow to 20px, the active state is unchanged. See the <a href="components.html#sidebar">Sidebar component</a> and the <a href="sidebar-rail.html">rail demo</a>; the full entry lives in the <a href="https://github.com/LinzLos/tiny-wire/blob/main/CHANGELOG.md">changelog</a>. Scope was the rail only — the deferred a11y findings below remain queued for a later release.</p>
+
+  <div class="docs-divider"></div>
+
+  <!-- v1.1 findings -->
+  <h2 class="docs-h2" id="findings">v1.1 — Findings</h2>
   <p class="docs-h2-sub">Twelve issues, grouped by theme. Click a filter to scope the list. Every fixed finding links to the line that changed.</p>
 
   <div class="audit-filters" id="audit-filters">
@@ -808,7 +815,7 @@
 
   <!-- Next -->
   <h2 class="docs-h2" id="next">What's next</h2>
-  <p class="docs-h2-sub">v1.2 is in flight. The deferred findings get their fix, plus the additions below.</p>
+  <p class="docs-h2-sub">The next release is in flight. The deferred findings get their fix, plus the additions below.</p>
 
   <div class="card" style="padding:0; overflow:hidden;">
     <table class="table" style="font-size:var(--text-base);">
