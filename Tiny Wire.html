@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tiny Wire — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet" />
+<style>
+
+/* ─── Reset ─────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Tokens ─────────────────────────────────────────────────────────────── */
+:root {
+  --surface:        #FFFFFF;
+  --surface-subtle: #F7F4F3;
+  --surface-page:   #F7F4F3;
+  --surface-muted:  #F1EDEC;
+  --border:         #DDD7D5;
+  --border-light:   #E8E3E2;
+  --border-dashed:  #AD9B9A;
+  --text-primary:   #1E1918;
+  --text-secondary: #5C504F;
+  --text-tertiary:  #8A7E7D;
+  --text-inverse:   #FFFFFF;
+  --brand:          #629460;
+  --brand-light:    #F2F6F2;
+  --brand-mid:      #C8D9C7;
+  --brand-dark:     #3F603E;
+  --danger:         #CE430A;
+  --danger-light:   #FBEFEB;
+  --danger-mid:     #EBB39D;
+  --warning:        #6B4B3E;
+  --warning-light:  #F3F0EF;
+  --warning-mid:    #C3B7B1;
+  --info:           #1B4079;
+  --info-light:     #ECEFF4;
+  --info-mid:       #AFBCD0;
+  --accent:         #0EA5E9;
+  --accent-light:   #EBF7FD;
+  --data-inflow:    #CE430A;
+  --data-outflow:   #629460;
+  --data-target:    #AD9B9A;
+  --chart-blue:     #1B4079;
+  --chart-azure:    #0EA5E9;
+  --font-heading:   'Bricolage Grotesque', sans-serif;
+  --font-body:      'DM Sans', sans-serif;
+  --text-2xs: 9px; --text-xs: 10px; --text-sm: 11px; --text-md: 12px;
+  --text-base: 13px; --text-lg: 16px; --text-xl: 18px; --text-2xl: 20px; --text-3xl: 26px;
+  --weight-light: 300; --weight-regular: 400; --weight-medium: 500; --weight-semibold: 600; --weight-bold: 700;
+  --leading-tight: 1; --leading-snug: 1.1; --leading-compact: 1.3; --leading-normal: 1.5;
+  --tracking-tight: -0.6px; --tracking-snug: -0.3px; --tracking-slight: -0.1px; --tracking-caps: 0.07em;
+  --space-0: 0px; --space-2: 2px; --space-4: 4px; --space-5: 5px; --space-6: 6px; --space-7: 7px;
+  --space-8: 8px; --space-10: 10px; --space-12: 12px; --space-14: 14px; --space-16: 16px;
+  --space-18: 18px; --space-20: 20px; --space-24: 24px;
+  --radius-xs: 4px; --radius-sm: 6px; --radius-md: 8px; --radius: 10px; --radius-full: 9999px;
+  --shadow-card:    0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.04);
+  --shadow-nav:     0 1px 3px rgba(0,0,0,0.08);
+  --shadow-toggle:  0 1px 3px rgba(0,0,0,0.10);
+  --shadow-hover:   0 6px 24px rgba(0,0,0,0.07);
+  --shadow-modal:   0 4px 16px rgba(0,0,0,0.10);
+  --shadow-dropdown:0 8px 24px rgba(0,0,0,0.10);
+  --shadow-overlay: 0 4px 20px rgba(0,0,0,0.18);
+  --size-icon-sm: 13px; --size-icon-base: 18px;
+  --size-avatar-sm: 30px; --size-avatar-lg: 34px;
+  --size-logo-mark: 32px; --size-nav-item: 40px;
+  --size-status-dot-sm: 6px; --size-status-dot-base: 7px; --size-status-dot-lg: 8px;
+  --size-bar: 5px; --size-bar-lg: 6px;
+  --sidebar-w: 56px; --topbar-h: 56px;
+  --ease-spring:   cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out:      ease-out;
+  --ease-standard: ease;
+  --duration-fast: 0.18s; --duration-base: 0.22s; --duration-moderate: 0.30s; --duration-slow: 0.35s;
+}
+
+/* ─── Base ──────────────────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--surface-page);
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ─── Doc Layout ────────────────────────────────────────────────────────── */
+.doc-sidenav {
+  position: fixed;
+  top: 0; left: 0;
+  width: 220px;
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-width: none;
+  z-index: 10;
+}
+.doc-sidenav::-webkit-scrollbar { display: none; }
+
+.doc-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  padding: var(--space-20) var(--space-20) var(--space-16);
+  border-bottom: 1px solid var(--border-light);
+}
+.doc-logo-mark {
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--text-primary);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.doc-logo-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+}
+.doc-logo-version {
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+}
+
+.doc-nav-group {
+  padding: var(--space-16) var(--space-12);
+  border-bottom: 1px solid var(--border-light);
+}
+.doc-nav-group-label {
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  padding: 0 var(--space-8);
+  margin-bottom: var(--space-6);
+}
+.doc-nav-link {
+  display: block;
+  padding: var(--space-5) var(--space-8);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-md);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
+  line-height: 1.4;
+}
+.doc-nav-link:hover { background: var(--surface-muted); color: var(--text-primary); }
+.doc-nav-link.active { background: var(--surface-muted); color: var(--text-primary); font-weight: var(--weight-medium); }
+
+.doc-main {
+  margin-left: 220px;
+  flex: 1;
+  min-width: 0;
+  padding: 48px 64px 80px;
+  max-width: 1080px;
+}
+
+/* ─── Section ────────────────────────────────────────────────────────────── */
+.doc-section {
+  margin-bottom: 64px;
+  scroll-margin-top: 32px;
+}
+.doc-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+.doc-section-sub {
+  font-size: var(--text-md);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-24);
+  line-height: var(--leading-compact);
+}
+.doc-divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: 40px 0;
+}
+
+/* ─── Token block ────────────────────────────────────────────────────────── */
+.token-label {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-12);
+  display: flex; align-items: center; gap: var(--space-8);
+}
+.token-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border-light);
+}
+
+/* ─── Color Grid ─────────────────────────────────────────────────────────── */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: var(--space-8);
+  margin-bottom: var(--space-24);
+}
+.color-chip {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background: var(--surface);
+  padding: var(--space-12) var(--space-10) var(--space-10);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-8);
+}
+.color-chip-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+.color-chip-info {
+  background: none;
+}
+.color-chip-name {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.color-chip-var {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+/* ─── Type Scale ─────────────────────────────────────────────────────────── */
+.type-scale-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-20);
+  padding: var(--space-12) 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.type-scale-row:last-child { border-bottom: none; }
+.type-scale-meta {
+  width: 100px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.type-scale-token {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+.type-scale-px {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+.type-scale-sample {
+  color: var(--text-primary);
+  letter-spacing: var(--tracking-snug);
+}
+
+/* ─── Spacing ────────────────────────────────────────────────────────────── */
+.spacing-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+.spacing-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+.spacing-bar-wrap {
+  flex: 1;
+}
+.spacing-bar {
+  height: 16px;
+  background: color-mix(in srgb, var(--brand) 35%, transparent);
+  border-radius: var(--radius-xs);
+  border: 1px solid color-mix(in srgb, var(--brand) 50%, transparent);
+}
+.spacing-meta {
+  width: 140px;
+  flex-shrink: 0;
+  display: flex;
+  gap: var(--space-8);
+  align-items: center;
+}
+.spacing-token {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  width: 80px;
+}
+.spacing-px {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* ─── Radius ─────────────────────────────────────────────────────────────── */
+.radius-grid {
+  display: flex;
+  gap: var(--space-20);
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.radius-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+}
+.radius-box {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  width: 64px;
+  height: 64px;
+}
+.radius-token {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+.radius-val {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* ─── Shadows ────────────────────────────────────────────────────────────── */
+.shadow-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: var(--space-16);
+}
+.shadow-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+}
+.shadow-box {
+  height: 64px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+}
+.shadow-token {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+}
+
+/* ─── Component Canvas ───────────────────────────────────────────────────── */
+.component-canvas {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-24);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+  align-items: flex-start;
+  margin-bottom: var(--space-10);
+}
+.component-canvas.centered {
+  justify-content: center;
+  align-items: center;
+}
+.component-canvas.col {
+  flex-direction: column;
+  align-items: flex-start;
+}
+.canvas-note {
+  font-size: var(--text-md);
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-20);
+  font-style: italic;
+}
+
+/* ─── Buttons ────────────────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 32px; padding: 0 var(--space-16);
+  background: var(--text-primary); color: var(--text-inverse);
+  border: none; border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: var(--text-base); font-weight: var(--weight-medium);
+  cursor: pointer; transition: opacity var(--duration-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+.btn-primary:hover { opacity: 0.82; }
+
+.btn-danger {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 32px; padding: 0 var(--space-16);
+  background: var(--danger); color: var(--text-inverse);
+  border: none; border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: var(--text-base); font-weight: var(--weight-medium);
+  cursor: pointer; transition: opacity var(--duration-fast) var(--ease-standard);
+}
+.btn-danger:hover { opacity: 0.82; }
+
+.btn-ghost {
+  background: none; border: none; padding: 0;
+  font-family: var(--font-body); font-size: var(--text-md);
+  color: var(--text-tertiary); text-decoration: underline;
+  cursor: pointer; transition: color var(--duration-fast) var(--ease-standard);
+}
+.btn-ghost:hover { color: var(--text-secondary); }
+
+.btn-rollback {
+  height: 26px; padding: 0 var(--space-10);
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-body); font-size: var(--text-md);
+  color: var(--text-secondary); cursor: pointer; white-space: nowrap;
+  transition: background var(--duration-fast), border-color var(--duration-fast);
+}
+.btn-rollback:hover { background: var(--surface-muted); border-color: var(--border-dashed); }
+
+.btn-stop {
+  display: inline-flex; align-items: center; gap: var(--space-8);
+  height: 36px; padding: 0 var(--space-12);
+  background: color-mix(in srgb, var(--danger) 7%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--danger) 28%, transparent);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: var(--text-base); font-weight: var(--weight-medium);
+  color: var(--danger); cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-standard);
+}
+.btn-stop:hover { background: color-mix(in srgb, var(--danger) 13%, var(--surface)); }
+
+/* ─── Tags & Badges ──────────────────────────────────────────────────────── */
+.tag {
+  display: inline-block; font-size: var(--text-2xs);
+  font-weight: var(--weight-bold); letter-spacing: var(--tracking-caps);
+  text-transform: uppercase; padding: 2px 6px; border-radius: var(--radius-xs);
+}
+.tag-danger { background: var(--danger-light); color: var(--danger); }
+.tag-brand  { background: var(--brand-light);  color: var(--brand); }
+.tag-info   { background: var(--info-light);   color: var(--info); }
+.tag-warn   { background: var(--warning-light);color: var(--warning); }
+
+.badge {
+  display: inline-block; font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold); letter-spacing: var(--tracking-caps);
+  text-transform: uppercase; color: var(--text-tertiary);
+  background: var(--surface-muted); border: 1px solid var(--border);
+  border-radius: var(--radius-xs); padding: 1px 5px; vertical-align: middle;
+}
+
+/* ─── Status Chips ───────────────────────────────────────────────────────── */
+.status-chip {
+  display: inline-flex; align-items: center; gap: var(--space-6);
+  height: 26px; padding: 0 var(--space-10); border-radius: var(--radius-full);
+  font-size: var(--text-md); font-weight: var(--weight-medium);
+  border: 1px solid transparent;
+}
+.status-chip--ok      { background: color-mix(in srgb, var(--brand)   10%, transparent); border-color: color-mix(in srgb, var(--brand)   25%, transparent); color: var(--brand); }
+.status-chip--warn    { background: color-mix(in srgb, var(--warning) 10%, transparent); border-color: color-mix(in srgb, var(--warning) 25%, transparent); color: var(--warning); }
+.status-chip--critical{ background: color-mix(in srgb, var(--danger)  10%, transparent); border-color: color-mix(in srgb, var(--danger)  25%, transparent); color: var(--danger); }
+.status-chip--stopped { background: var(--surface-muted); border-color: var(--border); color: var(--text-secondary); }
+.status-chip--info    { background: color-mix(in srgb, var(--info)    10%, transparent); border-color: color-mix(in srgb, var(--info)    25%, transparent); color: var(--info); }
+.status-chip-dot {
+  width: 6px; height: 6px; border-radius: var(--radius-full);
+  background: currentColor; flex-shrink: 0;
+}
+
+/* ─── Status Dots ────────────────────────────────────────────────────────── */
+.dot {
+  width: var(--size-status-dot-base);
+  height: var(--size-status-dot-base);
+  border-radius: var(--radius-full);
+  display: inline-block; flex-shrink: 0;
+}
+.dot-green  { background: var(--brand); }
+.dot-amber  { background: var(--warning); }
+.dot-red    { background: var(--danger); }
+.dot-blue   { background: var(--info); }
+.dot-muted  { background: var(--text-tertiary); }
+
+.monitoring-dot {
+  position: relative; width: 7px; height: 7px;
+  border-radius: var(--radius-full); background: var(--brand);
+  flex-shrink: 0; animation: pulse-dot 2.8s ease-in-out infinite;
+}
+.monitoring-dot::after {
+  content: ''; position: absolute; inset: 0;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--brand) 55%, transparent);
+  animation: ripple-ring 2.8s ease-in-out infinite;
+}
+@keyframes ripple-ring {
+  0%  { transform: scale(1);   opacity: 0.55; }
+  45% { transform: scale(2.4); opacity: 0; }
+  90% { transform: scale(1);   opacity: 0.55; }
+  100%{ transform: scale(1);   opacity: 0.55; }
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+/* ─── Inputs ─────────────────────────────────────────────────────────────── */
+.input {
+  height: 32px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 0 var(--space-8);
+  font-family: var(--font-body); font-size: var(--text-base);
+  color: var(--text-primary); background: var(--surface);
+  outline: none; transition: border-color var(--duration-fast) var(--ease-standard);
+  width: 100%;
+}
+.input:focus { border-color: var(--text-tertiary); }
+
+.select {
+  height: 32px; border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 0 var(--space-8);
+  font-family: var(--font-body); font-size: var(--text-base);
+  color: var(--text-primary); background: var(--surface);
+  outline: none; cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+.select:focus { border-color: var(--text-tertiary); }
+
+.field-label {
+  display: block; font-size: var(--text-md);
+  font-weight: var(--weight-medium); color: var(--text-secondary);
+  margin-bottom: var(--space-5);
+}
+.helper {
+  font-size: var(--text-md); color: var(--text-tertiary);
+  line-height: var(--leading-compact); margin-top: var(--space-5);
+}
+
+/* ─── Card ───────────────────────────────────────────────────────────────── */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md); padding: var(--space-16);
+}
+
+.section-heading {
+  font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  color: var(--text-primary); margin-bottom: var(--space-14);
+  display: flex; align-items: center; gap: var(--space-8);
+}
+
+/* ─── Slider ─────────────────────────────────────────────────────────────── */
+.lever-slider {
+  flex: 1; height: var(--size-bar); appearance: none;
+  background: var(--border); border-radius: var(--radius-full);
+  outline: none; cursor: pointer;
+}
+.lever-slider::-webkit-slider-thumb {
+  appearance: none; width: 16px; height: 16px;
+  border-radius: var(--radius-full); background: var(--text-primary);
+  cursor: grab; box-shadow: var(--shadow-toggle);
+}
+.slider-wrap { display: flex; align-items: center; gap: var(--space-12); }
+.slider-val {
+  font-size: var(--text-xl); font-weight: var(--weight-semibold);
+  font-family: var(--font-heading); color: var(--text-primary);
+  letter-spacing: var(--tracking-snug); min-width: 30px; text-align: right;
+}
+
+/* ─── Nav Rail ───────────────────────────────────────────────────────────── */
+.nav-rail-demo {
+  width: 56px; padding: 20px 0;
+  display: flex; justify-content: center;
+  background: var(--surface-page); border: 1px solid var(--border);
+  border-radius: var(--radius); height: 340px;
+}
+.nav-pill {
+  width: 44px; background: var(--surface); border-radius: 22px;
+  box-shadow: var(--shadow-overlay); display: flex;
+  flex-direction: column; align-items: center; padding: var(--space-12) 0;
+  flex: 1; max-height: 320px;
+}
+.nav-item-active {
+  width: 44px; height: 44px; display: flex;
+  align-items: center; justify-content: center;
+  color: var(--danger); flex-shrink: 0;
+}
+.nav-separator {
+  width: 28px; height: 1px; background: var(--border-light);
+  flex-shrink: 0; margin: 2px 0;
+}
+.nav-item-inactive {
+  width: 34px; height: 34px; display: flex;
+  align-items: center; justify-content: center;
+  background: var(--surface-muted); border-radius: var(--radius-full);
+  color: var(--text-tertiary); flex-shrink: 0; margin: 4px 0;
+}
+.nav-spacer { flex: 1; min-height: 8px; }
+.nav-avatar {
+  width: 34px; height: 34px; display: flex;
+  align-items: center; justify-content: center;
+  background: var(--surface-muted); border-radius: var(--radius-full);
+  color: var(--text-tertiary); flex-shrink: 0;
+}
+
+/* ─── Sidenav ────────────────────────────────────────────────────────────── */
+.sidenav-demo {
+  background: var(--surface-subtle); border: 1px solid var(--border);
+  border-radius: var(--radius); display: flex;
+  flex-direction: column; align-items: center; width: 64px;
+}
+.sidenav-logo-area {
+  width: 64px; height: 80px; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0;
+}
+.sidenav-divider { width: 64px; height: 1px; background: var(--border); flex-shrink: 0; }
+.sidenav-nav-items {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 16px 8px; width: 100%;
+}
+.sidenav-item {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: var(--radius-md);
+  margin: 0 auto;
+}
+.sidenav-item--active {
+  background: var(--surface); box-shadow: var(--shadow-nav);
+}
+
+/* ─── Status Bar ─────────────────────────────────────────────────────────── */
+.status-bar {
+  display: flex; align-items: center; gap: var(--space-16);
+  padding: var(--space-8) var(--space-16); flex-shrink: 0;
+}
+.status-bar-rule { width: 1px; height: 16px; background: var(--border); flex-shrink: 0; }
+.status-stat { display: flex; align-items: center; gap: var(--space-6); }
+.status-stat-label { font-size: var(--text-md); color: var(--text-tertiary); }
+.status-stat-value {
+  display: inline-flex; align-items: center; gap: var(--space-5);
+  font-size: var(--text-md); font-weight: var(--weight-semibold); color: var(--text-primary);
+}
+.status-stat-context { font-size: var(--text-md); color: var(--text-tertiary); }
+
+/* ─── Table ──────────────────────────────────────────────────────────────── */
+.changes-table { width: 100%; border-collapse: collapse; }
+.changes-table thead tr { border-bottom: 1px solid var(--border); }
+.changes-table th {
+  text-align: left; padding: var(--space-6) var(--space-8);
+  font-size: var(--text-sm); font-weight: var(--weight-semibold);
+  color: var(--text-tertiary); letter-spacing: var(--tracking-caps);
+  text-transform: uppercase; white-space: nowrap;
+}
+.changes-table tbody tr { border-bottom: 1px solid var(--border-light); }
+.changes-table tbody tr:last-child { border-bottom: none; }
+.changes-table td { padding: var(--space-8); vertical-align: middle; font-size: var(--text-md); color: var(--text-secondary); }
+
+/* ─── Alert / Validation ─────────────────────────────────────────────────── */
+.alert {
+  padding: var(--space-8) var(--space-12); border-radius: var(--radius-sm);
+  font-size: var(--text-md); line-height: var(--leading-compact);
+  border: 1px solid transparent;
+}
+.alert-danger  { color: var(--danger);  background: color-mix(in srgb, var(--danger)  8%, transparent); border-color: color-mix(in srgb, var(--danger)  22%, transparent); }
+.alert-warn    { color: var(--warning); background: color-mix(in srgb, var(--warning) 8%, transparent); border-color: color-mix(in srgb, var(--warning) 22%, transparent); }
+.alert-brand   { color: var(--brand);   background: color-mix(in srgb, var(--brand)   8%, transparent); border-color: color-mix(in srgb, var(--brand)   22%, transparent); }
+.alert-info    { color: var(--info);    background: color-mix(in srgb, var(--info)    8%, transparent); border-color: color-mix(in srgb, var(--info)    22%, transparent); }
+
+/* ─── Banner ─────────────────────────────────────────────────────────────── */
+.stop-banner {
+  display: flex; align-items: center; gap: var(--space-12);
+  padding: var(--space-8) var(--space-16);
+  background: color-mix(in srgb, var(--danger) 7%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--danger) 18%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--danger) 18%, transparent);
+  font-size: var(--text-md); font-weight: var(--weight-medium); color: var(--danger);
+  border-radius: var(--radius-sm);
+}
+.stop-banner-dot {
+  width: 7px; height: 7px; border-radius: var(--radius-full);
+  background: var(--danger); flex-shrink: 0;
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+/* ─── Targeting active ───────────────────────────────────────────────────── */
+.targeting-active {
+  display: flex; align-items: center; gap: var(--space-8);
+  background: color-mix(in srgb, var(--brand) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--brand) 22%, transparent);
+  border-radius: var(--radius-sm); padding: var(--space-7) var(--space-10);
+}
+.targeting-label { flex: 1; font-size: var(--text-md); color: var(--text-secondary); }
+.targeting-label strong { font-weight: var(--weight-semibold); color: var(--text-primary); }
+
+/* ─── Formula Box ────────────────────────────────────────────────────────── */
+.formula-box {
+  background: var(--surface-subtle); border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm); padding: var(--space-10) var(--space-12);
+}
+.formula-text { font-size: var(--text-md); color: var(--text-secondary); line-height: var(--leading-compact); }
+
+/* ─── Animations preview ─────────────────────────────────────────────────── */
+@keyframes pageIn    { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes filterIn  { from { opacity: 0; transform: translateY(4px);  } to { opacity: 1; transform: translateY(0); } }
+@keyframes modalIn   { from { opacity: 0; transform: scale(0.96) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes fadeUp    { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn    { from { opacity: 0; } to { opacity: 1; } }
+
+.anim-demo {
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-8);
+  cursor: pointer;
+}
+.anim-box {
+  width: 64px; height: 64px; background: var(--surface);
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+  display: flex; align-items: center; justify-content: center;
+}
+.anim-label { font-size: var(--text-xs); color: var(--text-tertiary); font-family: ui-monospace, monospace; }
+.anim-note  { font-size: var(--text-2xs); color: var(--text-tertiary); }
+
+/* ─── Header ─────────────────────────────────────────────────────────────── */
+.doc-hero {
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border-light);
+}
+.doc-hero-eyebrow {
+  font-size: var(--text-md); color: var(--text-tertiary);
+  font-weight: var(--weight-medium); letter-spacing: var(--tracking-caps);
+  text-transform: uppercase; margin-bottom: var(--space-8);
+}
+.doc-hero-title {
+  font-family: var(--font-heading); font-size: 40px;
+  font-weight: var(--weight-bold); letter-spacing: -1px;
+  color: var(--text-primary); line-height: 1;
+  margin-bottom: var(--space-12);
+}
+.doc-hero-desc {
+  font-size: var(--text-lg); color: var(--text-secondary);
+  line-height: var(--leading-normal); max-width: 520px;
+}
+
+/* ─── Usage block ────────────────────────────────────────────────────────── */
+.usage-block {
+  background: var(--text-primary); border-radius: var(--radius-md);
+  padding: var(--space-16) var(--space-20);
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: var(--text-sm); color: #C8D9C7;
+  line-height: 1.7; margin-bottom: var(--space-10);
+  overflow-x: auto;
+}
+.usage-block .c  { color: #8A7E7D; }  /* comment */
+.usage-block .k  { color: #EBB39D; }  /* keyword */
+.usage-block .s  { color: #C8D9C7; }  /* string */
+.usage-block .v  { color: #AFBCD0; }  /* value */
+
+/* ─── Two-col layout ─────────────────────────────────────────────────────── */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); }
+.three-col { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-12); }
+
+/* ─── Inline code ────────────────────────────────────────────────────────── */
+code {
+  font-family: ui-monospace, 'SF Mono', Consolas, monospace;
+  font-size: var(--text-sm); background: var(--surface-muted);
+  border: 1px solid var(--border-light); border-radius: var(--radius-xs);
+  padding: 1px 5px; color: var(--text-secondary);
+}
+
+/* ─── Tweaks panel ───────────────────────────────────────────────────────── */
+#tweaks-panel {
+  display: none; position: fixed; bottom: 24px; right: 24px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-md); box-shadow: var(--shadow-dropdown);
+  padding: var(--space-16); width: 220px; z-index: 1000;
+  flex-direction: column; gap: var(--space-12);
+}
+#tweaks-panel.open { display: flex; }
+.tweaks-title { font-size: var(--text-sm); font-weight: var(--weight-semibold); color: var(--text-primary); margin-bottom: var(--space-4); }
+.tweaks-field { display: flex; flex-direction: column; gap: var(--space-4); }
+.tweaks-field label { font-size: var(--text-xs); color: var(--text-tertiary); }
+</style>
+</head>
+<body>
+
+<!-- ── Sidebar ────────────────────────────────────────────────────────────── -->
+<nav class="doc-sidenav">
+  <div class="doc-logo">
+    <div class="doc-logo-mark">
+      <svg width="16" height="16" viewBox="0 0 48 48" fill="none">
+        <path d="M41.9996 4L37.9996 8M37.9996 8L43.9996 14L36.9996 21L30.9996 15M37.9996 8L30.9996 15M22.7796 23.22C23.8123 24.2389 24.6332 25.4521 25.1951 26.7896C25.757 28.1271 26.0488 29.5625 26.0536 31.0133C26.0585 32.464 25.7763 33.9014 25.2234 35.2426C24.6705 36.5838 23.8577 37.8025 22.8319 38.8283C21.806 39.8541 20.5874 40.6669 19.2462 41.2198C17.9049 41.7728 16.4676 42.0549 15.0168 42.0501C13.5661 42.0452 12.1307 41.7534 10.7932 41.1915C9.45565 40.6296 8.24251 39.8087 7.22357 38.776C5.21983 36.7014 4.1111 33.9228 4.13616 31.0386C4.16122 28.1544 5.31808 25.3955 7.35757 23.356C9.39706 21.3165 12.156 20.1596 15.0402 20.1346C17.9243 20.1095 20.7029 21.2183 22.7776 23.222L22.7796 23.22ZM22.7796 23.22L30.9996 15" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div>
+      <div class="doc-logo-name">Tiny Wire</div>
+      <div class="doc-logo-version">v1.0</div>
+    </div>
+  </div>
+
+  <div class="doc-nav-group">
+    <div class="doc-nav-group-label">Foundation</div>
+    <a class="doc-nav-link" href="#overview">Overview</a>
+    <a class="doc-nav-link" href="#usage">Usage</a>
+    <a class="doc-nav-link" href="#colors">Colors</a>
+    <a class="doc-nav-link" href="#typography">Typography</a>
+    <a class="doc-nav-link" href="#spacing">Spacing</a>
+    <a class="doc-nav-link" href="#radius">Border Radius</a>
+    <a class="doc-nav-link" href="#shadows">Shadows</a>
+    <a class="doc-nav-link" href="#animation">Animation</a>
+  </div>
+
+  <div class="doc-nav-group">
+    <div class="doc-nav-group-label">Components</div>
+    <a class="doc-nav-link" href="#buttons">Buttons</a>
+    <a class="doc-nav-link" href="#tags">Tags &amp; Badges</a>
+    <a class="doc-nav-link" href="#chips">Status Chips</a>
+    <a class="doc-nav-link" href="#dots">Status Dots</a>
+    <a class="doc-nav-link" href="#inputs">Inputs &amp; Selects</a>
+    <a class="doc-nav-link" href="#cards">Cards</a>
+    <a class="doc-nav-link" href="#slider">Slider</a>
+    <a class="doc-nav-link" href="#alerts">Alerts</a>
+    <a class="doc-nav-link" href="#banners">Banners</a>
+    <a class="doc-nav-link" href="#statusbar">Status Bar</a>
+    <a class="doc-nav-link" href="#nav">Navigation</a>
+    <a class="doc-nav-link" href="#table">Table</a>
+  </div>
+</nav>
+
+<!-- ── Main ───────────────────────────────────────────────────────────────── -->
+<main class="doc-main">
+
+  <!-- Hero -->
+  <div class="doc-hero" id="overview">
+    <div class="doc-hero-eyebrow">Design System</div>
+    <div class="doc-hero-title">Tiny Wire</div>
+    <div class="doc-hero-desc">A minimal, warm-toned design system built for dense operational interfaces. Two fonts, a coherent color language, and a small set of reusable components.</div>
+  </div>
+
+  <!-- Usage -->
+  <div class="doc-section" id="usage">
+    <div class="doc-section-title">Usage</div>
+    <div class="doc-section-sub">Drop <code>globals.css</code> into any project. All tokens are CSS custom properties on <code>:root</code>.</div>
+
+    <div class="usage-block">
+<span class="c">/* 1. Import the token file */</span>
+<span class="k">@import</span> <span class="s">'./tokens/globals.css'</span><span class="v">;</span>
+
+<span class="c">/* 2. Import fonts in your &lt;head&gt; */</span>
+<span class="c">/* Bricolage Grotesque + DM Sans from Google Fonts */</span>
+
+<span class="c">/* 3. Use tokens anywhere */</span>
+<span class="v">.my-card</span> {
+  background: <span class="s">var(--surface)</span>;
+  border: 1px solid <span class="s">var(--border)</span>;
+  border-radius: <span class="s">var(--radius-md)</span>;
+  padding: <span class="s">var(--space-16)</span>;
+  box-shadow: <span class="s">var(--shadow-card)</span>;
+}
+    </div>
+
+    <div class="usage-block">
+<span class="c">/* JS / TS — import tokens object */</span>
+<span class="k">import</span> tokens <span class="k">from</span> <span class="s">'./tokens/design-tokens.js'</span>
+
+<span class="c">// Access any value</span>
+<span class="k">const</span> brand = tokens.colors.brand      <span class="c">// '#629460'</span>
+<span class="k">const</span> base  = tokens.typography.fontSize.base <span class="c">// 13</span>
+    </div>
+  </div>
+
+  <!-- Colors -->
+  <div class="doc-section" id="colors">
+    <div class="doc-section-title">Colors</div>
+    <div class="doc-section-sub">A warm neutral base with a green brand, orange-red danger, and categorical data colors. All hues share a muted, slightly desaturated quality.</div>
+
+    <div class="token-label">Surfaces</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#FFFFFF; border-bottom:1px solid #E8E3E2;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Surface</div><div class="color-chip-var">--surface</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#F7F4F3;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Surface Subtle</div><div class="color-chip-var">--surface-subtle</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#F7F4F3;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Surface Page</div><div class="color-chip-var">--surface-page</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#F1EDEC; border-bottom:1px solid var(--border-light);"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Surface Muted</div><div class="color-chip-var">--surface-muted</div></div>
+      </div>
+    </div>
+
+    <div class="token-label">Borders</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#DDD7D5;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Border</div><div class="color-chip-var">--border</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#E8E3E2;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Border Light</div><div class="color-chip-var">--border-light</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#AD9B9A;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Border Dashed</div><div class="color-chip-var">--border-dashed</div></div>
+      </div>
+    </div>
+
+    <div class="token-label">Text</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#1E1918;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Primary</div><div class="color-chip-var">--text-primary</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#5C504F;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Secondary</div><div class="color-chip-var">--text-secondary</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#8A7E7D;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Tertiary</div><div class="color-chip-var">--text-tertiary</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#FFFFFF; border-bottom:1px solid #E8E3E2;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Inverse</div><div class="color-chip-var">--text-inverse</div></div>
+      </div>
+    </div>
+
+    <div class="token-label">Brand — Green</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#629460;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Brand</div><div class="color-chip-var">--brand</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#F2F6F2;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Brand Light</div><div class="color-chip-var">--brand-light</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#C8D9C7;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Brand Mid</div><div class="color-chip-var">--brand-mid</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#3F603E;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Brand Dark</div><div class="color-chip-var">--brand-dark</div></div>
+      </div>
+    </div>
+
+    <div class="token-label">Status — Danger</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#CE430A;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Danger</div><div class="color-chip-var">--danger</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#FBEFEB;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Danger Light</div><div class="color-chip-var">--danger-light</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#EBB39D;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Danger Mid</div><div class="color-chip-var">--danger-mid</div></div>
+      </div>
+    </div>
+
+    <div class="token-label">Status — Warning</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#6B4B3E;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Warning</div><div class="color-chip-var">--warning</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#F3F0EF;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Warning Light</div><div class="color-chip-var">--warning-light</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#C3B7B1;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Warning Mid</div><div class="color-chip-var">--warning-mid</div></div>
+      </div>
+    </div>
+
+    <div class="token-label">Status — Info &amp; Accent</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#1B4079;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Info</div><div class="color-chip-var">--info</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#ECEFF4;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Info Light</div><div class="color-chip-var">--info-light</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#AFBCD0;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Info Mid</div><div class="color-chip-var">--info-mid</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#0EA5E9;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Accent</div><div class="color-chip-var">--accent</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#EBF7FD;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Accent Light</div><div class="color-chip-var">--accent-light</div></div>
+      </div>
+    </div>
+
+    <div class="token-label">Data / Charts</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#CE430A;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Inflow</div><div class="color-chip-var">--data-inflow</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#629460;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Outflow</div><div class="color-chip-var">--data-outflow</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#AD9B9A;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Target</div><div class="color-chip-var">--data-target</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#1B4079;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Chart Blue</div><div class="color-chip-var">--chart-blue</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#0EA5E9;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Chart Azure</div><div class="color-chip-var">--chart-azure</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="doc-section" id="typography">
+    <div class="doc-section-title">Typography</div>
+    <div class="doc-section-sub"><strong style="font-weight:600;">Bricolage Grotesque</strong> for headings and display numerics. <strong style="font-weight:600;">DM Sans</strong> for all body copy, labels, and UI text. Both loaded from Google Fonts.</div>
+
+    <div class="token-label">Font Families</div>
+    <div class="two-col" style="margin-bottom: var(--space-24);">
+      <div class="card" style="padding: var(--space-20);">
+        <div style="font-size:var(--text-xs);color:var(--text-tertiary);font-family:monospace;margin-bottom:var(--space-10);">--font-heading</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:28px;font-weight:700;letter-spacing:-0.6px;color:var(--text-primary);line-height:1.1;">Bricolage Grotesque</div>
+        <div style="font-family:'Bricolage Grotesque',sans-serif;font-size:var(--text-md);color:var(--text-tertiary);margin-top:var(--space-8);">Display · Numerics · Headings</div>
+      </div>
+      <div class="card" style="padding: var(--space-20);">
+        <div style="font-size:var(--text-xs);color:var(--text-tertiary);font-family:monospace;margin-bottom:var(--space-10);">--font-body</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:28px;font-weight:500;letter-spacing:-0.3px;color:var(--text-primary);line-height:1.1;">DM Sans</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:var(--text-md);color:var(--text-tertiary);margin-top:var(--space-8);">Body · Labels · UI text</div>
+      </div>
+    </div>
+
+    <div class="token-label">Size Scale</div>
+    <div style="background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:var(--space-16);margin-bottom:var(--space-24);">
+      <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-3xl</div><div class="type-scale-px">26px</div></div><div class="type-scale-sample" style="font-size:26px;font-family:var(--font-heading);font-weight:700;">The quick brown fox</div></div>
+      <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-2xl</div><div class="type-scale-px">20px</div></div><div class="type-scale-sample" style="font-size:20px;font-family:var(--font-heading);font-weight:600;">The quick brown fox</div></div>
+      <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-xl</div><div class="type-scale-px">18px</div></div><div class="type-scale-sample" style="font-size:18px;font-weight:600;">The quick brown fox</div></div>
+      <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-lg</div><div class="type-scale-px">16px</div></div><div class="type-scale-sample" style="font-size:16px;">The quick brown fox</div></div>
+      <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-base</div><div class="type-scale-px">13px</div></div><div class="type-scale-sample" style="font-size:13px;">The quick brown fox jumps over the lazy dog</div></div>
+      <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-md</div><div class="type-scale-px">12px</div></div><div class="type-scale-sample" style="font-size:12px;">The quick brown fox jumps over the lazy dog</div></div>
+      <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-sm</div><div class="type-scale-px">11px</div></div><div class="type-scale-sample" style="font-size:11px;letter-spacing:0.07em;text-transform:uppercase;font-weight:600;">Label caps · Section heading</div></div>
+      <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-xs</div><div class="type-scale-px">10px</div></div><div class="type-scale-sample" style="font-size:10px;letter-spacing:0.07em;text-transform:uppercase;font-weight:600;">Caption · Overline</div></div>
+      <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-2xs</div><div class="type-scale-px">9px</div></div><div class="type-scale-sample" style="font-size:9px;letter-spacing:0.07em;text-transform:uppercase;font-weight:700;">Tag · Badge</div></div>
+    </div>
+
+    <div class="token-label">Weights</div>
+    <div style="background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:var(--space-16);margin-bottom:var(--space-24);display:flex;flex-direction:column;gap:var(--space-10);">
+      <div style="display:flex;gap:var(--space-16);align-items:baseline;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:120px;">--weight-light</span><span style="font-weight:300;font-size:var(--text-lg);">Light 300</span></div>
+      <div style="display:flex;gap:var(--space-16);align-items:baseline;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:120px;">--weight-regular</span><span style="font-weight:400;font-size:var(--text-lg);">Regular 400</span></div>
+      <div style="display:flex;gap:var(--space-16);align-items:baseline;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:120px;">--weight-medium</span><span style="font-weight:500;font-size:var(--text-lg);">Medium 500</span></div>
+      <div style="display:flex;gap:var(--space-16);align-items:baseline;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:120px;">--weight-semibold</span><span style="font-weight:600;font-size:var(--text-lg);">Semibold 600</span></div>
+      <div style="display:flex;gap:var(--space-16);align-items:baseline;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:120px;">--weight-bold</span><span style="font-weight:700;font-size:var(--text-lg);">Bold 700</span></div>
+    </div>
+  </div>
+
+  <!-- Spacing -->
+  <div class="doc-section" id="spacing">
+    <div class="doc-section-title">Spacing</div>
+    <div class="doc-section-sub">A tight scale built for dense UI. All values are in px.</div>
+    <div class="spacing-grid">
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-2</span><span class="spacing-px">2px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:2px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-4</span><span class="spacing-px">4px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:4px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-5</span><span class="spacing-px">5px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:5px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-6</span><span class="spacing-px">6px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:6px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-8</span><span class="spacing-px">8px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:8px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-10</span><span class="spacing-px">10px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:10px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-12</span><span class="spacing-px">12px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:12px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-14</span><span class="spacing-px">14px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:14px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-16</span><span class="spacing-px">16px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:16px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-18</span><span class="spacing-px">18px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:18px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-20</span><span class="spacing-px">20px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:20px;"></div></div></div>
+      <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-24</span><span class="spacing-px">24px</span></div><div class="spacing-bar-wrap"><div class="spacing-bar" style="width:24px;"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Border Radius -->
+  <div class="doc-section" id="radius">
+    <div class="doc-section-title">Border Radius</div>
+    <div class="doc-section-sub">Five steps from tight to pill. <code>--radius</code> (10px) is the default card radius.</div>
+    <div class="radius-grid">
+      <div class="radius-item"><div class="radius-box" style="border-radius:4px;"></div><div class="radius-token">--radius-xs</div><div class="radius-val">4px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:6px;"></div><div class="radius-token">--radius-sm</div><div class="radius-val">6px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:8px;"></div><div class="radius-token">--radius-md</div><div class="radius-val">8px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:10px;"></div><div class="radius-token">--radius</div><div class="radius-val">10px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:9999px;width:96px;height:40px;"></div><div class="radius-token">--radius-full</div><div class="radius-val">9999px</div></div>
+    </div>
+  </div>
+
+  <!-- Shadows -->
+  <div class="doc-section" id="shadows">
+    <div class="doc-section-title">Shadows</div>
+    <div class="doc-section-sub">Subtle, layered shadows. Never black — always transparent washes.</div>
+    <div class="shadow-grid">
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 1px 4px rgba(0,0,0,0.06),0 0 0 1px rgba(0,0,0,0.04);"></div><div class="shadow-token">--shadow-card</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 1px 3px rgba(0,0,0,0.08);"></div><div class="shadow-token">--shadow-nav</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 1px 3px rgba(0,0,0,0.10);"></div><div class="shadow-token">--shadow-toggle</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 6px 24px rgba(0,0,0,0.07);"></div><div class="shadow-token">--shadow-hover</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 4px 16px rgba(0,0,0,0.10);"></div><div class="shadow-token">--shadow-modal</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 8px 24px rgba(0,0,0,0.10);"></div><div class="shadow-token">--shadow-dropdown</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow:0 4px 20px rgba(0,0,0,0.18);"></div><div class="shadow-token">--shadow-overlay</div></div>
+    </div>
+  </div>
+
+  <!-- Animation -->
+  <div class="doc-section" id="animation">
+    <div class="doc-section-title">Animation</div>
+    <div class="doc-section-sub">Spring easing for entrances, standard ease for micro-interactions. Click a box to replay.</div>
+
+    <div class="token-label">Easings</div>
+    <div style="background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:var(--space-16);margin-bottom:var(--space-24);display:flex;flex-direction:column;gap:var(--space-10);">
+      <div style="display:flex;gap:var(--space-16);align-items:center;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:140px;">--ease-spring</span><span style="font-size:var(--text-md);color:var(--text-secondary);">cubic-bezier(0.16, 1, 0.3, 1) — overshoots slightly, feels alive</span></div>
+      <div style="display:flex;gap:var(--space-16);align-items:center;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:140px;">--ease-out</span><span style="font-size:var(--text-md);color:var(--text-secondary);">ease-out — clean deceleration</span></div>
+      <div style="display:flex;gap:var(--space-16);align-items:center;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:140px;">--ease-standard</span><span style="font-size:var(--text-md);color:var(--text-secondary);">ease — general-purpose transitions</span></div>
+    </div>
+
+    <div class="token-label">Durations</div>
+    <div style="background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-md);padding:var(--space-16);margin-bottom:var(--space-24);display:flex;flex-direction:column;gap:var(--space-10);">
+      <div style="display:flex;gap:var(--space-16);align-items:center;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:140px;">--duration-fast</span><span style="font-size:var(--text-md);color:var(--text-secondary);">0.18s — hover states, micro color changes</span></div>
+      <div style="display:flex;gap:var(--space-16);align-items:center;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:140px;">--duration-base</span><span style="font-size:var(--text-md);color:var(--text-secondary);">0.22s — filter entrances</span></div>
+      <div style="display:flex;gap:var(--space-16);align-items:center;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:140px;">--duration-moderate</span><span style="font-size:var(--text-md);color:var(--text-secondary);">0.30s — modals, expandable regions</span></div>
+      <div style="display:flex;gap:var(--space-16);align-items:center;"><span style="font-family:monospace;font-size:var(--text-xs);color:var(--text-tertiary);width:140px;">--duration-slow</span><span style="font-size:var(--text-md);color:var(--text-secondary);">0.35s — page transitions</span></div>
+    </div>
+
+    <div class="token-label">Keyframe Classes</div>
+    <div class="component-canvas centered" style="gap:var(--space-24);">
+      <div class="anim-demo" onclick="replay(this,'pageIn','0.35s','var(--ease-spring)')">
+        <div class="anim-box"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="16" rx="3" stroke="var(--text-tertiary)" stroke-width="1.5"/><path d="M6 10h8M10 6v8" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="anim-label">.page-enter</div>
+        <div class="anim-note">pageIn · slow · spring</div>
+      </div>
+      <div class="anim-demo" onclick="replay(this,'filterIn','0.22s','var(--ease-out)')">
+        <div class="anim-box"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M3 6h14M6 10h8M9 14h2" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="anim-label">.filter-enter</div>
+        <div class="anim-note">filterIn · base · ease-out</div>
+      </div>
+      <div class="anim-demo" onclick="replay(this,'modalIn','0.30s','var(--ease-spring)')">
+        <div class="anim-box"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="12" rx="2" stroke="var(--text-tertiary)" stroke-width="1.5"/><path d="M3 8h14" stroke="var(--text-tertiary)" stroke-width="1.5"/></svg></div>
+        <div class="anim-label">.modal-enter</div>
+        <div class="anim-note">modalIn · moderate · spring</div>
+      </div>
+      <div class="anim-demo" onclick="replay(this,'fadeUp','0.30s','var(--ease-spring)')">
+        <div class="anim-box"><svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M10 14V6M6 10l4-4 4 4" stroke="var(--text-tertiary)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="anim-label">.fade-up</div>
+        <div class="anim-note">fadeUp · moderate · spring</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Buttons -->
+  <div class="doc-section" id="buttons">
+    <div class="doc-section-title">Buttons</div>
+    <div class="doc-section-sub">Five variants covering the full action spectrum from primary confirmation to destructive hard-stop.</div>
+    <div class="component-canvas">
+      <button class="btn-primary">Apply changes</button>
+      <button class="btn-danger">Confirm delete</button>
+      <button class="btn-stop">Stop all dialing <span class="tag tag-danger">Hard stop</span></button>
+      <button class="btn-rollback">Rollback</button>
+      <button class="btn-ghost">Cancel</button>
+    </div>
+    <div class="usage-block"><span class="c">/* HTML */</span>
+&lt;button <span class="k">class</span>=<span class="s">"btn-primary"</span>&gt;Apply changes&lt;/button&gt;
+&lt;button <span class="k">class</span>=<span class="s">"btn-danger"</span>&gt;Confirm delete&lt;/button&gt;
+&lt;button <span class="k">class</span>=<span class="s">"btn-stop"</span>&gt;Stop all dialing&lt;/button&gt;
+&lt;button <span class="k">class</span>=<span class="s">"btn-rollback"</span>&gt;Rollback&lt;/button&gt;
+&lt;button <span class="k">class</span>=<span class="s">"btn-ghost"</span>&gt;Cancel&lt;/button&gt;</div>
+  </div>
+
+  <!-- Tags -->
+  <div class="doc-section" id="tags">
+    <div class="doc-section-title">Tags &amp; Badges</div>
+    <div class="doc-section-sub">Tags are loud: all-caps, colored fill. Badges are quiet: muted, used for metadata like "rolled back".</div>
+    <div class="component-canvas" style="align-items:center;">
+      <span class="tag tag-danger">Hard stop</span>
+      <span class="tag tag-brand">Active</span>
+      <span class="tag tag-info">Info</span>
+      <span class="tag tag-warn">Review</span>
+      <span class="badge">rolled back</span>
+      <span class="badge">v1.2</span>
+    </div>
+    <div class="usage-block"><span class="k">class</span>=<span class="s">"tag tag-danger"</span>   <span class="c">/* orange-red · Hard stop, Error */</span>
+<span class="k">class</span>=<span class="s">"tag tag-brand"</span>    <span class="c">/* green · Active, OK */</span>
+<span class="k">class</span>=<span class="s">"tag tag-info"</span>     <span class="c">/* navy · Informational */</span>
+<span class="k">class</span>=<span class="s">"tag tag-warn"</span>     <span class="c">/* warm brown · Caution */</span>
+<span class="k">class</span>=<span class="s">"badge"</span>            <span class="c">/* muted · Metadata */</span></div>
+  </div>
+
+  <!-- Status Chips -->
+  <div class="doc-section" id="chips">
+    <div class="doc-section-title">Status Chips</div>
+    <div class="doc-section-sub">Pill-shaped semantic status indicators. Always paired with a dot that inherits <code>currentColor</code>.</div>
+    <div class="component-canvas">
+      <span class="status-chip status-chip--ok"><span class="status-chip-dot"></span>Dialing active</span>
+      <span class="status-chip status-chip--warn"><span class="status-chip-dot"></span>Warning</span>
+      <span class="status-chip status-chip--critical"><span class="status-chip-dot"></span>Critical</span>
+      <span class="status-chip status-chip--stopped"><span class="status-chip-dot"></span>Stopped</span>
+      <span class="status-chip status-chip--info"><span class="status-chip-dot"></span>Monitoring</span>
+    </div>
+    <div class="usage-block">&lt;span <span class="k">class</span>=<span class="s">"status-chip status-chip--ok"</span>&gt;
+  &lt;span <span class="k">class</span>=<span class="s">"status-chip-dot"</span>&gt;&lt;/span&gt;
+  Dialing active
+&lt;/span&gt;
+<span class="c">/* Variants: --ok  --warn  --critical  --stopped  --info */</span></div>
+  </div>
+
+  <!-- Status Dots -->
+  <div class="doc-section" id="dots">
+    <div class="doc-section-title">Status Dots</div>
+    <div class="doc-section-sub">Inline status indicators. The animated <code>monitoring-dot</code> has a pulsing halo for live-feed contexts.</div>
+    <div class="component-canvas" style="align-items:center;gap:var(--space-20);">
+      <div style="display:flex;align-items:center;gap:var(--space-6);"><span class="dot dot-green"></span><span style="font-size:var(--text-md);">dot-green</span></div>
+      <div style="display:flex;align-items:center;gap:var(--space-6);"><span class="dot dot-amber"></span><span style="font-size:var(--text-md);">dot-amber</span></div>
+      <div style="display:flex;align-items:center;gap:var(--space-6);"><span class="dot dot-red"></span><span style="font-size:var(--text-md);">dot-red</span></div>
+      <div style="display:flex;align-items:center;gap:var(--space-6);"><span class="dot dot-blue"></span><span style="font-size:var(--text-md);">dot-blue</span></div>
+      <div style="display:flex;align-items:center;gap:var(--space-6);"><span class="dot dot-muted"></span><span style="font-size:var(--text-md);">dot-muted</span></div>
+      <div style="display:flex;align-items:center;gap:var(--space-8);"><span class="monitoring-dot"></span><span style="font-size:var(--text-md);">monitoring-dot (live)</span></div>
+    </div>
+  </div>
+
+  <!-- Inputs -->
+  <div class="doc-section" id="inputs">
+    <div class="doc-section-title">Inputs &amp; Selects</div>
+    <div class="doc-section-sub">32px tall, 6px radius. Full width by default; <code>.input-sm</code> for inline numeric fields (72px wide). Focus state swaps border to <code>--text-tertiary</code>.</div>
+    <div class="component-canvas col">
+      <div style="width:100%;max-width:320px;">
+        <label class="field-label" for="demo-input">Field label</label>
+        <input class="input" id="demo-input" type="text" placeholder="Placeholder text" />
+        <p class="helper">Helper text goes below the input.</p>
+      </div>
+      <div style="display:flex;gap:var(--space-12);align-items:flex-end;">
+        <div>
+          <label class="field-label" for="demo-num">Numeric (sm)</label>
+          <input class="input input-sm" id="demo-num" type="number" value="10" style="width:72px;" />
+        </div>
+        <div>
+          <label class="field-label" for="demo-sel">Select</label>
+          <select class="select" id="demo-sel">
+            <option>Option A</option>
+            <option>Option B</option>
+            <option>Option C</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="doc-section" id="cards">
+    <div class="doc-section-title">Cards</div>
+    <div class="doc-section-sub">The primary container unit. White surface, 1px border, 8px radius, 16px padding. Disabled state dims to 45% opacity.</div>
+    <div class="component-canvas">
+      <div class="card" style="width:220px;">
+        <div class="section-heading">Section title</div>
+        <p style="font-size:var(--text-md);color:var(--text-tertiary);line-height:var(--leading-compact);">Card content goes here. Helper text and form fields live inside.</p>
+      </div>
+      <div class="card" style="width:220px;opacity:0.45;pointer-events:none;">
+        <div class="section-heading">Disabled card</div>
+        <p style="font-size:var(--text-md);color:var(--text-tertiary);line-height:var(--leading-compact);">Controls are locked in this state.</p>
+      </div>
+    </div>
+    <div class="usage-block">&lt;div <span class="k">class</span>=<span class="s">"card"</span>&gt;...&lt;/div&gt;
+&lt;div <span class="k">class</span>=<span class="s">"card card-disabled"</span>&gt;...&lt;/div&gt; <span class="c">/* opacity:0.45 + no pointer events */</span></div>
+  </div>
+
+  <!-- Slider -->
+  <div class="doc-section" id="slider">
+    <div class="doc-section-title">Slider</div>
+    <div class="doc-section-sub">A custom <code>range</code> input styled with a pill track and circular thumb. The value display uses <code>--font-heading</code> for a numeric display feel.</div>
+    <div class="component-canvas col">
+      <div style="width:100%;max-width:380px;">
+        <div class="section-heading">Dial speed</div>
+        <div class="slider-wrap">
+          <input type="range" min="1.0" max="2.0" step="0.1" value="1.2" class="lever-slider" style="flex:1;" oninput="this.nextElementSibling.textContent=parseFloat(this.value).toFixed(1)" />
+          <span class="slider-val">1.2</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:var(--space-4);">
+          <span style="font-size:var(--text-md);color:var(--text-tertiary);">1.0</span>
+          <span style="font-size:var(--text-md);color:var(--text-tertiary);">2.0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alerts -->
+  <div class="doc-section" id="alerts">
+    <div class="doc-section-title">Alerts &amp; Validation</div>
+    <div class="doc-section-sub">Inline messages for validation states, system feedback, and contextual warnings. All use <code>color-mix</code> to derive tinted backgrounds from the semantic color.</div>
+    <div class="component-canvas col">
+      <div class="alert alert-danger">Warn threshold must be below the pause threshold.</div>
+      <div class="alert alert-warn">Current rate (3.2%) already meets this threshold — system is now in warn.</div>
+      <div class="alert alert-brand">Targeting is active — priority routing applied to this segment.</div>
+      <div class="alert alert-info">Evaluation window closes in 47 minutes.</div>
+    </div>
+    <div class="usage-block"><span class="k">class</span>=<span class="s">"alert alert-danger"</span>
+<span class="k">class</span>=<span class="s">"alert alert-warn"</span>
+<span class="k">class</span>=<span class="s">"alert alert-brand"</span>
+<span class="k">class</span>=<span class="s">"alert alert-info"</span></div>
+  </div>
+
+  <!-- Banners -->
+  <div class="doc-section" id="banners">
+    <div class="doc-section-title">Banners</div>
+    <div class="doc-section-sub">Full-width contextual banners for system-wide state changes. The pulsing dot signals an active condition.</div>
+    <div class="component-canvas col" style="padding:0;background:transparent;border:none;">
+      <div class="stop-banner">
+        <span class="stop-banner-dot"></span>
+        <span style="font-weight:var(--weight-semibold);">Dialing stopped</span>
+        <span class="tag tag-danger">Hard stop</span>
+        <span style="color:color-mix(in srgb, var(--danger) 45%, transparent);">·</span>
+        <span style="opacity:0.8;">Technical issue · resumes in 14:22</span>
+        <button class="btn-ghost" style="margin-left:auto;color:var(--danger);">Resume now</button>
+      </div>
+    </div>
+    <div style="height:var(--space-10);"></div>
+    <div class="component-canvas col" style="padding:0;background:transparent;border:none;">
+      <div class="targeting-active">
+        <span class="dot dot-green"></span>
+        <span class="targeting-label">Targeting <strong>High-value renewals</strong></span>
+        <button class="btn-ghost">Clear</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Bar -->
+  <div class="doc-section" id="statusbar">
+    <div class="doc-section-title">Status Bar</div>
+    <div class="doc-section-sub">A compact inline strip showing live system readings. Rules separate stat groups. The monitoring dot animates when the system is active.</div>
+    <div class="component-canvas" style="padding:0;background:transparent;border:none;flex-direction:column;gap:0;">
+      <div style="background:var(--surface);border:1px solid var(--border-light);border-radius:var(--radius-md);">
+        <div class="status-bar">
+          <span class="status-chip status-chip--ok"><span class="status-chip-dot"></span>Dialing active</span>
+          <span class="status-bar-rule"></span>
+          <div class="status-stat">
+            <span class="status-stat-label">Failed connections</span>
+            <span class="status-stat-value"><span class="dot dot-green"></span>3.2%</span>
+            <span class="status-stat-context">warn 4% · pause 5%</span>
+          </div>
+          <span class="status-bar-rule"></span>
+          <div class="status-stat">
+            <span class="monitoring-dot"></span>
+            <span class="status-stat-label">Monitoring</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="doc-section" id="nav">
+    <div class="doc-section-title">Navigation</div>
+    <div class="doc-section-sub">Two nav patterns: a floating <strong>Sidenav</strong> (desktop sidebar, 64px) and a <strong>Nav Rail</strong> (vertical pill, 56px). Both collapse to a bottom tab bar on mobile.</div>
+
+    <div class="token-label">Sidenav (64px, floating)</div>
+    <div class="component-canvas centered" style="gap:var(--space-32);">
+      <div class="sidenav-demo">
+        <div class="sidenav-logo-area">
+          <svg width="22" height="22" viewBox="0 0 48 48" fill="none">
+            <path d="M41.9996 4L37.9996 8M37.9996 8L43.9996 14L36.9996 21L30.9996 15M37.9996 8L30.9996 15M22.7796 23.22C23.8123 24.2389 24.6332 25.4521 25.1951 26.7896C25.757 28.1271 26.0488 29.5625 26.0536 31.0133C26.0585 32.464 25.7763 33.9014 25.2234 35.2426C24.6705 36.5838 23.8577 37.8025 22.8319 38.8283C21.806 39.8541 20.5874 40.6669 19.2462 41.2198C17.9049 41.7728 16.4676 42.0549 15.0168 42.0501C13.5661 42.0452 12.1307 41.7534 10.7932 41.1915C9.45565 40.6296 8.24251 39.8087 7.22357 38.776C5.21983 36.7014 4.1111 33.9228 4.13616 31.0386C4.16122 28.1544 5.31808 25.3955 7.35757 23.356C9.39706 21.3165 12.156 20.1596 15.0402 20.1346C17.9243 20.1095 20.7029 21.2183 22.7776 23.222L22.7796 23.22ZM22.7796 23.22L30.9996 15" stroke="var(--danger)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="sidenav-divider"></div>
+        <div class="sidenav-nav-items">
+          <div class="sidenav-item sidenav-item--active">
+            <svg width="20" height="20" fill="none" viewBox="0 0 20 16"><path d="M1 4L13 4M13 4C13 5.65686 14.3431 7 16 7C17.6569 7 19 5.65685 19 4C19 2.34315 17.6569 1 16 1C14.3431 1 13 2.34315 13 4ZM7 12L19 12M7 12C7 13.6569 5.65685 15 4 15C2.34315 15 1 13.6569 1 12C1 10.3431 2.34315 9 4 9C5.65685 9 7 10.3431 7 12Z" stroke="var(--brand)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+          </div>
+          <div class="sidenav-item">
+            <svg width="20" height="20" fill="none" viewBox="0 0 22 20"><path d="M21 10H17L14 19L8 1L5 10H1" stroke="var(--text-tertiary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+          </div>
+          <div class="sidenav-item">
+            <svg width="20" height="20" fill="none" viewBox="0 0 21 21"><path d="M11 2H15.2C16.8802 2 17.7202 2 18.362 2.32698C18.9265 2.6146 19.3854 3.07354 19.673 3.63803C20 4.27976 20 5.11984 20 6.8V15.2C20 16.8802 20 17.7202 19.673 18.362C19.3854 18.9265 18.9265 19.3854 18.362 19.673C17.7202 20 16.8802 20 15.2 20H6.8C5.11984 20 4.27976 20 3.63803 19.673C3.07354 19.3854 2.6146 18.9265 2.32698 18.362C2 17.7202 2 16.8802 2 15.2V11M7 12V16M15 10V16M11 6V16M1 4L4 1M4 1L7 4M4 1L4 7" stroke="var(--text-tertiary)" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="token-label" style="margin-top:var(--space-24);">Nav Rail (56px pill)</div>
+    <div class="component-canvas centered">
+      <div class="nav-rail-demo">
+        <div class="nav-pill">
+          <div class="nav-item-active">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2L11 12"/><path d="M17.5 5.5L19 4"/><path d="M15 8L16.5 6.5"/></svg>
+          </div>
+          <div class="nav-separator"></div>
+          <div class="nav-item-inactive">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="16" rx="2"/><path d="M2 8h20"/></svg>
+          </div>
+          <div class="nav-item-inactive">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="nav-item-inactive">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.93 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.84 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="nav-spacer"></div>
+          <div class="nav-avatar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="doc-section" id="table">
+    <div class="doc-section-title">Table</div>
+    <div class="doc-section-sub">Borderless rows, caps header, subtle dividers. Used for change logs, audit trails, and tabular data.</div>
+    <div class="component-canvas" style="padding:0;overflow:hidden;">
+      <div style="width:100%;background:var(--surface);border-radius:var(--radius-md);overflow:hidden;">
+        <table class="changes-table">
+          <thead>
+            <tr>
+              <th>When</th>
+              <th>Who</th>
+              <th>What</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--text-secondary);white-space:nowrap;">11/26/25, 10:49 AM</td>
+              <td style="color:var(--text-secondary);font-weight:500;">You</td>
+              <td style="color:var(--text-primary);">Dial speed: 1.0 → 1.2</td>
+              <td style="text-align:right;"><button class="btn-rollback">Rollback</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-secondary);white-space:nowrap;">11/26/25, 9:49 AM</td>
+              <td style="color:var(--text-tertiary);">T. Okafor</td>
+              <td style="color:var(--text-tertiary);font-style:italic;">Rolled back: "Protect against overdialing: 2 → 3" <span class="badge">rolled back</span></td>
+              <td style="text-align:right;"><button class="btn-rollback">Re-apply</button></td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-secondary);white-space:nowrap;">11/26/25, 9:22 AM</td>
+              <td style="color:var(--text-tertiary);">T. Okafor</td>
+              <td style="color:var(--text-primary);">Protect against overdialing: 2 → 3</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Tweaks Panel ─────────────────────────────────────────────────────────── -->
+<div id="tweaks-panel">
+  <div class="tweaks-title">Tweaks</div>
+  <div class="tweaks-field">
+    <label>Surface tint</label>
+    <select class="select" style="height:28px;font-size:var(--text-sm);" onchange="setTint(this.value)">
+      <option value="#F7F4F3">Warm (default)</option>
+      <option value="#F4F6F7">Cool</option>
+      <option value="#F5F5F5">Neutral</option>
+    </select>
+  </div>
+  <div class="tweaks-field">
+    <label>Brand color</label>
+    <select class="select" style="height:28px;font-size:var(--text-sm);" onchange="setBrand(this.value)">
+      <option value="#629460">Forest green (default)</option>
+      <option value="#5B7FA6">Steel blue</option>
+      <option value="#8B6B4E">Warm umber</option>
+    </select>
+  </div>
+  <div class="tweaks-field">
+    <label>Heading font</label>
+    <select class="select" style="height:28px;font-size:var(--text-sm);" onchange="setHeadingFont(this.value)">
+      <option value="'Bricolage Grotesque', sans-serif">Bricolage Grotesque</option>
+      <option value="'DM Sans', sans-serif">DM Sans (unified)</option>
+    </select>
+  </div>
+</div>
+
+<script>
+// ── Active nav link tracking ─────────────────────────────────────────────────
+const links = document.querySelectorAll('.doc-nav-link');
+const sections = document.querySelectorAll('.doc-section, .doc-hero');
+
+function onScroll() {
+  let cur = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) cur = s.id;
+  });
+  links.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+  });
+}
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+// ── Animation replay ─────────────────────────────────────────────────────────
+function replay(wrap, name, dur, ease) {
+  const box = wrap.querySelector('.anim-box');
+  box.style.animation = 'none';
+  box.offsetHeight; // reflow
+  box.style.animation = `${name} ${dur} ${ease} both`;
+}
+
+// ── Tweaks ───────────────────────────────────────────────────────────────────
+window.addEventListener('message', e => {
+  if (e.data?.type === '__activate_edit_mode')   document.getElementById('tweaks-panel').classList.add('open');
+  if (e.data?.type === '__deactivate_edit_mode') document.getElementById('tweaks-panel').classList.remove('open');
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "tint": "#F7F4F3",
+  "brand": "#629460",
+  "headingFont": "'Bricolage Grotesque', sans-serif"
+}/*EDITMODE-END*/;
+
+function setTint(v) {
+  document.documentElement.style.setProperty('--surface-subtle', v);
+  document.documentElement.style.setProperty('--surface-page', v);
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { tint: v } }, '*');
+}
+function setBrand(v) {
+  document.documentElement.style.setProperty('--brand', v);
+  document.documentElement.style.setProperty('--data-outflow', v);
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { brand: v } }, '*');
+}
+function setHeadingFont(v) {
+  document.documentElement.style.setProperty('--font-heading', v);
+  window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { headingFont: v } }, '*');
+}
+
+// Apply stored tweaks on load
+setTint(TWEAK_DEFAULTS.tint);
+setBrand(TWEAK_DEFAULTS.brand);
+setHeadingFont(TWEAK_DEFAULTS.headingFont);
+</script>
+</body>
+</html>

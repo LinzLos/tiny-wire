@@ -1,0 +1,21 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  token-purity:
+    name: Token-driven (no hardcoded colors)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail on hardcoded hex colors in lib/components.css
+        run: |
+          # Components must reference var(--token), never raw hex colors.
+          if grep -nEi '#[0-9a-f]{6}\b|#[0-9a-f]{3}\b' lib/components.css; then
+            echo "::error::Hardcoded hex color(s) found above in lib/components.css. Use a var(--token) from lib/globals.css instead."
+            exit 1
+          fi
+          echo "OK — lib/components.css is fully token-driven."

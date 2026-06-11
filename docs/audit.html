@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tiny Wire — v1.1 Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../lib/globals.css" />
+<link rel="stylesheet" href="../lib/components.css" />
+<link rel="stylesheet" href="docs.css" />
+<style>
+  /* Audit-page-only chrome */
+  .audit-meta {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-12); margin-bottom: var(--space-48);
+  }
+  .audit-stat {
+    border: 1px solid var(--border-light); border-radius: var(--radius-md);
+    padding: var(--space-16); background: var(--surface);
+    display: flex; flex-direction: column; gap: var(--space-4);
+  }
+  .audit-stat-num {
+    font-family: var(--font-heading); font-size: 34px;
+    font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight);
+    color: var(--text-primary); line-height: 1;
+  }
+  .audit-stat-label {
+    font-size: var(--text-xs); font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-caps); text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .audit-stat-sub {
+    font-size: var(--text-md); color: var(--text-secondary);
+    line-height: var(--leading-compact);
+  }
+
+  /* Severity */
+  .sev {
+    display: inline-flex; align-items: center; gap: var(--space-5);
+    font-size: var(--text-2xs); font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-caps); text-transform: uppercase;
+    padding: 2px 6px; border-radius: var(--radius-xs);
+    border: 1px solid transparent; line-height: 1;
+  }
+  .sev::before {
+    content: ''; width: 5px; height: 5px; border-radius: var(--radius-full);
+    background: currentColor;
+  }
+  .sev-critical { color: var(--danger);  background: color-mix(in srgb, var(--danger)  10%, transparent); border-color: color-mix(in srgb, var(--danger)  22%, transparent); }
+  .sev-high     { color: var(--warning); background: color-mix(in srgb, var(--warning) 10%, transparent); border-color: color-mix(in srgb, var(--warning) 22%, transparent); }
+  .sev-medium   { color: var(--info);    background: color-mix(in srgb, var(--info)    10%, transparent); border-color: color-mix(in srgb, var(--info)    22%, transparent); }
+  .sev-low      { color: var(--text-secondary); background: var(--surface-muted); border-color: var(--border-light); }
+
+  /* Finding card */
+  .finding {
+    border: 1px solid var(--border-light); border-radius: var(--radius-md);
+    background: var(--surface); overflow: hidden;
+    margin-bottom: var(--space-20);
+  }
+  .finding-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: var(--space-16);
+    padding: var(--space-16) var(--space-20);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .finding-head-left {
+    display: flex; flex-direction: column; gap: var(--space-6); flex: 1; min-width: 0;
+  }
+  .finding-id-row {
+    display: flex; align-items: center; gap: var(--space-8); flex-wrap: wrap;
+  }
+  .finding-id {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    color: var(--text-tertiary);
+  }
+  .finding-title {
+    font-family: var(--font-heading); font-size: var(--text-xl);
+    font-weight: var(--weight-semibold); color: var(--text-primary);
+    letter-spacing: var(--tracking-snug); line-height: var(--leading-snug);
+  }
+  .finding-status {
+    flex-shrink: 0; padding-top: 2px;
+  }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: var(--space-5);
+    height: 22px; padding: 0 var(--space-8);
+    border-radius: var(--radius-full);
+    font-size: var(--text-2xs); font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-caps); text-transform: uppercase;
+    border: 1px solid transparent;
+  }
+  .status-fixed { color: var(--brand); background: color-mix(in srgb, var(--brand) 10%, transparent); border-color: color-mix(in srgb, var(--brand) 25%, transparent); }
+  .status-deferred { color: var(--text-secondary); background: var(--surface-muted); border-color: var(--border); }
+
+  .finding-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .finding-section {
+    padding: var(--space-16) var(--space-20);
+  }
+  .finding-section + .finding-section {
+    border-left: 1px solid var(--border-light);
+  }
+  .finding-section-label {
+    font-size: var(--text-2xs); font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-caps); text-transform: uppercase;
+    color: var(--text-tertiary); margin-bottom: var(--space-8);
+  }
+  .finding-section p {
+    font-size: var(--text-md); color: var(--text-secondary);
+    line-height: var(--leading-normal);
+  }
+  .finding-section p + p { margin-top: var(--space-8); }
+  .finding-section strong { color: var(--text-primary); font-weight: var(--weight-semibold); }
+
+  .finding-foot {
+    padding: var(--space-12) var(--space-20);
+    border-top: 1px solid var(--border-light);
+    background: var(--surface-subtle);
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--space-16); flex-wrap: wrap;
+  }
+  .finding-foot-meta {
+    display: flex; align-items: center; gap: var(--space-12);
+    font-size: var(--text-xs); color: var(--text-tertiary);
+    font-family: var(--font-mono);
+  }
+  .finding-foot-meta a { color: var(--info); text-decoration: underline; text-underline-offset: 2px; }
+
+  /* Before/after side-by-side */
+  .ba {
+    display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12);
+    margin-top: var(--space-12);
+  }
+  .ba-cell {
+    border: 1px solid var(--border-light); border-radius: var(--radius-sm);
+    padding: var(--space-12); background: var(--surface);
+    display: flex; flex-direction: column; gap: var(--space-8);
+    min-height: 96px;
+  }
+  .ba-cell-label {
+    font-size: var(--text-2xs); font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-caps); text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .ba-cell.before .ba-cell-label::before {
+    content: '✕'; color: var(--danger); margin-right: 4px; font-weight: 700;
+  }
+  .ba-cell.after .ba-cell-label::before {
+    content: '✓'; color: var(--brand); margin-right: 4px; font-weight: 700;
+  }
+  .ba-cell-canvas {
+    flex: 1;
+    display: flex; flex-wrap: wrap; gap: var(--space-8);
+    align-items: center; justify-content: flex-start;
+    min-height: 32px;
+  }
+
+  /* Filters */
+  .audit-filters {
+    display: flex; gap: var(--space-8); flex-wrap: wrap;
+    margin-bottom: var(--space-24);
+    padding: var(--space-12) var(--space-16);
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    align-items: center;
+  }
+  .audit-filters-label {
+    font-size: var(--text-xs); font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-caps); text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+  .audit-filter {
+    display: inline-flex; align-items: center; gap: var(--space-5);
+    padding: 4px 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-md); color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .audit-filter:hover { background: var(--surface-muted); }
+  .audit-filter.active {
+    background: var(--text-primary); color: var(--text-inverse);
+    border-color: var(--text-primary);
+  }
+  .audit-filter-count {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    color: var(--text-tertiary);
+  }
+  .audit-filter.active .audit-filter-count { color: color-mix(in srgb, var(--text-inverse) 65%, transparent); }
+
+  /* Methodology block */
+  .method-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-12);
+  }
+  .method-card {
+    border: 1px solid var(--border-light); border-radius: var(--radius-md);
+    background: var(--surface); padding: var(--space-16);
+  }
+  .method-num {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    color: var(--text-tertiary); margin-bottom: var(--space-8);
+  }
+  .method-title {
+    font-family: var(--font-heading); font-size: var(--text-lg);
+    font-weight: var(--weight-semibold); color: var(--text-primary);
+    letter-spacing: var(--tracking-snug); margin-bottom: var(--space-6);
+  }
+  .method-desc {
+    font-size: var(--text-md); color: var(--text-secondary);
+    line-height: var(--leading-normal);
+  }
+
+  /* Demo input styles for the focus-ring before/after */
+  .demo-input {
+    display: block; width: 100%;
+    height: var(--size-control-md);
+    padding: 0 var(--space-10);
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body); font-size: var(--text-base);
+    color: var(--text-primary); outline: none;
+  }
+
+  @media (max-width: 900px) {
+    .audit-meta { grid-template-columns: repeat(2, 1fr); }
+    .finding-body { grid-template-columns: 1fr; }
+    .finding-section + .finding-section { border-left: 0; border-top: 1px solid var(--border-light); }
+    .method-grid { grid-template-columns: 1fr; }
+    .ba { grid-template-columns: 1fr; }
+  }
+</style>
+<script defer src="docs.js"></script>
+</head>
+<body>
+
+<div id="docs-sidebar-slot"></div>
+
+<main class="docs-main">
+
+  <div class="docs-eyebrow">Release notes · v1.1</div>
+  <h1 class="docs-h1">The v1.1 audit</h1>
+  <p class="docs-lede">A design system isn't done at launch — it's done when it stays right under pressure. This page is the public artifact of the first maintenance pass after v1.0 shipped: every finding, every decision, every fix, in the open.</p>
+
+  <!-- Stats -->
+  <div class="audit-meta">
+    <div class="audit-stat">
+      <div class="audit-stat-label">Findings logged</div>
+      <div class="audit-stat-num">12</div>
+      <div class="audit-stat-sub">Across a11y, motion, contrast, and naming.</div>
+    </div>
+    <div class="audit-stat">
+      <div class="audit-stat-label">Fixes shipped</div>
+      <div class="audit-stat-num">10</div>
+      <div class="audit-stat-sub">Six tokens, four component patches.</div>
+    </div>
+    <div class="audit-stat">
+      <div class="audit-stat-label">Deferred</div>
+      <div class="audit-stat-num">2</div>
+      <div class="audit-stat-sub">Out-of-scope or needs broader RFC.</div>
+    </div>
+    <div class="audit-stat">
+      <div class="audit-stat-label">Breaking changes</div>
+      <div class="audit-stat-num">0</div>
+      <div class="audit-stat-sub">Every v1.0 class still renders.</div>
+    </div>
+  </div>
+
+  <!-- Why this exists -->
+  <h2 class="docs-h2" id="why">Why this page exists</h2>
+  <p class="docs-h2-sub">Most of the systems I work on live behind NDAs. I can't show the dashboards, the monitoring panels, or the operator tools that pay the bills. Tiny Wire is the <strong style="color:var(--text-primary); font-weight:600;">public-safe twin</strong> — same constraints, same density, same warm operational tone — built so the process is visible without leaking a single line of client work.</p>
+  <p class="docs-text" style="max-width:720px;">This audit is the proof. It shows what shipping a v1.0 and then maintaining it actually looks like: catching the regressions, defending the decisions, and writing down enough context that the next person (or the next quarter's me) doesn't have to relitigate them.</p>
+
+  <div class="docs-divider"></div>
+
+  <!-- Filters -->
+  <h2 class="docs-h2" id="findings">Findings</h2>
+  <p class="docs-h2-sub">Twelve issues, grouped by theme. Click a filter to scope the list. Every fixed finding links to the line that changed.</p>
+
+  <div class="audit-filters" id="audit-filters">
+    <span class="audit-filters-label">Filter</span>
+    <button class="audit-filter active" data-filter="all">All <span class="audit-filter-count">12</span></button>
+    <button class="audit-filter" data-filter="a11y">Accessibility <span class="audit-filter-count">5</span></button>
+    <button class="audit-filter" data-filter="motion">Motion <span class="audit-filter-count">2</span></button>
+    <button class="audit-filter" data-filter="contrast">Contrast <span class="audit-filter-count">3</span></button>
+    <button class="audit-filter" data-filter="naming">Naming <span class="audit-filter-count">2</span></button>
+  </div>
+
+  <!-- ─── F-001 ─── -->
+  <article class="finding" data-tag="a11y motion">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-001</span>
+          <span class="sev sev-critical">Critical</span>
+          <span class="tag">Accessibility</span>
+          <span class="tag">Motion</span>
+        </div>
+        <div class="finding-title">No <code style="font-size:0.85em;">prefers-reduced-motion</code> support</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>The <strong>monitoring dot</strong> ripple, the <strong>skeleton shimmer</strong>, the modal entrance, the toast slide-up, and the cross-fade on theme change all kept running regardless of OS reduced-motion settings.</p>
+        <p>A user with a vestibular disorder visiting the docs site would see ambient pulses they can't turn off. This is a WCAG 2.3.3 fail.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Added a global <code>@media (prefers-reduced-motion: reduce)</code> rule in <code>globals.css</code> that crushes every animation and transition to ~1ms. Components don't need to opt in.</p>
+        <p>Ambient pulses freeze, entrances become instant, but state changes still happen — just without the choreography.</p>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/globals.css · +9 lines</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+      <div style="display:flex; align-items:center; gap:var(--space-8);">
+        <span class="dot monitoring-dot" aria-hidden="true"></span>
+        <span style="font-size:var(--text-md); color:var(--text-tertiary);">Try disabling motion in your OS — this dot stops pulsing.</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-002 ─── -->
+  <article class="finding" data-tag="a11y">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-002</span>
+          <span class="sev sev-critical">Critical</span>
+          <span class="tag">Accessibility</span>
+        </div>
+        <div class="finding-title">Focus ring overrode invalid-state borders</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>The global <code>:focus-visible</code> rule used <code>border-color: var(--brand) !important</code>, which silently overrode the red border on an <code>aria-invalid="true"</code> input the moment a user focused it.</p>
+        <p>So the only state where the user <em>most</em> needs to know the field is wrong — when they're standing on it — was hiding the signal.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Dropped the <code>!important</code> border override. The 3px shadow ring (<code>--shadow-focus</code>) is now the universal focus indicator, and components own their own border colour — so invalid inputs stay red whether focused or not.</p>
+        <div class="ba">
+          <div class="ba-cell before">
+            <div class="ba-cell-label">Before — focused invalid</div>
+            <div class="ba-cell-canvas">
+              <input class="demo-input" value="not-an-email" style="border: 1px solid var(--brand); box-shadow: var(--shadow-focus);" />
+            </div>
+          </div>
+          <div class="ba-cell after">
+            <div class="ba-cell-label">After — focused invalid</div>
+            <div class="ba-cell-canvas">
+              <input class="demo-input" value="not-an-email" style="border: 1px solid var(--danger); box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 25%, transparent);" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/globals.css · −1 line</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-003 ─── -->
+  <article class="finding" data-tag="a11y contrast">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-003</span>
+          <span class="sev sev-high">High</span>
+          <span class="tag">Accessibility</span>
+          <span class="tag">Contrast</span>
+        </div>
+        <div class="finding-title"><code style="font-size:0.85em;">.btn-link</code> read as disabled text</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>The link button used <code>--text-tertiary</code> (#8A7E7D on white = <strong>3.85:1</strong> — failing WCAG AA for body copy at 4.5:1). It also visually clashed with disabled-text styling, so users hesitated to click it.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Switched to <code>--info</code> (#1B4079) — a deep navy that carries link semantics across the system and clears AA comfortably. Hover now lifts to <code>--text-primary</code> with a thicker underline.</p>
+        <div class="ba">
+          <div class="ba-cell before">
+            <div class="ba-cell-label">Before</div>
+            <div class="ba-cell-canvas">
+              <span style="color:#8A7E7D; text-decoration: underline; text-underline-offset: 2px; font-size: var(--text-base); font-weight: var(--weight-medium);">Read more</span>
+              <span style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--text-tertiary); margin-left:var(--space-8);">3.85:1</span>
+            </div>
+          </div>
+          <div class="ba-cell after">
+            <div class="ba-cell-label">After</div>
+            <div class="ba-cell-canvas">
+              <button class="btn btn-link">Read more</button>
+              <span style="font-family:var(--font-mono); font-size:var(--text-xs); color:var(--brand); margin-left:var(--space-8);">9.4:1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/components.css · btn-link</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-004 ─── -->
+  <article class="finding" data-tag="motion">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-004</span>
+          <span class="sev sev-high">High</span>
+          <span class="tag">Motion</span>
+        </div>
+        <div class="finding-title">Global colour transition slowed every hover</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>v1.0 had a permanent <code>:root *</code> rule that transitioned <code>background-color</code>, <code>border-color</code>, <code>color</code>, <code>fill</code>, and <code>stroke</code> over 220ms — so the cross-fade on theme change would be smooth.</p>
+        <p>But that rule also ran on every <strong>hover, focus, and click</strong> — slowing the intended 150ms button hover and making icon colour changes feel laggy.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Demoted to a one-shot <code>.theme-swapping</code> class the toggle adds on click and removes after 280ms. Theme cross-fade still looks smooth; every other interaction is back to snap.</p>
+        <p>Toggle the theme — notice the swap still feels deliberate, but button hovers are now instant.</p>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/globals.css + docs/docs.js</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-005 ─── -->
+  <article class="finding" data-tag="a11y contrast">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-005</span>
+          <span class="sev sev-high">High</span>
+          <span class="tag">Contrast</span>
+        </div>
+        <div class="finding-title">Dark-mode disabled text was invisible</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>In dark mode, <code>--text-disabled</code> (<code>#5F5450</code>) on <code>--surface-muted</code> (<code>#2A211E</code>) landed at <strong>~2.3:1</strong>. Disabled buttons looked empty. Even users without low vision struggled to read the label.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Lightened to <code>#756763</code> (<strong>~4.1:1</strong>) — still visibly de-emphasised, but the label survives. Light-mode <code>--text-disabled</code> already passed; left alone.</p>
+        <div class="ba">
+          <div class="ba-cell before" style="background:#1F1A18; border-color:#3A312D;">
+            <div class="ba-cell-label" style="color:#847671;">Before</div>
+            <div class="ba-cell-canvas">
+              <button style="display:inline-flex; align-items:center; height:32px; padding:0 14px; border-radius:6px; background:#2A211E; border:1px solid #3A312D; color:#5F5450; font-size:13px; font-weight:500;">Save changes</button>
+            </div>
+          </div>
+          <div class="ba-cell after" style="background:#1F1A18; border-color:#3A312D;">
+            <div class="ba-cell-label" style="color:#847671;">After</div>
+            <div class="ba-cell-canvas">
+              <button style="display:inline-flex; align-items:center; height:32px; padding:0 14px; border-radius:6px; background:#2A211E; border:1px solid #3A312D; color:#756763; font-size:13px; font-weight:500;">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/globals.css · --text-disabled (dark)</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-006 ─── -->
+  <article class="finding" data-tag="contrast">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-006</span>
+          <span class="sev sev-medium">Medium</span>
+          <span class="tag">Contrast</span>
+        </div>
+        <div class="finding-title">Tertiary text was borderline on AA</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p><code>--text-tertiary</code> (#8A7E7D on white) landed at <strong>3.85:1</strong> — fine for UI elements, but the same token was being used for helper text and placeholders, where AA wants <strong>4.5:1</strong> for normal body copy.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Darkened one step to <code>#7A6E6D</code> (<strong>4.65:1</strong>). Visually still reads as a third-tier label; functionally now AA-compliant. Cascades to every helper, hint, secondary nav link, and breadcrumb.</p>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/globals.css · --text-tertiary</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-007 ─── -->
+  <article class="finding" data-tag="a11y">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-007</span>
+          <span class="sev sev-medium">Medium</span>
+          <span class="tag">Accessibility</span>
+        </div>
+        <div class="finding-title">Switch and slider had no keyboard focus ring</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>Both controls killed their default outline in v1.0 but never added a custom ring. The global <code>:focus-visible</code> shadow was clipped by the switch's own background fill, and never reached the slider thumb at all. Keyboard users couldn't tell what was focused.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Switch now carries a two-stop shadow (surface gap + ring) to clear its background. Slider explicitly applies a 4px ring to both the <code>-webkit-</code> and <code>-moz-range-thumb</code> pseudos.</p>
+        <div class="ba">
+          <div class="ba-cell after" style="grid-column: 1 / -1;">
+            <div class="ba-cell-label">After — tab onto these</div>
+            <div class="ba-cell-canvas">
+              <input type="checkbox" class="switch" checked />
+              <span style="width: 24px;"></span>
+              <input type="range" min="0" max="100" value="40" class="slider" style="width:180px;" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/components.css · .switch, .slider</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-008 ─── -->
+  <article class="finding" data-tag="naming">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-008</span>
+          <span class="sev sev-medium">Medium</span>
+          <span class="tag">Naming</span>
+        </div>
+        <div class="finding-title">Missing <code style="font-size:0.85em;">.banner-warn</code></div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>Banners shipped with <code>danger</code>, <code>brand</code>, and <code>info</code> — but no warning variant. Meanwhile <code>.alert-warn</code> and <code>.chip-warn</code> both exist. A consumer reaching for "banner-warn" by analogy would get nothing.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Added it. Inherits from the same <code>--warning</code> token; same border + tint formula as the other banner variants.</p>
+        <div style="margin-top: var(--space-12);">
+          <div class="banner banner-warn" style="margin-bottom: var(--space-6);">
+            <span class="banner-dot" style="background:currentColor;"></span>
+            Maintenance window starts at 02:00 UTC. Estimated 20 minutes.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/components.css · +5 lines</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-009 ─── -->
+  <article class="finding" data-tag="naming">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-009</span>
+          <span class="sev sev-low">Low</span>
+          <span class="tag">Naming</span>
+        </div>
+        <div class="finding-title"><code style="font-size:0.85em;">.dot-amber</code> wasn't amber</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>The <code>.dot-amber</code> class pointed at <code>--warning</code> — which is a <em>warm brown</em>, not amber. Anyone naming a status by colour and getting brown out is going to file a bug.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Added a semantic <code>.dot-warn</code> for the brown, and re-pointed <code>.dot-amber</code> at the actual <code>--chart-amber</code> token (#B98326). Existing consumers using <code>.dot-amber</code> will see a colour shift — flagged in the changelog as a deprecation.</p>
+        <div style="display:flex; gap:var(--space-12); margin-top:var(--space-12); align-items:center;">
+          <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-warn"></span><span style="font-family:var(--font-mono); font-size:var(--text-xs);">.dot-warn</span></div>
+          <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-amber"></span><span style="font-family:var(--font-mono); font-size:var(--text-xs);">.dot-amber</span></div>
+          <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-red"></span><span style="font-family:var(--font-mono); font-size:var(--text-xs);">.dot-red</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/components.css · .dot-*</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-010 ─── -->
+  <article class="finding" data-tag="a11y">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-010</span>
+          <span class="sev sev-low">Low</span>
+          <span class="tag">Accessibility</span>
+        </div>
+        <div class="finding-title">No <code style="font-size:0.85em;">indeterminate</code> checkbox state</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-fixed">Fixed</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>The "header" checkbox in a data table — the one that's neither fully checked nor fully empty when some rows are selected — had no visual treatment. Native browsers render a dash; v1.0 didn't style it.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">The fix</div>
+        <p>Added <code>.checkbox:indeterminate</code> with a centred 8×2 white dash on the brand-green fill. Matches the checked state's visual weight.</p>
+        <div style="margin-top:var(--space-12); display:flex; gap:var(--space-16); align-items:center;">
+          <label class="field-check"><input type="checkbox" class="checkbox" /><span class="field-check-label">Off</span></label>
+          <label class="field-check"><input type="checkbox" class="checkbox" id="indet-demo" /><span class="field-check-label">Indeterminate</span></label>
+          <label class="field-check"><input type="checkbox" class="checkbox" checked /><span class="field-check-label">On</span></label>
+          <script>document.getElementById('indet-demo').indeterminate = true;</script>
+        </div>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>lib/components.css · +5 lines</span>
+        <span>•</span>
+        <a href="#">View diff</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-011 (deferred) ─── -->
+  <article class="finding" data-tag="a11y">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-011</span>
+          <span class="sev sev-medium">Medium</span>
+          <span class="tag">Accessibility</span>
+        </div>
+        <div class="finding-title">Toast / spinner / skeleton ARIA hooks not documented</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-deferred">Deferred · v1.2</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>Live-region components ship as CSS only — no <code>role="status"</code>, <code>aria-live</code>, or <code>aria-busy</code> guidance in the docs. Consumers who copy the markup verbatim ship inaccessible feedback.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">Why deferred</div>
+        <p>Adding placeholder selectors in CSS would lie about coverage. The real fix is doc updates with full examples per component — a writing pass, not a styling pass. Scheduled for <strong>v1.2</strong> alongside the toast queue manager.</p>
+        <p>Tracking issue: <code>#TW-014</code>.</p>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>docs/components.html (v1.2)</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── F-012 (deferred) ─── -->
+  <article class="finding" data-tag="a11y">
+    <div class="finding-head">
+      <div class="finding-head-left">
+        <div class="finding-id-row">
+          <span class="finding-id">F-012</span>
+          <span class="sev sev-medium">Medium</span>
+          <span class="tag">Accessibility</span>
+        </div>
+        <div class="finding-title">Dialog has no focus-trap implementation</div>
+      </div>
+      <div class="finding-status"><span class="status-pill status-deferred">Deferred · v2.0</span></div>
+    </div>
+    <div class="finding-body">
+      <div class="finding-section">
+        <div class="finding-section-label">What I found</div>
+        <p>Tab order escapes the dialog into the page behind it. The dialog also doesn't restore focus to the trigger on close. Without JS, this is unavoidable — v1.0 is CSS-only by design.</p>
+      </div>
+      <div class="finding-section">
+        <div class="finding-section-label">Why deferred</div>
+        <p>Fixing it properly means shipping a small JS controller (<code>data-dialog-trigger</code> + <code>data-dialog-target</code>), which is a v2.0 question: <em>do we want Tiny Wire to have behaviour, or stay CSS-only?</em> Drafting an RFC instead of shipping something half-baked.</p>
+      </div>
+    </div>
+    <div class="finding-foot">
+      <div class="finding-foot-meta">
+        <span>RFC · TW-018 (drafting)</span>
+      </div>
+    </div>
+  </article>
+
+  <div class="docs-divider"></div>
+
+  <!-- Methodology -->
+  <h2 class="docs-h2" id="methodology">How I audit</h2>
+  <p class="docs-h2-sub">Three passes, three goals. I run this same loop on every system I maintain, internal or public.</p>
+
+  <div class="method-grid">
+    <div class="method-card">
+      <div class="method-num">01</div>
+      <div class="method-title">Read the contract</div>
+      <p class="method-desc">Walk every component and ask: what does the class promise? Every CSS rule that contradicts the promise — silent overrides, missing states, name/value drift — gets logged.</p>
+    </div>
+    <div class="method-card">
+      <div class="method-num">02</div>
+      <div class="method-title">Stress the edges</div>
+      <p class="method-desc">Tab through every interactive element. Toggle to dark mode mid-interaction. Trigger every <code>aria-invalid</code>, <code>disabled</code>, and <code>indeterminate</code>. The edges are where v1.0 leaks.</p>
+    </div>
+    <div class="method-card">
+      <div class="method-num">03</div>
+      <div class="method-title">Defend what stays</div>
+      <p class="method-desc">Not every finding is fixed in the same release. Deferred items get a tracking ID, a scheduled version, and a reason — so the next quarter's me doesn't relitigate them from scratch.</p>
+    </div>
+  </div>
+
+  <div class="docs-divider"></div>
+
+  <!-- What I won't ship -->
+  <h2 class="docs-h2" id="boundaries">What I won't ship (and why)</h2>
+  <p class="docs-h2-sub">A design system is as much about what you refuse to add as what's in. These came up during the audit and stayed out.</p>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12);">
+    <div class="card">
+      <div class="card-title">A third type weight ramp</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">Bricolage + DM Sans is the system. Adding a mono display family "for code-forward dashboards" was floated and rejected — every font is a maintenance contract.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">A separate "compact" density</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">Tiny Wire is already dense by default (13px base, 32px controls). A "compact" override would double the surface area of every state matrix. If 13px is too big, override the token at scope.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Hand-drawn iconography</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">Examples use Lucide-style strokes inline. The system doesn't ship icons — bundling a set means owning a set. Consumers pick their own.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">A second brand colour</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">The temptation is real — every operational tool has a "secondary accent" moment. But every additional brand-mapped token doubles the override matrix for re-skinning. Override <code>--brand</code> at the consumer's scope instead.</p>
+    </div>
+  </div>
+
+  <div class="docs-divider"></div>
+
+  <!-- Next -->
+  <h2 class="docs-h2" id="next">What's next</h2>
+  <p class="docs-h2-sub">v1.2 is in flight. The deferred findings get their fix, plus the additions below.</p>
+
+  <div class="card" style="padding:0; overflow:hidden;">
+    <table class="table" style="font-size:var(--text-base);">
+      <thead><tr><th style="padding-left:var(--space-16);">Target</th><th>Type</th><th>Notes</th><th class="td-num" style="padding-right:var(--space-16);">Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">ARIA documentation pass</td>
+          <td>Docs</td>
+          <td>Toast, spinner, skeleton, alert — one block per component on the components page.</td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-warn">In progress</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">Segmented control</td>
+          <td>New component</td>
+          <td>A formal name for what <code>.btn-group + .btn.active</code> is doing. Comes with keyboard arrow nav.</td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-info">Drafting</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">Date / range picker</td>
+          <td>New component</td>
+          <td>The most-requested gap from the v1.0 feedback round.</td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-info">Drafting</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">Theme builder</td>
+          <td>Tooling</td>
+          <td>Live token editor in the docs site. Drop a brand colour, see every component re-skin.</td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-stopped">Backlog</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">Focus-trap RFC (TW-018)</td>
+          <td>Spec</td>
+          <td>The "does Tiny Wire ship JS?" decision. Drafting.</td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-stopped">Backlog</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="docs-text" style="margin-top:var(--space-32); max-width:720px;">Every release ships with a page like this. The point isn't the changelog — every repo has one of those. The point is to make the <em>reasoning</em> visible: what changed, what didn't, and what I refused to add.</p>
+
+</main>
+
+<script>
+  // Filter behaviour
+  (function () {
+    const filters = document.querySelectorAll('.audit-filter');
+    const findings = document.querySelectorAll('.finding');
+    filters.forEach(f => {
+      f.addEventListener('click', () => {
+        filters.forEach(x => x.classList.remove('active'));
+        f.classList.add('active');
+        const tag = f.dataset.filter;
+        findings.forEach(card => {
+          const tags = (card.dataset.tag || '').split(' ');
+          card.style.display = (tag === 'all' || tags.includes(tag)) ? '' : 'none';
+        });
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

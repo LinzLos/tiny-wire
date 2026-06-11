@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tiny Wire — Foundations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../lib/globals.css" />
+<link rel="stylesheet" href="../lib/components.css" />
+<link rel="stylesheet" href="docs.css" />
+<script defer src="docs.js"></script>
+</head>
+<body>
+
+<div id="docs-sidebar-slot"></div>
+
+<main class="docs-main">
+
+  <div class="docs-eyebrow">Foundations</div>
+  <h1 class="docs-h1">Tokens</h1>
+  <p class="docs-lede">Every color, size, radius, shadow, and duration is a CSS custom property on <code>:root</code>. Dark mode overrides those values under <code>:root[data-theme="dark"]</code>. Components read tokens — they never hardcode values.</p>
+
+  <!-- ── Colors ────────────────────────────────────────────────────────── -->
+  <h2 class="docs-h2" id="colors">Colors</h2>
+  <p class="docs-h2-sub">A warm neutral base with a green brand, orange-red danger, and categorical data colors. All hues share a muted, slightly desaturated quality. Toggle the theme in the sidebar to see dark values.</p>
+
+  <div class="token-group-label">Surfaces</div>
+  <div class="color-grid">
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--surface)"></div><div><div class="color-chip-name">Surface</div><div class="color-chip-var">--surface</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--surface-subtle)"></div><div><div class="color-chip-name">Surface Subtle</div><div class="color-chip-var">--surface-subtle</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--surface-page)"></div><div><div class="color-chip-name">Surface Page</div><div class="color-chip-var">--surface-page</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--surface-muted)"></div><div><div class="color-chip-name">Surface Muted</div><div class="color-chip-var">--surface-muted</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--surface-inset)"></div><div><div class="color-chip-name">Surface Inset</div><div class="color-chip-var">--surface-inset</div></div></div>
+  </div>
+
+  <div class="token-group-label">Borders</div>
+  <div class="color-grid">
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--border)"></div><div><div class="color-chip-name">Border</div><div class="color-chip-var">--border</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--border-light)"></div><div><div class="color-chip-name">Border Light</div><div class="color-chip-var">--border-light</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--border-strong)"></div><div><div class="color-chip-name">Border Strong</div><div class="color-chip-var">--border-strong</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--border-dashed)"></div><div><div class="color-chip-name">Border Dashed</div><div class="color-chip-var">--border-dashed</div></div></div>
+  </div>
+
+  <div class="token-group-label">Text</div>
+  <div class="color-grid">
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--text-primary)"></div><div><div class="color-chip-name">Primary</div><div class="color-chip-var">--text-primary</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--text-secondary)"></div><div><div class="color-chip-name">Secondary</div><div class="color-chip-var">--text-secondary</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--text-tertiary)"></div><div><div class="color-chip-name">Tertiary</div><div class="color-chip-var">--text-tertiary</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--text-disabled)"></div><div><div class="color-chip-name">Disabled</div><div class="color-chip-var">--text-disabled</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--text-inverse)"></div><div><div class="color-chip-name">Inverse</div><div class="color-chip-var">--text-inverse</div></div></div>
+  </div>
+
+  <div class="token-group-label">Brand — Green</div>
+  <div class="color-grid">
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand)"></div><div><div class="color-chip-name">Brand</div><div class="color-chip-var">--brand</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand-light)"></div><div><div class="color-chip-name">Brand Light</div><div class="color-chip-var">--brand-light</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand-mid)"></div><div><div class="color-chip-name">Brand Mid</div><div class="color-chip-var">--brand-mid</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand-dark)"></div><div><div class="color-chip-name">Brand Dark</div><div class="color-chip-var">--brand-dark</div></div></div>
+  </div>
+
+  <div class="token-group-label">Status — Danger</div>
+  <div class="color-grid">
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--danger)"></div><div><div class="color-chip-name">Danger</div><div class="color-chip-var">--danger</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--danger-light)"></div><div><div class="color-chip-name">Danger Light</div><div class="color-chip-var">--danger-light</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--danger-mid)"></div><div><div class="color-chip-name">Danger Mid</div><div class="color-chip-var">--danger-mid</div></div></div>
+  </div>
+
+  <div class="token-group-label">Status — Warning</div>
+  <div class="color-grid">
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--warning)"></div><div><div class="color-chip-name">Warning</div><div class="color-chip-var">--warning</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--warning-light)"></div><div><div class="color-chip-name">Warning Light</div><div class="color-chip-var">--warning-light</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--warning-mid)"></div><div><div class="color-chip-name">Warning Mid</div><div class="color-chip-var">--warning-mid</div></div></div>
+  </div>
+
+  <div class="token-group-label">Status — Info &amp; Accent</div>
+  <div class="color-grid">
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--info)"></div><div><div class="color-chip-name">Info</div><div class="color-chip-var">--info</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--info-light)"></div><div><div class="color-chip-name">Info Light</div><div class="color-chip-var">--info-light</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--info-mid)"></div><div><div class="color-chip-name">Info Mid</div><div class="color-chip-var">--info-mid</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--accent)"></div><div><div class="color-chip-name">Accent</div><div class="color-chip-var">--accent</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--accent-light)"></div><div><div class="color-chip-name">Accent Light</div><div class="color-chip-var">--accent-light</div></div></div>
+  </div>
+
+  <div class="token-group-label">Data &amp; Charts</div>
+  <div class="color-grid">
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--data-inflow)"></div><div><div class="color-chip-name">Inflow</div><div class="color-chip-var">--data-inflow</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--data-outflow)"></div><div><div class="color-chip-name">Outflow</div><div class="color-chip-var">--data-outflow</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--data-target)"></div><div><div class="color-chip-name">Target</div><div class="color-chip-var">--data-target</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--chart-blue)"></div><div><div class="color-chip-name">Chart Blue</div><div class="color-chip-var">--chart-blue</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--chart-azure)"></div><div><div class="color-chip-name">Chart Azure</div><div class="color-chip-var">--chart-azure</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--chart-amber)"></div><div><div class="color-chip-name">Chart Amber</div><div class="color-chip-var">--chart-amber</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--chart-violet)"></div><div><div class="color-chip-name">Chart Violet</div><div class="color-chip-var">--chart-violet</div></div></div>
+  </div>
+
+  <!-- ── Typography ────────────────────────────────────────────────────── -->
+  <h2 class="docs-h2" id="typography">Typography</h2>
+  <p class="docs-h2-sub"><strong style="font-weight:600;">Bricolage Grotesque</strong> for headings, display, and numerics. <strong style="font-weight:600;">DM Sans</strong> for all body and UI text. Both loaded from Google Fonts in a single request.</p>
+
+  <div class="token-group-label">Font Families</div>
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); margin-bottom: var(--space-32);">
+    <div class="card" style="padding: var(--space-20);">
+      <div class="color-chip-var" style="margin-bottom:var(--space-10);">--font-heading</div>
+      <div style="font-family: var(--font-heading); font-size: 28px; font-weight: 700; letter-spacing: -0.6px; color: var(--text-primary); line-height: 1.1;">Bricolage Grotesque</div>
+      <div class="card-desc" style="margin-top: var(--space-8);">Display · Numerics · Headings · Slider values</div>
+    </div>
+    <div class="card" style="padding: var(--space-20);">
+      <div class="color-chip-var" style="margin-bottom:var(--space-10);">--font-body</div>
+      <div style="font-family: var(--font-body); font-size: 28px; font-weight: 500; letter-spacing: -0.3px; color: var(--text-primary); line-height: 1.1;">DM Sans</div>
+      <div class="card-desc" style="margin-top: var(--space-8);">Body · Labels · UI text · Captions</div>
+    </div>
+  </div>
+
+  <div class="token-group-label">Size Scale</div>
+  <div class="card" style="padding: var(--space-20); margin-bottom: var(--space-32);">
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-5xl</div><div class="type-scale-px">48px</div></div><div class="type-scale-sample" style="font-size:48px; font-family: var(--font-heading); font-weight: 700; letter-spacing: -1px;">Sg</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-4xl</div><div class="type-scale-px">34px</div></div><div class="type-scale-sample" style="font-size:34px; font-family: var(--font-heading); font-weight: 700; letter-spacing: -0.8px;">The quick brown fox</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-3xl</div><div class="type-scale-px">26px</div></div><div class="type-scale-sample" style="font-size:26px; font-family: var(--font-heading); font-weight: 700;">The quick brown fox</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-2xl</div><div class="type-scale-px">20px</div></div><div class="type-scale-sample" style="font-size:20px; font-family: var(--font-heading); font-weight: 600;">The quick brown fox</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-xl</div><div class="type-scale-px">18px</div></div><div class="type-scale-sample" style="font-size:18px; font-weight: 600;">The quick brown fox</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-lg</div><div class="type-scale-px">16px</div></div><div class="type-scale-sample" style="font-size:16px;">The quick brown fox</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-base</div><div class="type-scale-px">13px</div></div><div class="type-scale-sample" style="font-size:13px;">The quick brown fox jumps over the lazy dog</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-md</div><div class="type-scale-px">12px</div></div><div class="type-scale-sample" style="font-size:12px;">The quick brown fox jumps over the lazy dog</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-sm</div><div class="type-scale-px">11px</div></div><div class="type-scale-sample" style="font-size:11px; letter-spacing: 0.07em; text-transform: uppercase; font-weight: 600;">Label caps · Section heading</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-xs</div><div class="type-scale-px">10px</div></div><div class="type-scale-sample" style="font-size:10px; letter-spacing: 0.07em; text-transform: uppercase; font-weight: 600;">Caption · Overline</div></div>
+    <div class="type-scale-row"><div class="type-scale-meta"><div class="type-scale-token">--text-2xs</div><div class="type-scale-px">9px</div></div><div class="type-scale-sample" style="font-size:9px; letter-spacing: 0.07em; text-transform: uppercase; font-weight: 700;">Tag · Badge</div></div>
+  </div>
+
+  <div class="token-group-label">Weights</div>
+  <div class="card" style="padding: var(--space-20); margin-bottom: var(--space-32); display: flex; flex-direction: column; gap: var(--space-10);">
+    <div style="display:flex; gap: var(--space-16); align-items: baseline;"><span class="color-chip-var" style="width: 140px;">--weight-light</span><span style="font-weight: 300; font-size: var(--text-lg);">Light 300 — light by definition</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items: baseline;"><span class="color-chip-var" style="width: 140px;">--weight-regular</span><span style="font-weight: 400; font-size: var(--text-lg);">Regular 400 — body default</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items: baseline;"><span class="color-chip-var" style="width: 140px;">--weight-medium</span><span style="font-weight: 500; font-size: var(--text-lg);">Medium 500 — buttons, links</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items: baseline;"><span class="color-chip-var" style="width: 140px;">--weight-semibold</span><span style="font-weight: 600; font-size: var(--text-lg);">Semibold 600 — section headings</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items: baseline;"><span class="color-chip-var" style="width: 140px;">--weight-bold</span><span style="font-weight: 700; font-size: var(--text-lg);">Bold 700 — page titles, hero</span></div>
+  </div>
+
+  <!-- ── Spacing ───────────────────────────────────────────────────────── -->
+  <h2 class="docs-h2" id="spacing">Spacing</h2>
+  <p class="docs-h2-sub">A tight scale built for dense UI. Px-named so the value is always obvious. Used for padding, gap, margin, and any other length.</p>
+  <div class="card" style="padding: var(--space-20);">
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-2</span><span class="spacing-px">2px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:2px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-4</span><span class="spacing-px">4px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:4px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-6</span><span class="spacing-px">6px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:6px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-8</span><span class="spacing-px">8px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:8px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-10</span><span class="spacing-px">10px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:10px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-12</span><span class="spacing-px">12px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:12px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-16</span><span class="spacing-px">16px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:16px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-20</span><span class="spacing-px">20px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:20px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-24</span><span class="spacing-px">24px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:24px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-32</span><span class="spacing-px">32px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:32px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-48</span><span class="spacing-px">48px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:48px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-64</span><span class="spacing-px">64px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:64px"></div></div></div>
+  </div>
+
+  <!-- ── Radius ────────────────────────────────────────────────────────── -->
+  <h2 class="docs-h2" id="radius">Border Radius</h2>
+  <p class="docs-h2-sub">Six steps from sharp to pill. <code>--radius</code> (10px) is the default card radius; <code>--radius-md</code> (8px) is the default container radius.</p>
+  <div class="card" style="padding: var(--space-24);">
+    <div class="radius-grid">
+      <div class="radius-item"><div class="radius-box" style="border-radius:4px;"></div><div class="radius-token">--radius-xs</div><div class="radius-val">4px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:6px;"></div><div class="radius-token">--radius-sm</div><div class="radius-val">6px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:8px;"></div><div class="radius-token">--radius-md</div><div class="radius-val">8px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:10px;"></div><div class="radius-token">--radius</div><div class="radius-val">10px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:12px;"></div><div class="radius-token">--radius-lg</div><div class="radius-val">12px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:9999px; width:96px; height:40px;"></div><div class="radius-token">--radius-full</div><div class="radius-val">9999px</div></div>
+    </div>
+  </div>
+
+  <!-- ── Shadows ───────────────────────────────────────────────────────── -->
+  <h2 class="docs-h2" id="shadows">Shadows</h2>
+  <p class="docs-h2-sub">Subtle, layered shadows — never solid black, always transparent washes. Shadow tokens lift to higher opacity in dark mode to stay legible against the dark surface.</p>
+  <div class="card" style="padding: var(--space-24);">
+    <div class="shadow-grid">
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-card);"></div><div class="shadow-token">--shadow-card</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-nav);"></div><div class="shadow-token">--shadow-nav</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-toggle);"></div><div class="shadow-token">--shadow-toggle</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-hover);"></div><div class="shadow-token">--shadow-hover</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-modal);"></div><div class="shadow-token">--shadow-modal</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-dropdown);"></div><div class="shadow-token">--shadow-dropdown</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-overlay);"></div><div class="shadow-token">--shadow-overlay</div></div>
+    </div>
+  </div>
+
+  <!-- ── Animation ─────────────────────────────────────────────────────── -->
+  <h2 class="docs-h2" id="animation">Animation</h2>
+  <p class="docs-h2-sub">Spring easing for entrances. Standard ease for micro-interactions. Four duration tiers from snappy to deliberate.</p>
+
+  <div class="token-group-label">Easings</div>
+  <div class="card" style="padding: var(--space-20); margin-bottom: var(--space-32); display: flex; flex-direction: column; gap: var(--space-10);">
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--ease-spring</span><span style="font-size: var(--text-md); color: var(--text-secondary);"><code>cubic-bezier(0.16, 1, 0.3, 1)</code> — overshoots slightly, feels alive</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--ease-out</span><span style="font-size: var(--text-md); color: var(--text-secondary);"><code>ease-out</code> — clean deceleration</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--ease-standard</span><span style="font-size: var(--text-md); color: var(--text-secondary);"><code>ease</code> — general-purpose transitions</span></div>
+  </div>
+
+  <div class="token-group-label">Durations</div>
+  <div class="card" style="padding: var(--space-20); margin-bottom: var(--space-32); display: flex; flex-direction: column; gap: var(--space-10);">
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-fast</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.15s — hover states, micro color changes</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-base</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.22s — filter entrances, focus rings</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-moderate</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.30s — modals, expandable regions</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-slow</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.40s — page transitions, large surfaces</span></div>
+  </div>
+
+</main>
+
+</body>
+</html>

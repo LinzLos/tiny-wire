@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tiny Wire — Introduction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../lib/globals.css" />
+<link rel="stylesheet" href="../lib/components.css" />
+<link rel="stylesheet" href="docs.css" />
+<script defer src="docs.js"></script>
+</head>
+<body>
+
+<div id="docs-sidebar-slot"></div>
+
+<main class="docs-main">
+
+  <div class="docs-eyebrow" style="display:flex; align-items:center; gap:var(--space-8);">
+    <span>Design System · v1.1</span>
+    <span class="badge" style="background:color-mix(in srgb, var(--brand) 12%, transparent); border-color:color-mix(in srgb, var(--brand) 25%, transparent); color:var(--brand-dark);">Just shipped</span>
+  </div>
+  <h1 class="docs-h1">Tiny Wire</h1>
+  <p class="docs-lede">A minimal, warm-toned design system built for dense operational interfaces. Two fonts, a coherent color language, ~30 reusable components, and a token layer that swaps cleanly between light and dark.</p>
+
+  <!-- The why — NDA-safe portfolio framing -->
+  <div class="card" style="padding: var(--space-20) var(--space-24); margin-bottom: var(--space-32); background: var(--surface-subtle); border-color: var(--border-light);">
+    <div style="display:flex; align-items:flex-start; gap: var(--space-16);">
+      <div style="flex-shrink:0; width:36px; height:36px; border-radius:var(--radius-sm); background:var(--text-primary); display:flex; align-items:center; justify-content:center; color:var(--text-inverse);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-family:var(--font-heading); font-size:var(--text-lg); font-weight:var(--weight-semibold); color:var(--text-primary); letter-spacing:var(--tracking-snug); margin-bottom:var(--space-6);">Why this system exists</div>
+        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal); max-width: 640px;">Most of the work I do lives behind NDAs — operational tools, internal control panels, monitoring dashboards. Tiny Wire is the <strong style="color:var(--text-primary); font-weight:600;">public-safe twin</strong>: same constraints, same warm density, built so the <em>process</em> of designing and maintaining a system is visible without leaking a single line of client UI.</p>
+        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal); margin-top:var(--space-8); max-width: 640px;">Read the <a href="audit.html" style="color:var(--info); text-decoration:underline; text-underline-offset:2px; font-weight:var(--weight-medium);">v1.1 audit</a> to see what shipping and maintaining a system actually looks like — 12 findings, 10 fixes, 0 breaking changes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero card grid -->
+  <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-12); margin-bottom: var(--space-48);">
+    <a href="foundations.html" class="card" style="text-decoration:none; cursor:pointer;">
+      <div style="font-family:var(--font-heading); font-size:var(--text-xl); font-weight:var(--weight-bold); color:var(--text-primary); letter-spacing:var(--tracking-tight); margin-bottom:var(--space-6);">Foundations</div>
+      <div style="font-size:var(--text-md); color:var(--text-tertiary); line-height:var(--leading-compact);">Colors, type, spacing, radius, shadows, animation.</div>
+    </a>
+    <a href="components.html" class="card" style="text-decoration:none; cursor:pointer;">
+      <div style="font-family:var(--font-heading); font-size:var(--text-xl); font-weight:var(--weight-bold); color:var(--text-primary); letter-spacing:var(--tracking-tight); margin-bottom:var(--space-6);">Components</div>
+      <div style="font-size:var(--text-md); color:var(--text-tertiary); line-height:var(--leading-compact);">28 atoms and composites, full state matrix.</div>
+    </a>
+    <a href="patterns.html" class="card" style="text-decoration:none; cursor:pointer;">
+      <div style="font-family:var(--font-heading); font-size:var(--text-xl); font-weight:var(--weight-bold); color:var(--text-primary); letter-spacing:var(--tracking-tight); margin-bottom:var(--space-6);">Patterns</div>
+      <div style="font-size:var(--text-md); color:var(--text-tertiary); line-height:var(--leading-compact);">Dashboard, data table, settings, login, empty.</div>
+    </a>
+    <a href="audit.html" class="card" style="text-decoration:none; cursor:pointer; background: color-mix(in srgb, var(--brand) 5%, var(--surface)); border-color: color-mix(in srgb, var(--brand) 25%, var(--border));">
+      <div style="font-family:var(--font-heading); font-size:var(--text-xl); font-weight:var(--weight-bold); color:var(--text-primary); letter-spacing:var(--tracking-tight); margin-bottom:var(--space-6); display:flex; align-items:center; gap:var(--space-6);">
+        Audit
+        <span class="badge" style="background:var(--brand); border-color:var(--brand); color:var(--brand-fg); font-size:8px; padding:1px 4px;">v1.1</span>
+      </div>
+      <div style="font-size:var(--text-md); color:var(--text-tertiary); line-height:var(--leading-compact);">Release notes, findings, and how I think about maintenance.</div>
+    </a>
+  </div>
+
+  <!-- Quick start -->
+  <h2 class="docs-h2" id="quickstart">Quick start</h2>
+  <p class="docs-h2-sub">Drop two CSS files into your project. No build step, no framework lock-in. Works in any HTML, React, Vue, or static site.</p>
+
+  <h3 class="docs-h3">1. Add fonts to your &lt;head&gt;</h3>
+  <pre class="code-block"><span class="k">&lt;link</span> <span class="a">rel</span>=<span class="s">"preconnect"</span> <span class="a">href</span>=<span class="s">"https://fonts.googleapis.com"</span><span class="k">&gt;</span>
+<span class="k">&lt;link</span> <span class="a">href</span>=<span class="s">"https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300..700&amp;family=DM+Sans:wght@300..700&amp;display=swap"</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span><span class="k">&gt;</span></pre>
+
+  <h3 class="docs-h3">2. Link the stylesheets</h3>
+  <pre class="code-block"><span class="k">&lt;link</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span> <span class="a">href</span>=<span class="s">"lib/globals.css"</span><span class="k">&gt;</span>      <span class="c">&lt;!-- tokens + reset + base --&gt;</span>
+<span class="k">&lt;link</span> <span class="a">rel</span>=<span class="s">"stylesheet"</span> <span class="a">href</span>=<span class="s">"lib/components.css"</span><span class="k">&gt;</span>   <span class="c">&lt;!-- all component styles --&gt;</span></pre>
+
+  <h3 class="docs-h3">3. Use the components</h3>
+  <pre class="code-block"><span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-primary"</span><span class="k">&gt;</span>Apply changes<span class="k">&lt;/button&gt;</span>
+
+<span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-title"</span><span class="k">&gt;</span>Section title<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;p</span> <span class="a">class</span>=<span class="s">"card-desc"</span><span class="k">&gt;</span>Card content goes here.<span class="k">&lt;/p&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+
+  <h3 class="docs-h3">4. Enable dark mode (optional)</h3>
+  <pre class="code-block"><span class="c">// Toggle the data-theme attribute on &lt;html&gt;</span>
+document.documentElement.setAttribute(<span class="s">'data-theme'</span>, <span class="s">'dark'</span>);
+
+<span class="c">// Or remove it for light mode</span>
+document.documentElement.removeAttribute(<span class="s">'data-theme'</span>);</pre>
+
+  <h3 class="docs-h3">5. Access tokens from JS</h3>
+  <pre class="code-block"><span class="k">import</span> tokens <span class="k">from</span> <span class="s">'./lib/tokens.js'</span>
+
+<span class="k">const</span> brand = tokens.colors.light.brand        <span class="c">// '#629460'</span>
+<span class="k">const</span> base  = tokens.typography.fontSize.base  <span class="c">// 13</span>
+<span class="k">const</span> radius = tokens.borderRadius.md          <span class="c">// '8px'</span></pre>
+
+  <div class="docs-divider"></div>
+
+  <!-- Principles -->
+  <h2 class="docs-h2" id="principles">Principles</h2>
+  <p class="docs-h2-sub">The constraints that keep Tiny Wire coherent — what gets in, and what doesn't.</p>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-16);">
+    <div class="card">
+      <div class="card-title">Dense by default</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">Built for operational tools — dashboards, monitoring, control panels. Base text size is 13px. 32px controls. Tight 4-12px spacing scale. Every pixel earns its place.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Warm, not cold</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">Neutrals lean warm (#F7F4F3 surface, #1E1918 ink). Brand is forest green, not corporate blue. Status colors are muted and earthy — danger is orange-red, warning is brown.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Two fonts, total</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">Bricolage Grotesque for display + numerics. DM Sans for everything else. No utility fonts, no fallback piles. Both load from Google Fonts in a single request.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Tokens first</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">Every color, size, radius, shadow, and duration is a CSS custom property. Components consume tokens — they don't define them. Dark mode is a token swap, not a parallel stylesheet.</p>
+    </div>
+  </div>
+
+  <div class="docs-divider"></div>
+
+  <!-- File map -->
+  <h2 class="docs-h2" id="files">What's in the repo</h2>
+  <p class="docs-h2-sub">Three files in <code>lib/</code> are all you need. The rest is docs.</p>
+
+  <div class="card" style="padding:0; overflow:hidden;">
+    <table class="table" style="font-size:var(--text-base);">
+      <thead><tr><th style="padding-left:var(--space-16);">File</th><th>Purpose</th><th class="td-num" style="padding-right:var(--space-16);">Size</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16); font-family:var(--font-mono);">lib/globals.css</td>
+          <td>Token definitions (light + dark), reset, base typography, keyframes, animation utilities.</td>
+          <td class="td-num" style="padding-right:var(--space-16);">~10 KB</td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16); font-family:var(--font-mono);">lib/components.css</td>
+          <td>All 28 components. Each consumes tokens — no hardcoded values.</td>
+          <td class="td-num" style="padding-right:var(--space-16);">~38 KB</td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16); font-family:var(--font-mono);">lib/tokens.js</td>
+          <td>Same tokens, exported as a JS object. Use in scripts, theme builders, generators.</td>
+          <td class="td-num" style="padding-right:var(--space-16);">~3 KB</td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16); font-family:var(--font-mono);">docs/</td>
+          <td>This documentation site. Not required for consumers.</td>
+          <td class="td-num" style="padding-right:var(--space-16);">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="docs-text" style="margin-top:var(--space-32);">Ready to build? Jump to <a href="components.html" style="color:var(--brand-dark); text-decoration:underline; font-weight:var(--weight-medium);">Components</a> for the full library, or <a href="foundations.html" style="color:var(--brand-dark); text-decoration:underline; font-weight:var(--weight-medium);">Foundations</a> for the token reference.</p>
+
+</main>
+
+</body>
+</html>

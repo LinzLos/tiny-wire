@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tiny Wire — Accessibility Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../lib/globals.css" />
+<link rel="stylesheet" href="../lib/components.css" />
+<link rel="stylesheet" href="docs.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+  /* ─── A11y page chrome ─────────────────────────────────────────────── */
+  .a11y-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-12); margin-bottom: var(--space-32);
+  }
+  .a11y-stat {
+    border: 1px solid var(--border-light); border-radius: var(--radius-md);
+    padding: var(--space-16); background: var(--surface);
+  }
+  .a11y-stat-num {
+    font-family: var(--font-heading); font-size: 34px;
+    font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight);
+    line-height: 1; margin-bottom: var(--space-4);
+  }
+  .a11y-stat-num.ok    { color: var(--brand); }
+  .a11y-stat-num.warn  { color: var(--warning); }
+  .a11y-stat-num.fail  { color: var(--danger); }
+  .a11y-stat-num.neutral { color: var(--text-primary); }
+  .a11y-stat-label {
+    font-size: var(--text-xs); font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-caps); text-transform: uppercase;
+    color: var(--text-tertiary); margin-bottom: var(--space-2);
+  }
+  .a11y-stat-sub {
+    font-size: var(--text-md); color: var(--text-secondary);
+    line-height: var(--leading-compact);
+  }
+
+  /* Controls bar */
+  .a11y-controls {
+    display: flex; gap: var(--space-12); flex-wrap: wrap;
+    align-items: center; justify-content: space-between;
+    padding: var(--space-12) var(--space-16);
+    background: var(--surface-subtle);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-24);
+    position: sticky; top: var(--space-8); z-index: 6;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    background: color-mix(in srgb, var(--surface-subtle) 92%, transparent);
+  }
+  .a11y-controls-group {
+    display: flex; align-items: center; gap: var(--space-8);
+  }
+  .a11y-controls-label {
+    font-size: var(--text-xs); font-weight: var(--weight-semibold);
+    letter-spacing: var(--tracking-caps); text-transform: uppercase;
+    color: var(--text-tertiary);
+  }
+
+  .a11y-seg {
+    display: inline-flex; background: var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    padding: 2px;
+  }
+  .a11y-seg-btn {
+    padding: 4px 10px; border-radius: var(--radius-xs);
+    font-size: var(--text-md); color: var(--text-secondary);
+    cursor: pointer; font-weight: var(--weight-medium);
+  }
+  .a11y-seg-btn.active {
+    background: var(--text-primary); color: var(--text-inverse);
+  }
+  .a11y-seg-btn:not(.active):hover {
+    color: var(--text-primary);
+  }
+
+  /* Result section */
+  .a11y-section {
+    margin-bottom: var(--space-32);
+  }
+  .a11y-section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: var(--space-12);
+  }
+  .a11y-section-title {
+    font-family: var(--font-heading); font-size: var(--text-xl);
+    font-weight: var(--weight-semibold); color: var(--text-primary);
+    letter-spacing: var(--tracking-snug);
+  }
+  .a11y-section-meta {
+    font-size: var(--text-md); color: var(--text-tertiary);
+    font-family: var(--font-mono);
+  }
+
+  /* Result row */
+  .a11y-table {
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    background: var(--surface); border: 1px solid var(--border-light);
+    border-radius: var(--radius-md); overflow: hidden;
+    font-size: var(--text-md);
+  }
+  .a11y-table thead th {
+    text-align: left;
+    padding: var(--space-10) var(--space-12);
+    font-size: var(--text-xs); font-weight: var(--weight-semibold);
+    color: var(--text-tertiary); letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    background: var(--surface-subtle);
+    border-bottom: 1px solid var(--border-light);
+    white-space: nowrap;
+  }
+  .a11y-table tbody tr { border-bottom: 1px solid var(--border-light); }
+  .a11y-table tbody tr:last-child { border-bottom: 0; }
+  .a11y-table td {
+    padding: var(--space-10) var(--space-12);
+    vertical-align: middle;
+    color: var(--text-secondary);
+  }
+
+  :root {
+    --swatch-radius: var(--radius-sm);
+    --swatch-height: 32px;
+    --swatch-padx: var(--space-12);
+    --swatch-min-width: 0px;
+  }
+  .preview-swatch {
+    display: inline-flex; align-items: center; justify-content: center;
+    height: var(--swatch-height); padding: 0 var(--swatch-padx);
+    min-width: var(--swatch-min-width);
+    border-radius: var(--swatch-radius); font-weight: var(--weight-medium);
+    border: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+    white-space: nowrap;
+    transition: height 120ms ease, padding 120ms ease,
+                min-width 120ms ease, border-radius 120ms ease;
+  }
+  /* Tweak: compact density */
+  body.twk-compact .a11y-table th,
+  body.twk-compact .a11y-table td { padding: 6px 10px; }
+  body.twk-compact .a11y-stats { gap: var(--space-8); margin-bottom: var(--space-20); }
+  body.twk-compact .a11y-stat { padding: var(--space-10) var(--space-12); }
+  body.twk-compact .a11y-stat-num { font-size: 26px; }
+  /* Tweak: hide hex values column */
+  body.twk-no-hex .a11y-table thead th:nth-child(3),
+  body.twk-no-hex .a11y-table tbody td:nth-child(3) { display: none; }
+  /* Tweak: hide pair tokens (keep only description) */
+  body.twk-no-tokens .pair-name { display: none; }
+  .pair-name {
+    display: flex; flex-direction: column; gap: 2px;
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    color: var(--text-tertiary);
+  }
+  .pair-fg { color: var(--text-primary); font-weight: var(--weight-medium); }
+  .ratio-cell {
+    font-family: var(--font-heading); font-size: var(--text-lg);
+    font-weight: var(--weight-semibold); color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--tracking-snug);
+  }
+  .ratio-sub {
+    display: block;
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    color: var(--text-tertiary); font-weight: var(--weight-regular);
+    letter-spacing: 0;
+  }
+
+  /* Pass/fail pills */
+  .pf {
+    display: inline-flex; align-items: center; gap: 4px;
+    height: 22px; padding: 0 var(--space-8);
+    border-radius: var(--radius-full);
+    font-size: var(--text-2xs); font-weight: var(--weight-bold);
+    letter-spacing: var(--tracking-caps); text-transform: uppercase;
+    border: 1px solid transparent; line-height: 1;
+    white-space: nowrap;
+  }
+  .pf-pass { color: var(--brand);   background: color-mix(in srgb, var(--brand)   12%, transparent); border-color: color-mix(in srgb, var(--brand)   25%, transparent); }
+  .pf-fail { color: var(--danger);  background: color-mix(in srgb, var(--danger)  10%, transparent); border-color: color-mix(in srgb, var(--danger)  22%, transparent); }
+  .pf-warn { color: var(--warning); background: color-mix(in srgb, var(--warning) 10%, transparent); border-color: color-mix(in srgb, var(--warning) 22%, transparent); }
+  .pf-na   { color: var(--text-tertiary); background: var(--surface-muted); }
+
+  /* Filter chips */
+  .filter-row {
+    display: inline-flex; gap: var(--space-6);
+  }
+  .filter-chip {
+    display: inline-flex; align-items: center; gap: var(--space-5);
+    padding: 3px 10px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-md); color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .filter-chip:hover { background: var(--surface-muted); }
+  .filter-chip.active {
+    background: var(--text-primary); color: var(--text-inverse);
+    border-color: var(--text-primary);
+  }
+
+  /* Methodology block */
+  .method-grid-2 {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-12);
+  }
+  .method-mini {
+    border: 1px solid var(--border-light); border-radius: var(--radius-md);
+    background: var(--surface); padding: var(--space-16);
+  }
+  .method-mini-title {
+    font-family: var(--font-heading); font-size: var(--text-lg);
+    font-weight: var(--weight-semibold); color: var(--text-primary);
+    letter-spacing: var(--tracking-snug); margin-bottom: var(--space-6);
+  }
+  .method-mini p {
+    font-size: var(--text-md); color: var(--text-secondary);
+    line-height: var(--leading-normal);
+  }
+
+  /* Threshold legend */
+  .legend {
+    display: flex; gap: var(--space-16); flex-wrap: wrap;
+    margin-bottom: var(--space-20);
+    padding: var(--space-12) var(--space-16);
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+  }
+  .legend-item {
+    display: flex; align-items: center; gap: var(--space-6);
+    font-size: var(--text-md); color: var(--text-secondary);
+  }
+  .legend-num {
+    font-family: var(--font-mono); font-size: var(--text-xs);
+    color: var(--text-tertiary);
+  }
+
+  @media (max-width: 900px) {
+    .a11y-stats { grid-template-columns: repeat(2, 1fr); }
+    .method-grid-2 { grid-template-columns: 1fr; }
+    .a11y-controls { flex-direction: column; align-items: stretch; }
+    .a11y-table { font-size: var(--text-sm); }
+    .a11y-table th, .a11y-table td { padding: var(--space-8); }
+  }
+</style>
+<script defer src="docs.js"></script>
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#629460">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#629460"/>
+    <g transform="translate(600 400) scale(11) translate(-24 -24)">
+      <path d="M41.9996 4L37.9996 8M37.9996 8L43.9996 14L36.9996 21L30.9996 15M37.9996 8L30.9996 15M22.7796 23.22C23.8123 24.2389 24.6332 25.4521 25.1951 26.7896C25.757 28.1271 26.0488 29.5625 26.0536 31.0133C26.0585 32.464 25.7763 33.9014 25.2234 35.2426C24.6705 36.5838 23.8577 37.8025 22.8319 38.8283C21.806 39.8541 20.5874 40.6669 19.2462 41.2198C17.9049 41.7728 16.4676 42.0549 15.0168 42.0501C13.5661 42.0452 12.1307 41.7534 10.7932 41.1915C9.45565 40.6296 8.24251 39.8087 7.22357 38.776C5.21983 36.7014 4.1111 33.9228 4.13616 31.0386C4.16122 28.1544 5.31808 25.3955 7.35757 23.356C9.39706 21.3165 12.156 20.1596 15.0402 20.1346C17.9243 20.1095 20.7029 21.2183 22.7776 23.222L22.7796 23.22ZM22.7796 23.22L30.9996 15" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+  </svg>
+</template>
+
+<div id="docs-sidebar-slot"></div>
+
+<main class="docs-main">
+
+  <div class="docs-eyebrow">Tools</div>
+  <h1 class="docs-h1">Accessibility check</h1>
+  <p class="docs-lede">Live WCAG 2.1 contrast audit of every token pair in the system, computed from the actual CSS values currently loaded. Toggle the theme above to re-run against the dark palette. Every result updates in real time when you edit a token.</p>
+
+  <!-- Top stats -->
+  <div class="a11y-stats" id="stats">
+    <div class="a11y-stat">
+      <div class="a11y-stat-label">Theme tested</div>
+      <div class="a11y-stat-num neutral" id="stat-theme">Light</div>
+      <div class="a11y-stat-sub">Switch with the moon icon in the sidebar.</div>
+    </div>
+    <div class="a11y-stat">
+      <div class="a11y-stat-label">Pairs tested</div>
+      <div class="a11y-stat-num neutral" id="stat-total">—</div>
+      <div class="a11y-stat-sub">Text/surface combinations across the system.</div>
+    </div>
+    <div class="a11y-stat">
+      <div class="a11y-stat-label">AA passing</div>
+      <div class="a11y-stat-num ok" id="stat-pass">—</div>
+      <div class="a11y-stat-sub">Each pair tested against its intended use.</div>
+    </div>
+    <div class="a11y-stat">
+      <div class="a11y-stat-label">Issues</div>
+      <div class="a11y-stat-num fail" id="stat-fail">—</div>
+      <div class="a11y-stat-sub">Pairs failing at their use level.</div>
+    </div>
+  </div>
+
+  <!-- Threshold legend -->
+  <div class="legend">
+    <div class="legend-item">
+      <span class="pf pf-pass">AAA</span>
+      <span>≥ 7.0 (normal) / ≥ 4.5 (large)</span>
+    </div>
+    <div class="legend-item">
+      <span class="pf pf-pass">AA</span>
+      <span>≥ 4.5 (normal) / ≥ 3.0 (large &amp; UI)</span>
+    </div>
+    <div class="legend-item">
+      <span class="pf pf-warn">UI</span>
+      <span>≥ 3.0 — non-text UI only</span>
+    </div>
+    <div class="legend-item">
+      <span class="pf pf-fail">Fail</span>
+      <span>&lt; 3.0</span>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="a11y-controls">
+    <div class="a11y-controls-group">
+      <span class="a11y-controls-label">Show</span>
+      <div class="filter-row">
+        <button class="filter-chip active" data-filter="all">All</button>
+        <button class="filter-chip" data-filter="fail">Issues only</button>
+        <button class="filter-chip" data-filter="aaa">AAA only</button>
+      </div>
+    </div>
+    <div class="a11y-controls-group">
+      <span class="a11y-controls-label">Test against</span>
+      <div class="a11y-seg" id="useSeg">
+        <button class="a11y-seg-btn active" data-use="auto">Intended use</button>
+        <button class="a11y-seg-btn" data-use="aa-normal">AA normal</button>
+        <button class="a11y-seg-btn" data-use="aaa">AAA</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sections will render here -->
+  <div id="results"></div>
+
+  <div class="docs-divider"></div>
+
+  <!-- Findings from this run -->
+  <h2 class="docs-h2" id="findings-this-run">Issues this tool surfaced</h2>
+  <p class="docs-h2-sub">Running the checker against v1.1 caught five real problems I'd missed in the manual audit. Three were fixed on the spot; two are scheduled for v1.2 because they involve hue shifts that need broader review.</p>
+
+  <div style="display: grid; gap: var(--space-12);">
+
+    <div class="card" style="display:flex; gap:var(--space-16); align-items:flex-start; padding: var(--space-16) var(--space-20);">
+      <div style="flex-shrink:0; width:80px;">
+        <span class="pf pf-pass">Fixed</span>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-family:var(--font-heading); font-size:var(--text-lg); font-weight:var(--weight-semibold); color:var(--text-primary); letter-spacing:var(--tracking-snug); margin-bottom:var(--space-4);">F-013 · Helper text failed AA on muted surfaces</div>
+        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal);">In light mode, <code>--text-tertiary</code> on <code>--surface-muted</code> scored <strong>4.22:1</strong> — under the 4.5:1 AA threshold for body copy. The earlier audit nudged tertiary once already (v1.1); this checker caught that it wasn't enough. Darkened again to <code>#6E625F</code>, now <strong>4.95:1</strong>.</p>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; gap:var(--space-16); align-items:flex-start; padding: var(--space-16) var(--space-20);">
+      <div style="flex-shrink:0; width:80px;">
+        <span class="pf pf-warn">Deferred</span>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-family:var(--font-heading); font-size:var(--text-lg); font-weight:var(--weight-semibold); color:var(--text-primary); letter-spacing:var(--tracking-snug); margin-bottom:var(--space-4);">F-014 · Brand text on white fails AA</div>
+        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal);">The forest green <code>--brand</code> (<code>#629460</code>) on white card surfaces is <strong>3.54:1</strong>. Fine for non-text UI elements (chip dots, focus rings), but using <code>--brand</code> for chip text or alert headings reads as a fail. Workaround: use <code>--brand-dark</code> for any text role. <strong>v1.2 plan:</strong> rename brand-dark to <code>--brand-text</code> and add lint rule against bare <code>--brand</code> on text.</p>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; gap:var(--space-16); align-items:flex-start; padding: var(--space-16) var(--space-20);">
+      <div style="flex-shrink:0; width:80px;">
+        <span class="pf pf-warn">Deferred</span>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-family:var(--font-heading); font-size:var(--text-lg); font-weight:var(--weight-semibold); color:var(--text-primary); letter-spacing:var(--tracking-snug); margin-bottom:var(--space-4);">F-015 · Accent button label invisible</div>
+        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal);">White text on <code>--accent</code> sky blue (<code>#0EA5E9</code>) scores <strong>2.77:1</strong> — fails AA <em>and</em> the 3:1 UI threshold. The accent is currently used only as a chart colour, so no live buttons are broken — but if a consumer reaches for <code>btn-accent</code> by pattern, they'd ship inaccessible UI. <strong>v1.2 plan:</strong> ship a darker <code>--accent</code> (≈ <code>#0078A8</code>) that passes, or remove the implied <code>-fg</code> contract.</p>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; gap:var(--space-16); align-items:flex-start; padding: var(--space-16) var(--space-20);">
+      <div style="flex-shrink:0; width:80px;">
+        <span class="pf pf-warn">Boundary</span>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-family:var(--font-heading); font-size:var(--text-lg); font-weight:var(--weight-semibold); color:var(--text-primary); letter-spacing:var(--tracking-snug); margin-bottom:var(--space-4);">F-016 · Strong border fails 3:1 UI threshold</div>
+        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal);"><code>--border-strong</code> on white scores <strong>1.88:1</strong> — under the 3:1 WCAG 1.4.11 threshold for input borders. Darkening to pass would harm the system's hand-drawn warmth. <strong>Documented compromise:</strong> every input pairs the border with a label outside and a focus shadow ring; the boundary indicator is the multi-cue combination, not the border alone. WCAG considers a non-color signal sufficient.</p>
+      </div>
+    </div>
+
+    <div class="card" style="display:flex; gap:var(--space-16); align-items:flex-start; padding: var(--space-16) var(--space-20);">
+      <div style="flex-shrink:0; width:80px;">
+        <span class="pf pf-warn">Boundary</span>
+      </div>
+      <div style="flex:1; min-width:0;">
+        <div style="font-family:var(--font-heading); font-size:var(--text-lg); font-weight:var(--weight-semibold); color:var(--text-primary); letter-spacing:var(--tracking-snug); margin-bottom:var(--space-4);">F-017 · Disabled label below 3:1</div>
+        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal);">Disabled text scores 2.24 (card) / 1.93 (muted) in light, 2.90 in dark. <strong>WCAG explicitly exempts inactive UI</strong> from contrast requirements (SC 1.4.3 / 1.4.11 informative note) — disabled controls should look disabled. The checker flags them for transparency, but no fix is owed. The disabled <em>opacity</em> rule (0.45) combines with this for a stronger visual cue.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="docs-divider"></div>
+
+  <!-- Methodology -->
+  <h2 class="docs-h2" id="methodology">How this works</h2>
+  <p class="docs-h2-sub">No fixtures, no hardcoded values — every contrast ratio on this page is computed from the live <code>:root</code> custom properties at render time.</p>
+
+  <div class="method-grid-2">
+    <div class="method-mini">
+      <div class="method-mini-title">Token lookup</div>
+      <p>The script reads each pair as <code>getComputedStyle(document.documentElement).getPropertyValue('--text-primary')</code>, parses the hex (or rgb) into RGB triplets, and stores both sides.</p>
+    </div>
+    <div class="method-mini">
+      <div class="method-mini-title">Relative luminance</div>
+      <p>Each channel is linearised per WCAG 2.1: divide by 255, then either <code>c/12.92</code> if c ≤ 0.03928 or <code>((c+0.055)/1.055)<sup>2.4</sup></code>. Luminance L = <code>0.2126·R + 0.7152·G + 0.0722·B</code>.</p>
+    </div>
+    <div class="method-mini">
+      <div class="method-mini-title">Contrast ratio</div>
+      <p>Ratio = (L<sub>lighter</sub> + 0.05) / (L<sub>darker</sub> + 0.05). A pair scores up to 21:1 (pure black on pure white). The page reports to one decimal place, matching most external auditors.</p>
+    </div>
+    <div class="method-mini">
+      <div class="method-mini-title">Pass/fail logic</div>
+      <p>Each pair is tagged with its <em>intended use</em>: body text, UI element, or large heading. Thresholds applied per-use — a brand swatch on white isn't held to body-text 4.5:1 because it never carries body text.</p>
+    </div>
+  </div>
+
+  <div class="docs-divider"></div>
+
+  <!-- What this doesn't check -->
+  <h2 class="docs-h2" id="limits">What this check doesn't cover</h2>
+  <p class="docs-h2-sub">Contrast is one of many a11y axes. Honesty about scope is part of the system.</p>
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-12);">
+    <div class="card">
+      <div class="card-title">Keyboard navigation</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">Focus order, focus traps, and skip links need real DOM walks — covered manually in the v1.1 audit (F-007, F-012).</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Screen reader semantics</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">ARIA roles, live regions, and label associations need testing with NVDA / VoiceOver. Deferred to v1.2 (F-011).</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Colour-blind simulation</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">Contrast alone doesn't catch deuteranopia / protanopia confusion (e.g. red/green chips). The system intentionally uses non-colour signals — icons, text labels — in every status component.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Hit-target sizing</div>
+      <p class="card-desc" style="margin-top:var(--space-6);">WCAG 2.2 AAA wants ≥ 44×44px targets. Tiny Wire is desktop-dense at 32px controls — fails for touch-primary use, intentional for operational tools. Documented as a known boundary.</p>
+    </div>
+  </div>
+
+</main>
+
+<script>
+/* ──────────────────────────────────────────────────────────────────────
+   A11y contrast checker
+   Reads live CSS variables, computes WCAG 2.1 contrast, renders matrix.
+   ────────────────────────────────────────────────────────────────────── */
+(function () {
+  const root = document.documentElement;
+
+  // ─── Color parsing ──────────────────────────────────────────────────
+  function tokenRGB(name) {
+    const raw = getComputedStyle(root).getPropertyValue(name).trim();
+    return parseColor(raw);
+  }
+  function parseColor(c) {
+    if (!c) return null;
+    c = c.trim();
+    if (c.startsWith('#')) {
+      const hex = c.slice(1);
+      if (hex.length === 3) {
+        return {
+          r: parseInt(hex[0] + hex[0], 16),
+          g: parseInt(hex[1] + hex[1], 16),
+          b: parseInt(hex[2] + hex[2], 16),
+        };
+      }
+      return {
+        r: parseInt(hex.slice(0, 2), 16),
+        g: parseInt(hex.slice(2, 4), 16),
+        b: parseInt(hex.slice(4, 6), 16),
+      };
+    }
+    const rgbMatch = c.match(/rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)/i);
+    if (rgbMatch) {
+      return {
+        r: +rgbMatch[1],
+        g: +rgbMatch[2],
+        b: +rgbMatch[3],
+      };
+    }
+    return null;
+  }
+
+  // ─── Contrast ───────────────────────────────────────────────────────
+  function linearise(c) {
+    const s = c / 255;
+    return s <= 0.03928 ? s / 12.92 : Math.pow((s + 0.055) / 1.055, 2.4);
+  }
+  function luminance({ r, g, b }) {
+    return 0.2126 * linearise(r) + 0.7152 * linearise(g) + 0.0722 * linearise(b);
+  }
+  function contrast(a, b) {
+    if (!a || !b) return null;
+    const la = luminance(a), lb = luminance(b);
+    const lighter = Math.max(la, lb), darker = Math.min(la, lb);
+    return (lighter + 0.05) / (darker + 0.05);
+  }
+  function rgbStr(c) {
+    return c ? `rgb(${c.r}, ${c.g}, ${c.b})` : 'transparent';
+  }
+  function hexStr(c) {
+    if (!c) return '—';
+    const h = n => n.toString(16).padStart(2, '0');
+    return ('#' + h(c.r) + h(c.g) + h(c.b)).toUpperCase();
+  }
+
+  // ─── Test definitions ───────────────────────────────────────────────
+  // use: 'normal' (4.5/7), 'large' (3/4.5), 'ui' (3 only — non-text)
+  const TESTS = [
+    // ─── Text on surfaces (body & UI text)
+    { section: 'Text on surfaces', use: 'normal',
+      pairs: [
+        ['--text-primary',   '--surface',        'Body on card'],
+        ['--text-primary',   '--surface-subtle', 'Body on subtle'],
+        ['--text-primary',   '--surface-muted',  'Body on muted'],
+        ['--text-primary',   '--surface-page',   'Body on page'],
+        ['--text-secondary', '--surface',        'Secondary on card'],
+        ['--text-secondary', '--surface-subtle', 'Secondary on subtle'],
+        ['--text-secondary', '--surface-muted',  'Secondary on muted'],
+        ['--text-tertiary',  '--surface',        'Helper / placeholder on card'],
+        ['--text-tertiary',  '--surface-subtle', 'Helper on subtle'],
+        ['--text-tertiary',  '--surface-muted',  'Helper on muted'],
+      ]
+    },
+    // ─── Brand color usage
+    { section: 'Brand foregrounds', use: 'normal',
+      pairs: [
+        ['--brand-fg',      '--brand',       'Button label on brand fill'],
+        ['--brand',         '--surface',     'Brand text on card'],
+        ['--brand',         '--brand-light', 'Brand text on brand-light tint'],
+        ['--brand-dark',    '--surface',     'Brand-dark on card'],
+        ['--brand-dark',    '--brand-light', 'Brand-dark on brand-light'],
+      ]
+    },
+    // ─── Inverse + dark surfaces
+    { section: 'Inverse', use: 'normal',
+      pairs: [
+        ['--text-inverse',   '--text-primary', 'Inverse on primary (dark button)'],
+      ]
+    },
+    // ─── Status foregrounds
+    { section: 'Status colors', use: 'normal',
+      pairs: [
+        ['--danger-fg',  '--danger',       'Danger button label'],
+        ['--danger',     '--surface',      'Danger text on card'],
+        ['--danger',     '--danger-light', 'Danger text on danger tint'],
+        ['--warning-fg', '--warning',      'Warning button label'],
+        ['--warning',    '--surface',      'Warning text on card'],
+        ['--warning',    '--warning-light','Warning text on warning tint'],
+        ['--info-fg',    '--info',         'Info button label'],
+        ['--info',       '--surface',      'Info text on card'],
+        ['--info',       '--info-light',   'Info text on info tint'],
+        ['--accent-fg',  '--accent',       'Accent button label'],
+        ['--accent',     '--surface',      'Accent text on card'],
+      ]
+    },
+    // ─── Functional UI (must hit 3:1 — input borders, focus indicators, status colors)
+    { section: 'Functional UI elements (3:1 threshold)', use: 'ui',
+      pairs: [
+        ['--border-strong', '--surface', 'Strong border (input borders, controls)'],
+        ['--brand',         '--surface', 'Brand chip dot / focus indicator base'],
+        ['--danger',        '--surface', 'Danger chip / dot'],
+        ['--warning',       '--surface', 'Warning chip / dot'],
+        ['--info',          '--surface', 'Info chip / dot'],
+      ]
+    },
+    // ─── Decorative borders — no WCAG threshold (informational only)
+    { section: 'Decorative borders (no threshold)', use: 'decorative',
+      pairs: [
+        ['--border',        '--surface',        'Card border on card'],
+        ['--border-light',  '--surface',        'Subtle separator on card'],
+        ['--border-light',  '--surface-subtle', 'Subtle separator on subtle'],
+      ]
+    },
+    // ─── Disabled (informational only)
+    { section: 'Disabled state (informational)', use: 'large',
+      pairs: [
+        ['--text-disabled', '--surface',       'Disabled label on card'],
+        ['--text-disabled', '--surface-muted', 'Disabled label on muted (input)'],
+      ]
+    },
+  ];
+
+  // ─── Threshold logic ────────────────────────────────────────────────
+  const THRESHOLDS = {
+    'normal':     { pass: 4.5, lift: 7.0,  label: 'AA',  liftLabel: 'AAA' },
+    'large':      { pass: 3.0, lift: 4.5,  label: 'AA',  liftLabel: 'AAA' },
+    'ui':         { pass: 3.0, lift: null, label: 'UI',  liftLabel: null  },
+    'decorative': { pass: 0,   lift: null, label: 'OK',  liftLabel: null  },
+  };
+
+  function gradeFor(ratio, use) {
+    if (ratio == null) return { tier: 'na', label: 'N/A' };
+    if (use === 'decorative') return { tier: 'na', label: 'Decor' };
+    const t = THRESHOLDS[use];
+    if (t.lift != null && ratio >= t.lift) return { tier: 'pass', label: t.liftLabel };
+    if (ratio >= t.pass) return { tier: 'pass', label: t.label };
+    return { tier: 'fail', label: 'Fail' };
+  }
+
+  // ─── Render ─────────────────────────────────────────────────────────
+  const resultsEl = document.getElementById('results');
+  let activeFilter = 'all';
+  let activeUse = 'auto';
+  // Tweakable sample text — read from window in case Tweaks overrode it
+  window.__a11ySwatchText = window.__a11ySwatchText || 'Aa · 13px';
+
+  function render() {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    document.getElementById('stat-theme').textContent = isDark ? 'Dark' : 'Light';
+
+    let total = 0, passed = 0, failed = 0;
+
+    resultsEl.innerHTML = '';
+    TESTS.forEach(test => {
+      const rows = [];
+      let sectionPass = 0, sectionFail = 0;
+
+      test.pairs.forEach(([fgName, bgName, desc]) => {
+        const fg = tokenRGB(fgName);
+        const bg = tokenRGB(bgName);
+        const ratio = contrast(fg, bg);
+        const useUsed = activeUse === 'auto' ? test.use : (activeUse === 'aa-normal' ? 'normal' : (activeUse === 'aaa' ? 'normal' : test.use));
+        const grade = gradeFor(ratio, useUsed);
+
+        // For 'aaa' mode override label to AAA threshold strictly
+        let label = grade.label, tier = grade.tier;
+        if (activeUse === 'aaa') {
+          if (ratio == null) { label = 'N/A'; tier = 'na'; }
+          else if (ratio >= 7.0) { label = 'AAA'; tier = 'pass'; }
+          else if (ratio >= 4.5) { label = 'AA';  tier = 'warn'; }
+          else { label = 'Fail'; tier = 'fail'; }
+        }
+
+        total++;
+        if (tier === 'pass') { passed++; sectionPass++; }
+        if (tier === 'fail') { failed++; sectionFail++; }
+
+        const showRow = activeFilter === 'all'
+          || (activeFilter === 'fail' && tier === 'fail')
+          || (activeFilter === 'aaa'  && label === 'AAA');
+
+        if (!showRow) return;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <span class="preview-swatch" style="color: ${rgbStr(fg)}; background: ${rgbStr(bg)};">${(window.__a11ySwatchText || 'Aa · 13px').replace(/[<>&]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))}</span>
+          </td>
+          <td>
+            <div class="pair-fg">${desc}</div>
+            <div class="pair-name">${fgName} <span style="opacity:0.6;">/</span> ${bgName}</div>
+          </td>
+          <td style="font-family: var(--font-mono); font-size: var(--text-xs); color: var(--text-tertiary);">
+            ${hexStr(fg)} <span style="opacity:0.5;">/</span> ${hexStr(bg)}
+          </td>
+          <td>
+            <div class="ratio-cell">${ratio != null ? ratio.toFixed(2) : '—'}<span class="ratio-sub">:1</span></div>
+          </td>
+          <td><span class="pf pf-${tier}">${label}</span></td>
+        `;
+        rows.push(tr);
+      });
+
+      const section = document.createElement('div');
+      section.className = 'a11y-section';
+      section.innerHTML = `
+        <div class="a11y-section-head">
+          <div class="a11y-section-title">${test.section}</div>
+          <div class="a11y-section-meta">${sectionPass} pass · ${sectionFail} fail · ${test.pairs.length} total</div>
+        </div>
+        <table class="a11y-table">
+          <thead>
+            <tr>
+              <th style="width: 110px;">Preview</th>
+              <th>Pair</th>
+              <th>Values</th>
+              <th style="width: 90px;">Ratio</th>
+              <th style="width: 80px;">Grade</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      `;
+      const tbody = section.querySelector('tbody');
+      rows.forEach(r => tbody.appendChild(r));
+
+      // Hide section if filter removed everything
+      if (rows.length === 0) section.style.display = 'none';
+
+      resultsEl.appendChild(section);
+    });
+
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-pass').textContent = passed;
+    document.getElementById('stat-fail').textContent = failed;
+  }
+
+  // Initial render — wait a beat so docs.js sidebar is in and fonts settle
+  function go() {
+    render();
+  }
+
+  // ─── Watch for theme changes ──────────────────────────────────────────
+  const observer = new MutationObserver(go);
+  observer.observe(root, { attributes: true, attributeFilter: ['data-theme', 'class'] });
+
+  // ─── Filter wiring ────────────────────────────────────────────────────
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = chip.dataset.filter;
+      go();
+    });
+  });
+  document.querySelectorAll('#useSeg .a11y-seg-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#useSeg .a11y-seg-btn').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      activeUse = btn.dataset.use;
+      go();
+    });
+  });
+
+  // Expose for external re-render (Tweaks panel)
+  window.__a11yRender = go;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', go);
+  } else {
+    go();
+  }
+})();
+</script>
+
+<!-- ─── Tweaks panel ─────────────────────────────────────────────────── -->
+<div id="tweaks-root"></div>
+<script>
+  /* Tweak defaults — edited in place by the host when user changes values. */
+  window.__A11Y_TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "swatchShape": "rect",
+    "swatchSize": "md",
+    "showHex": true,
+    "showTokens": true,
+    "compact": false,
+    "sampleText": "Aa · 13px"
+  }/*EDITMODE-END*/;
+</script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+(function () {
+  const { useEffect } = React;
+  const root = document.documentElement;
+  const body = document.body;
+
+  const SHAPE_RADIUS = {
+    rect:   'var(--radius-sm)',
+    pill:   'var(--radius-full)',
+    circle: '50%',
+  };
+  const SIZE_VARS = {
+    sm: { h: '24px', padx: '8px',  minw: '0px'  },
+    md: { h: '32px', padx: '14px', minw: '0px'  },
+    lg: { h: '40px', padx: '18px', minw: '0px'  },
+  };
+
+  function applyTweaks(t) {
+    // Swatch shape
+    const radius = SHAPE_RADIUS[t.swatchShape] || SHAPE_RADIUS.rect;
+    // If circle, force square min-width = height and no horizontal padding
+    if (t.swatchShape === 'circle') {
+      const h = SIZE_VARS[t.swatchSize].h;
+      root.style.setProperty('--swatch-radius', '50%');
+      root.style.setProperty('--swatch-height', h);
+      root.style.setProperty('--swatch-padx', '0px');
+      root.style.setProperty('--swatch-min-width', h);
+    } else {
+      const s = SIZE_VARS[t.swatchSize] || SIZE_VARS.md;
+      root.style.setProperty('--swatch-radius', radius);
+      root.style.setProperty('--swatch-height', s.h);
+      root.style.setProperty('--swatch-padx', s.padx);
+      root.style.setProperty('--swatch-min-width', s.minw);
+    }
+    // Density / column toggles via body classes
+    body.classList.toggle('twk-compact',   !!t.compact);
+    body.classList.toggle('twk-no-hex',    !t.showHex);
+    body.classList.toggle('twk-no-tokens', !t.showTokens);
+    // Sample text — store and re-render the matrix so cells regenerate
+    const txt = t.swatchShape === 'circle' ? '' : (t.sampleText || '');
+    window.__a11ySwatchText = txt;
+    if (typeof window.__a11yRender === 'function') window.__a11yRender();
+  }
+
+  function App() {
+    const [t, setTweak] = useTweaks(window.__A11Y_TWEAK_DEFAULTS);
+    useEffect(() => { applyTweaks(t); }, [t]);
+
+    return (
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Swatch shape" />
+        <TweakRadio  label="Shape" value={t.swatchShape}
+                     options={['rect', 'pill', 'circle']}
+                     onChange={(v) => setTweak('swatchShape', v)} />
+        <TweakRadio  label="Size" value={t.swatchSize}
+                     options={['sm', 'md', 'lg']}
+                     onChange={(v) => setTweak('swatchSize', v)} />
+        <TweakText   label="Sample text" value={t.sampleText}
+                     onChange={(v) => setTweak('sampleText', v)} />
+
+        <TweakSection label="Table density" />
+        <TweakToggle label="Compact rows" value={t.compact}
+                     onChange={(v) => setTweak('compact', v)} />
+        <TweakToggle label="Show hex values" value={t.showHex}
+                     onChange={(v) => setTweak('showHex', v)} />
+        <TweakToggle label="Show token names" value={t.showTokens}
+                     onChange={(v) => setTweak('showTokens', v)} />
+      </TweaksPanel>
+    );
+  }
+
+  // Apply defaults immediately so first paint matches saved state
+  applyTweaks(window.__A11Y_TWEAK_DEFAULTS);
+
+  function mount() {
+    const el = document.getElementById('tweaks-root');
+    if (!el) return;
+    ReactDOM.createRoot(el).render(<App />);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount);
+  } else {
+    mount();
+  }
+})();
+</script>
+
+</body>
+</html>
