@@ -267,7 +267,13 @@
 
   <div class="docs-eyebrow">Tools</div>
   <h1 class="docs-h1">Accessibility check</h1>
-  <p class="docs-lede">Live WCAG 2.1 contrast audit of every token pair in the system, computed from the actual CSS values currently loaded. Toggle the theme above to re-run against the dark palette. Every result updates in real time when you edit a token.</p>
+  <p class="docs-lede">WCAG 2.1 contrast audit of every token pair in the system, computed from the actual CSS values currently loaded. It's <strong>user-led</strong> — press Run to audit the current implementation; re-run after a theme toggle or token edit to refresh.</p>
+
+  <!-- Run control (manual / user-led) -->
+  <div class="a11y-run" style="display:flex; align-items:center; gap:var(--space-12); flex-wrap:wrap; margin:var(--space-20) 0 var(--space-24); padding:var(--space-14) var(--space-16); background:var(--surface-subtle); border:1px solid var(--border-light); border-radius:var(--radius-md);">
+    <button class="btn btn-brand" id="run-a11y">Run A11y audit on the current implementation</button>
+    <span id="run-a11y-status" style="font-size:var(--text-md); color:var(--text-tertiary);">Not run yet — press Run to test the live tokens.</span>
+  </div>
 
   <!-- Top stats -->
   <div class="a11y-stats" id="stats">
@@ -705,22 +711,50 @@
     document.getElementById('stat-fail').textContent = failed;
   }
 
-  // Initial render — wait a beat so docs.js sidebar is in and fonts settle
   function go() {
     render();
   }
 
-  // ─── Watch for theme changes ──────────────────────────────────────────
-  const observer = new MutationObserver(go);
+  // ─── Manual / user-led run ────────────────────────────────────────────
+  // The audit does NOT auto-run. It computes only when the user presses Run,
+  // and only re-renders on theme/filter/token changes AFTER a first run.
+  let hasRun = false;
+
+  function placeholder() {
+    resultsEl.innerHTML =
+      '<div class="a11y-section" style="padding:var(--space-32) var(--space-24); text-align:center; color:var(--text-tertiary); font-size:var(--text-md);">'
+      + 'Press <strong style="color:var(--text-secondary);">Run A11y audit</strong> above to compute every token pair against the current implementation.'
+      + '</div>';
+  }
+
+  function runAudit() {
+    hasRun = true;
+    go();
+    const statusEl = document.getElementById('run-a11y-status');
+    if (statusEl) {
+      const total = document.getElementById('stat-total').textContent;
+      const fails = document.getElementById('stat-fail').textContent;
+      const theme = document.getElementById('stat-theme').textContent;
+      const when = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const issues = fails === '1' ? '1 issue' : `${fails} issues`;
+      statusEl.textContent = `Last run ${when} · ${theme} · ${total} pairs · ${issues} on the current implementation.`;
+      statusEl.style.color = (fails === '0') ? 'var(--brand)' : 'var(--danger)';
+    }
+  }
+
+  document.getElementById('run-a11y').addEventListener('click', runAudit);
+
+  // Theme changes re-run ONLY after a manual run (otherwise stay idle).
+  const observer = new MutationObserver(() => { if (hasRun) go(); });
   observer.observe(root, { attributes: true, attributeFilter: ['data-theme', 'class'] });
 
-  // ─── Filter wiring ────────────────────────────────────────────────────
+  // ─── Filter wiring (only re-render once the audit has been run) ────────
   document.querySelectorAll('.filter-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
       activeFilter = chip.dataset.filter;
-      go();
+      if (hasRun) go();
     });
   });
   document.querySelectorAll('#useSeg .a11y-seg-btn').forEach(btn => {
@@ -728,17 +762,18 @@
       document.querySelectorAll('#useSeg .a11y-seg-btn').forEach(c => c.classList.remove('active'));
       btn.classList.add('active');
       activeUse = btn.dataset.use;
-      go();
+      if (hasRun) go();
     });
   });
 
-  // Expose for external re-render (Tweaks panel)
-  window.__a11yRender = go;
+  // Tweaks panel re-render hook — only re-render if the audit is already showing.
+  window.__a11yRender = () => { if (hasRun) go(); };
 
+  // Initial state: idle placeholder, no auto-run.
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', go);
+    document.addEventListener('DOMContentLoaded', placeholder);
   } else {
-    go();
+    placeholder();
   }
 })();
 </script>
