@@ -166,7 +166,9 @@
 
 .select {
   cursor: pointer; padding-right: var(--space-24);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%238A7E7D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  /* warm-500 mid-neutral — legible on both light and dark inputs (was the
+     stale hardcoded #8A7E7D, which read low-contrast in dark mode). */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23A89E99' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat; background-position: right var(--space-10) center;
   appearance: none; -webkit-appearance: none;
 }
@@ -303,6 +305,7 @@
   font-size: var(--text-xl); font-weight: var(--weight-semibold);
   font-family: var(--font-heading); color: var(--text-primary);
   letter-spacing: var(--tracking-snug); min-width: 30px; text-align: right;
+  font-feature-settings: var(--numeric-tabular); font-variant-numeric: tabular-nums lining-nums;
 }
 
 /* ─── Tag ───────────────────────────────────────────────────────────────── */
@@ -546,7 +549,7 @@
 /* ─── Popover ───────────────────────────────────────────────────────────── */
 .popover {
   position: absolute;
-  background: var(--surface); border: 1px solid var(--border);
+  background: var(--surface); border: 1px solid var(--border-hairline);
   border-radius: var(--radius-md); box-shadow: var(--shadow-dropdown);
   padding: var(--space-12); min-width: 200px;
   z-index: var(--z-dropdown);
@@ -559,7 +562,7 @@
 
 /* ─── Dropdown menu ─────────────────────────────────────────────────────── */
 .menu {
-  background: var(--surface); border: 1px solid var(--border);
+  background: var(--surface); border: 1px solid var(--border-hairline);
   border-radius: var(--radius-md); box-shadow: var(--shadow-dropdown);
   padding: var(--space-4); min-width: 180px;
   z-index: var(--z-dropdown);
@@ -599,7 +602,7 @@
 .dialog {
   position: fixed; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  background: var(--surface); border: 1px solid var(--border);
+  background: var(--surface); border: 1px solid var(--border-hairline);
   border-radius: var(--radius-lg); box-shadow: var(--shadow-modal);
   width: min(440px, calc(100vw - 32px));
   max-height: calc(100vh - 64px); overflow: auto;
@@ -637,7 +640,7 @@
 .sheet {
   position: fixed; top: 0; right: 0; bottom: 0;
   width: min(380px, 90vw);
-  background: var(--surface); border-left: 1px solid var(--border);
+  background: var(--surface); border-left: 1px solid var(--border-hairline);
   box-shadow: var(--shadow-modal);
   z-index: var(--z-modal);
   display: flex; flex-direction: column;
@@ -671,6 +674,9 @@
 .tab:hover { color: var(--text-secondary); }
 .tab[aria-selected="true"], .tab.active {
   color: var(--text-primary); border-bottom-color: var(--text-primary);
+}
+.tab:disabled, .tab[aria-disabled="true"] {
+  color: var(--text-disabled); cursor: not-allowed; pointer-events: none;
 }
 .tab-panel { padding: var(--space-16) 0; }
 
@@ -738,6 +744,7 @@
   min-width: 28px; height: 28px; padding: 0 8px;
   border-radius: var(--radius-xs);
   font-size: var(--text-md); font-weight: var(--weight-medium);
+  font-feature-settings: var(--numeric-tabular); font-variant-numeric: tabular-nums lining-nums;
   color: var(--text-secondary); cursor: pointer;
   border: 1px solid transparent;
 }
@@ -746,13 +753,16 @@
   background: var(--surface); border-color: var(--border);
   color: var(--text-primary);
 }
+.pagination-item:disabled, .pagination-item[aria-disabled="true"] {
+  color: var(--text-disabled); cursor: not-allowed; pointer-events: none;
+}
 .pagination-ellipsis { color: var(--text-tertiary); padding: 0 4px; }
 
 /* ─── Toast ─────────────────────────────────────────────────────────────── */
 .toast {
   display: flex; align-items: flex-start; gap: var(--space-10);
   padding: var(--space-12) var(--space-14);
-  background: var(--surface); border: 1px solid var(--border);
+  background: var(--surface); border: 1px solid var(--border-hairline);
   border-radius: var(--radius-md); box-shadow: var(--shadow-modal);
   min-width: 280px; max-width: 380px;
   animation: toastIn 0.32s var(--ease-spring) both;
@@ -775,7 +785,7 @@
 
 /* ─── Command (cmd+k) ───────────────────────────────────────────────────── */
 .command {
-  background: var(--surface); border: 1px solid var(--border);
+  background: var(--surface); border: 1px solid var(--border-hairline);
   border-radius: var(--radius-md); box-shadow: var(--shadow-modal);
   width: 480px; max-width: 90vw; overflow: hidden;
   display: flex; flex-direction: column;
@@ -819,7 +829,7 @@
   color: var(--text-secondary);
 }
 .table td strong, .table td.td-primary { color: var(--text-primary); font-weight: var(--weight-medium); }
-.table .td-num { font-variant-numeric: tabular-nums; text-align: right; }
+.table .td-num { font-feature-settings: var(--numeric-tabular); font-variant-numeric: tabular-nums lining-nums; text-align: right; }
 .table .td-actions { text-align: right; white-space: nowrap; }
 .table-bordered {
   border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden;
@@ -878,6 +888,7 @@
 .status-stat-value {
   display: inline-flex; align-items: center; gap: var(--space-5);
   font-size: var(--text-md); font-weight: var(--weight-semibold); color: var(--text-primary);
+  font-feature-settings: var(--numeric-tabular); font-variant-numeric: tabular-nums lining-nums;
 }
 .status-stat-context { font-size: var(--text-md); color: var(--text-tertiary); }
 
