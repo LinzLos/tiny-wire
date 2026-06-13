@@ -309,6 +309,30 @@
     onScroll();
   }
 
+  // ─── On-page table of contents (long content pages) ────────────────────
+  function setupTOC() {
+    if (document.querySelector('.audit-meta')) return;   // audit has its own dashboard
+    const heads = Array.from(document.querySelectorAll('h2.docs-h2[id]'));
+    if (heads.length < 6) return;
+    const lede = document.querySelector('.docs-lede');
+    if (!lede) return;
+    const nav = document.createElement('nav');
+    nav.className = 'docs-toc';
+    nav.setAttribute('aria-label', 'On this page');
+    const label = document.createElement('span');
+    label.className = 'docs-toc-label';
+    label.textContent = 'On this page';
+    nav.appendChild(label);
+    heads.forEach(h => {
+      const a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.className = 'docs-toc-link';
+      a.textContent = (h.textContent || '').trim();
+      nav.appendChild(a);
+    });
+    lede.insertAdjacentElement('afterend', nav);
+  }
+
   // ─── Inject sidebar + init ────────────────────────────────────────────
   function init() {
     const slot = document.getElementById('docs-sidebar-slot');
@@ -321,6 +345,7 @@
     setupDemos();
     setupCopyButtons();
     setupBackToTop();
+    setupTOC();
   }
 
   if (document.readyState === 'loading') {
