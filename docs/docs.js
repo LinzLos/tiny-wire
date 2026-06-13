@@ -6,6 +6,11 @@
 (function () {
   const root = document.documentElement;
 
+  // ─── Single source of truth for the current version ────────────────────
+  // Bump this ONE constant each release. It drives the sidebar below and every
+  // element marked [data-tw-version] across the docs (see init()).
+  const VERSION = 'v1.3';
+
   // ─── Sidebar template ──────────────────────────────────────────────────
   const SIDEBAR_HTML = `
 <aside class="docs-sidebar">
@@ -18,7 +23,7 @@
       </div>
       <div>
         <div class="docs-logo-name">Tiny Wire</div>
-        <div class="docs-logo-version">v1.2</div>
+        <div class="docs-logo-version">${VERSION}</div>
       </div>
     </a>
     <button class="theme-toggle-icon" data-theme-toggle onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme"></button>
@@ -186,6 +191,8 @@
   function init() {
     const slot = document.getElementById('docs-sidebar-slot');
     if (slot) slot.outerHTML = SIDEBAR_HTML;
+    // Drive every current-version marker from the one VERSION constant.
+    document.querySelectorAll('[data-tw-version]').forEach(el => { el.textContent = VERSION; });
     updateThemeLabel();
     markCurrentPage();
     setupActiveLinks();

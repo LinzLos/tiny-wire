@@ -919,6 +919,20 @@
       });
     });
   })();
+
+  // Whole finding card is clickable -> opens its "View on GitHub" target.
+  // Inner interactive elements (links, buttons, form controls, demos) still work.
+  (function () {
+    document.querySelectorAll('.finding').forEach(card => {
+      const link = card.querySelector('.finding-foot-meta a[href]');
+      if (!link) return;                       // deferred cards have no link — leave them
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a, button, input, label, .switch, .slider, [role="button"]')) return;
+        window.open(link.href, '_blank', 'noopener');
+      });
+    });
+  })();
 </script>
 
 </body>
