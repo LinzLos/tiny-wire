@@ -22,7 +22,24 @@
   <h1 class="docs-h1">Tokens</h1>
   <p class="docs-lede">Every color, size, radius, shadow, and duration is a CSS custom property on <code>:root</code>. Dark mode overrides those values under <code>:root[data-theme="dark"]</code>. Components read tokens — they never hardcode values.</p>
 
-  <!-- ── Colors ────────────────────────────────────────────────────────── -->
+  <h2 class="docs-h2" id="animation">Animation</h2>
+  <p class="docs-h2-sub">Spring easing for entrances. Standard ease for micro-interactions. Four duration tiers from snappy to deliberate.</p>
+
+  <div class="token-group-label">Easings</div>
+  <div class="card" style="padding: var(--space-20); margin-bottom: var(--space-32); display: flex; flex-direction: column; gap: var(--space-10);">
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--ease-spring</span><span style="font-size: var(--text-md); color: var(--text-secondary);"><code>cubic-bezier(0.16, 1, 0.3, 1)</code> — overshoots slightly, feels alive</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--ease-out</span><span style="font-size: var(--text-md); color: var(--text-secondary);"><code>ease-out</code> — clean deceleration</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--ease-standard</span><span style="font-size: var(--text-md); color: var(--text-secondary);"><code>ease</code> — general-purpose transitions</span></div>
+  </div>
+
+  <div class="token-group-label">Durations</div>
+  <div class="card" style="padding: var(--space-20); margin-bottom: var(--space-32); display: flex; flex-direction: column; gap: var(--space-10);">
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-fast</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.15s — hover states, micro color changes</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-base</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.22s — filter entrances, focus rings</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-moderate</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.30s — modals, expandable regions</span></div>
+    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-slow</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.40s — page transitions, large surfaces</span></div>
+  </div>
+
   <h2 class="docs-h2" id="colors">Colors</h2>
   <p class="docs-h2-sub">A warm neutral base with a green brand, orange-red danger, and categorical data colors. All hues share a muted, slightly desaturated quality. Toggle the theme in the sidebar to see dark values.</p>
 
@@ -94,7 +111,50 @@
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--chart-violet)"></div><div><div class="color-chip-name">Chart Violet</div><div class="color-chip-var">--chart-violet</div></div></div>
   </div>
 
-  <!-- ── Typography ────────────────────────────────────────────────────── -->
+  <h2 class="docs-h2" id="radius">Radius</h2>
+  <p class="docs-h2-sub">Six steps from sharp to pill. <code>--radius</code> (10px) is the default card radius; <code>--radius-md</code> (8px) is the default container radius.</p>
+  <div class="card" style="padding: var(--space-24);">
+    <div class="radius-grid">
+      <div class="radius-item"><div class="radius-box" style="border-radius:4px;"></div><div class="radius-token">--radius-xs</div><div class="radius-val">4px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:6px;"></div><div class="radius-token">--radius-sm</div><div class="radius-val">6px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:8px;"></div><div class="radius-token">--radius-md</div><div class="radius-val">8px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:10px;"></div><div class="radius-token">--radius</div><div class="radius-val">10px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:12px;"></div><div class="radius-token">--radius-lg</div><div class="radius-val">12px</div></div>
+      <div class="radius-item"><div class="radius-box" style="border-radius:9999px; width:96px; height:40px;"></div><div class="radius-token">--radius-full</div><div class="radius-val">9999px</div></div>
+    </div>
+  </div>
+
+  <h2 class="docs-h2" id="shadows">Shadows</h2>
+  <p class="docs-h2-sub">Subtle, layered shadows — never solid black, always transparent washes. Shadow tokens lift to higher opacity in dark mode to stay legible against the dark surface.</p>
+  <div class="card" style="padding: var(--space-24);">
+    <div class="shadow-grid">
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-card);"></div><div class="shadow-token">--shadow-card</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-nav);"></div><div class="shadow-token">--shadow-nav</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-toggle);"></div><div class="shadow-token">--shadow-toggle</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-hover);"></div><div class="shadow-token">--shadow-hover</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-modal);"></div><div class="shadow-token">--shadow-modal</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-dropdown);"></div><div class="shadow-token">--shadow-dropdown</div></div>
+      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-overlay);"></div><div class="shadow-token">--shadow-overlay</div></div>
+    </div>
+  </div>
+
+  <h2 class="docs-h2" id="spacing">Spacing</h2>
+  <p class="docs-h2-sub">A tight scale built for dense UI. Px-named so the value is always obvious. Used for padding, gap, margin, and any other length.</p>
+  <div class="card" style="padding: var(--space-20);">
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-2</span><span class="spacing-px">2px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:2px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-4</span><span class="spacing-px">4px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:4px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-6</span><span class="spacing-px">6px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:6px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-8</span><span class="spacing-px">8px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:8px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-10</span><span class="spacing-px">10px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:10px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-12</span><span class="spacing-px">12px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:12px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-16</span><span class="spacing-px">16px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:16px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-20</span><span class="spacing-px">20px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:20px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-24</span><span class="spacing-px">24px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:24px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-32</span><span class="spacing-px">32px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:32px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-48</span><span class="spacing-px">48px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:48px"></div></div></div>
+    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-64</span><span class="spacing-px">64px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:64px"></div></div></div>
+  </div>
+
   <h2 class="docs-h2" id="typography">Typography</h2>
   <p class="docs-h2-sub"><strong style="font-weight:600;">Bricolage Grotesque</strong> for headings, display, and numerics. <strong style="font-weight:600;">DM Sans</strong> for all body and UI text. Both loaded from Google Fonts in a single request.</p>
 
@@ -134,72 +194,6 @@
     <div style="display:flex; gap: var(--space-16); align-items: baseline;"><span class="color-chip-var" style="width: 140px;">--weight-medium</span><span style="font-weight: 500; font-size: var(--text-lg);">Medium 500 — buttons, links</span></div>
     <div style="display:flex; gap: var(--space-16); align-items: baseline;"><span class="color-chip-var" style="width: 140px;">--weight-semibold</span><span style="font-weight: 600; font-size: var(--text-lg);">Semibold 600 — section headings</span></div>
     <div style="display:flex; gap: var(--space-16); align-items: baseline;"><span class="color-chip-var" style="width: 140px;">--weight-bold</span><span style="font-weight: 700; font-size: var(--text-lg);">Bold 700 — page titles, hero</span></div>
-  </div>
-
-  <!-- ── Spacing ───────────────────────────────────────────────────────── -->
-  <h2 class="docs-h2" id="spacing">Spacing</h2>
-  <p class="docs-h2-sub">A tight scale built for dense UI. Px-named so the value is always obvious. Used for padding, gap, margin, and any other length.</p>
-  <div class="card" style="padding: var(--space-20);">
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-2</span><span class="spacing-px">2px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:2px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-4</span><span class="spacing-px">4px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:4px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-6</span><span class="spacing-px">6px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:6px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-8</span><span class="spacing-px">8px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:8px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-10</span><span class="spacing-px">10px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:10px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-12</span><span class="spacing-px">12px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:12px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-16</span><span class="spacing-px">16px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:16px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-20</span><span class="spacing-px">20px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:20px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-24</span><span class="spacing-px">24px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:24px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-32</span><span class="spacing-px">32px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:32px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-48</span><span class="spacing-px">48px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:48px"></div></div></div>
-    <div class="spacing-row"><div class="spacing-meta"><span class="spacing-token">--space-64</span><span class="spacing-px">64px</span></div><div style="flex:1;"><div class="spacing-bar" style="width:64px"></div></div></div>
-  </div>
-
-  <!-- ── Radius ────────────────────────────────────────────────────────── -->
-  <h2 class="docs-h2" id="radius">Border Radius</h2>
-  <p class="docs-h2-sub">Six steps from sharp to pill. <code>--radius</code> (10px) is the default card radius; <code>--radius-md</code> (8px) is the default container radius.</p>
-  <div class="card" style="padding: var(--space-24);">
-    <div class="radius-grid">
-      <div class="radius-item"><div class="radius-box" style="border-radius:4px;"></div><div class="radius-token">--radius-xs</div><div class="radius-val">4px</div></div>
-      <div class="radius-item"><div class="radius-box" style="border-radius:6px;"></div><div class="radius-token">--radius-sm</div><div class="radius-val">6px</div></div>
-      <div class="radius-item"><div class="radius-box" style="border-radius:8px;"></div><div class="radius-token">--radius-md</div><div class="radius-val">8px</div></div>
-      <div class="radius-item"><div class="radius-box" style="border-radius:10px;"></div><div class="radius-token">--radius</div><div class="radius-val">10px</div></div>
-      <div class="radius-item"><div class="radius-box" style="border-radius:12px;"></div><div class="radius-token">--radius-lg</div><div class="radius-val">12px</div></div>
-      <div class="radius-item"><div class="radius-box" style="border-radius:9999px; width:96px; height:40px;"></div><div class="radius-token">--radius-full</div><div class="radius-val">9999px</div></div>
-    </div>
-  </div>
-
-  <!-- ── Shadows ───────────────────────────────────────────────────────── -->
-  <h2 class="docs-h2" id="shadows">Shadows</h2>
-  <p class="docs-h2-sub">Subtle, layered shadows — never solid black, always transparent washes. Shadow tokens lift to higher opacity in dark mode to stay legible against the dark surface.</p>
-  <div class="card" style="padding: var(--space-24);">
-    <div class="shadow-grid">
-      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-card);"></div><div class="shadow-token">--shadow-card</div></div>
-      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-nav);"></div><div class="shadow-token">--shadow-nav</div></div>
-      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-toggle);"></div><div class="shadow-token">--shadow-toggle</div></div>
-      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-hover);"></div><div class="shadow-token">--shadow-hover</div></div>
-      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-modal);"></div><div class="shadow-token">--shadow-modal</div></div>
-      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-dropdown);"></div><div class="shadow-token">--shadow-dropdown</div></div>
-      <div class="shadow-item"><div class="shadow-box" style="box-shadow: var(--shadow-overlay);"></div><div class="shadow-token">--shadow-overlay</div></div>
-    </div>
-  </div>
-
-  <!-- ── Animation ─────────────────────────────────────────────────────── -->
-  <h2 class="docs-h2" id="animation">Animation</h2>
-  <p class="docs-h2-sub">Spring easing for entrances. Standard ease for micro-interactions. Four duration tiers from snappy to deliberate.</p>
-
-  <div class="token-group-label">Easings</div>
-  <div class="card" style="padding: var(--space-20); margin-bottom: var(--space-32); display: flex; flex-direction: column; gap: var(--space-10);">
-    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--ease-spring</span><span style="font-size: var(--text-md); color: var(--text-secondary);"><code>cubic-bezier(0.16, 1, 0.3, 1)</code> — overshoots slightly, feels alive</span></div>
-    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--ease-out</span><span style="font-size: var(--text-md); color: var(--text-secondary);"><code>ease-out</code> — clean deceleration</span></div>
-    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--ease-standard</span><span style="font-size: var(--text-md); color: var(--text-secondary);"><code>ease</code> — general-purpose transitions</span></div>
-  </div>
-
-  <div class="token-group-label">Durations</div>
-  <div class="card" style="padding: var(--space-20); margin-bottom: var(--space-32); display: flex; flex-direction: column; gap: var(--space-10);">
-    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-fast</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.15s — hover states, micro color changes</span></div>
-    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-base</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.22s — filter entrances, focus rings</span></div>
-    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-moderate</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.30s — modals, expandable regions</span></div>
-    <div style="display:flex; gap: var(--space-16); align-items:center;"><span class="color-chip-var" style="width:140px;">--duration-slow</span><span style="font-size: var(--text-md); color: var(--text-secondary);">0.40s — page transitions, large surfaces</span></div>
   </div>
 
 </main>

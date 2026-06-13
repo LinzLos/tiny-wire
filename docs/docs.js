@@ -35,6 +35,11 @@
       <a class="docs-nav-link" href="index.html">Introduction</a>
       <a class="docs-nav-link" href="index.html#quickstart">Quick start</a>
       <a class="docs-nav-link" href="index.html#principles">Principles</a>
+      <a class="docs-nav-link" href="index.html#files">What's in the repo</a>
+    </div>
+
+    <div class="docs-nav-group">
+      <div class="docs-nav-group-label">Reference</div>
       <a class="docs-nav-link" href="audit.html">Audit &amp; changelog</a>
       <a class="docs-nav-link" href="a11y.html">A11y check</a>
     </div>
