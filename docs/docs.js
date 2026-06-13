@@ -449,6 +449,33 @@
     input.addEventListener('input', filter);
   }
 
+  // ─── Prev / Next page footer (learning path) ───────────────────────────
+  function setupPageNav() {
+    const main = document.querySelector('.docs-main');
+    if (!main) return;
+    const PAGES = [
+      { file: 'index.html', title: 'Introduction' },
+      { file: 'foundations.html', title: 'Foundations' },
+      { file: 'components.html', title: 'Components' },
+      { file: 'patterns.html', title: 'Patterns' },
+      { file: 'audit.html', title: 'Audit & changelog' },
+      { file: 'a11y.html', title: 'Accessibility check' },
+    ];
+    const here = (location.pathname.split('/').pop() || 'index.html');
+    const i = PAGES.findIndex(p => p.file === here);
+    if (i < 0) return;
+    const prev = PAGES[i - 1], next = PAGES[i + 1];
+    if (!prev && !next) return;
+    const link = (p, dir, cls) => p
+      ? '<a class="docs-pagenav-link ' + cls + '" href="' + p.file + '"><span class="docs-pagenav-dir">' + dir + '</span><span class="docs-pagenav-title">' + p.title + '</span></a>'
+      : '<span></span>';
+    const nav = document.createElement('nav');
+    nav.className = 'docs-pagenav';
+    nav.setAttribute('aria-label', 'Page navigation');
+    nav.innerHTML = link(prev, '← Previous', 'prev') + link(next, 'Next →', 'next');
+    main.appendChild(nav);
+  }
+
   // ─── Inject sidebar + init ────────────────────────────────────────────
   function init() {
     const slot = document.getElementById('docs-sidebar-slot');
@@ -463,6 +490,7 @@
     setupBackToTop();
     setupTOC();
     setupTokenSearch();
+    setupPageNav();
   }
 
   if (document.readyState === 'loading') {

@@ -449,6 +449,7 @@
   <h2 class="docs-h2" id="dialog">Dialog</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.dialog · .dialog-overlay · .dialog-header · .dialog-body · .dialog-footer</span></div></div>
   <p class="comp-desc">Centered modal with a blurred scrim. Use for confirmations, forms, and any flow that should block the rest of the page.</p>
+  <p class="comp-a11y"><strong>Accessibility:</strong> render with <code>role="dialog"</code> <code>aria-modal="true"</code> and point <code>aria-labelledby</code> at the title. On open, move focus into the dialog and trap <kbd>Tab</kbd> inside it; on close, return focus to the trigger and dismiss on <kbd>Esc</kbd>. The demo above does this.</p>
   <div class="demo">
     <div class="demo-canvas plain" style="position: relative; padding: 0; min-height: 360px; overflow: hidden;">
       <div style="position: absolute; inset: 0; background: color-mix(in srgb, var(--text-primary) 60%, transparent); backdrop-filter: blur(2px);"></div>
@@ -800,6 +801,7 @@
   <h2 class="docs-h2" id="sheet">Sheet</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.sheet · .sheet-header · .sheet-body · .sheet-footer</span></div></div>
   <p class="comp-desc">Side-anchored drawer. Use for detail panels, filter sets, and contextual forms that should stay accessible alongside the main view.</p>
+  <p class="comp-a11y"><strong>Accessibility:</strong> same contract as the dialog — <code>role="dialog"</code> <code>aria-modal="true"</code>, <code>aria-labelledby</code> on the title, focus moved in and trapped on open, returned to the trigger on close, <kbd>Esc</kbd> to dismiss.</p>
   <div class="demo">
     <div class="demo-canvas plain" style="position: relative; padding: 0; min-height: 360px; overflow: hidden;">
       <div class="sheet" style="position: absolute; box-shadow: var(--shadow-overlay);">
