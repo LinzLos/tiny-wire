@@ -4,6 +4,32 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 ---
 
+### v1.4 — 2026-06-13 · "Live demos"
+
+Docs-experience pass, driven by a structured UX critique (FLOWIE). The design system stays **CSS-only**; the docs gain a thin vanilla-JS layer so every demo is honest and every page is navigable. No token or class changes — purely the docs site.
+
+#### Added
+
+- **Interactive demos** — tabs (with `role=tab`/arrow-keys), accordion (`aria-expanded`), popover, command-palette search, and dialog/sheet open–close (Esc + focus move). No more "click does nothing" mockups.
+- **Copy-to-clipboard** on every code block, with "Copied" feedback.
+- **On-page table of contents** (auto-built) on long content pages; **back-to-top** button.
+- **Token search** on Foundations — filter ~180 tokens by name across all sections.
+- **Single-source version** — one `VERSION` constant in `docs.js` drives the sidebar + every `[data-tw-version]` marker.
+- Audit metric tiles are **click-to-trace** filters (Findings/Fixes/Deferred → the matching findings); click-away or Esc clears.
+
+#### Changed
+
+- **Page scroll order now equals sidebar order** everywhere — Components, Foundations, and Patterns content reordered alphabetically to match the alpha nav, so scrolling tracks the sidebar 1:1.
+- Sidebar section labels (Get started / Foundations / Components / Patterns / Reference) are now **links** to their pages; "Get started" split so the two standalone tools (Audit, A11y) sit in a new **Reference** group.
+
+#### Fixed
+
+- `sidebar-rail.html` orphan dead-end — now has a "Back to Components" link.
+- Audit finding cards and "View on GitHub" links were dead (`href="#"`) — now resolve to the file each finding touched.
+- The runtime sidebar (baked into `docs.js`) had drifted to a stale `v1.2`; the dead `docs/_sidebar.html` copy was removed.
+
+---
+
 ### v1.3 — 2026-06-12 · "Pedigree pass"
 
 Additive, non-breaking. A systematic rigor + signature pass: warm-neutral foundation, a single cobalt accent, editorial type discipline, and a three-tier token architecture. Token **values** changed but no public token name was renamed or removed — anything built on the semantic tier inherits the refresh unchanged.

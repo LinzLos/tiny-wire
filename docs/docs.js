@@ -9,7 +9,7 @@
   // ─── Single source of truth for the current version ────────────────────
   // Bump this ONE constant each release. It drives the sidebar below and every
   // element marked [data-tw-version] across the docs (see init()).
-  const VERSION = 'v1.3';
+  const VERSION = 'v1.4';
 
   // ─── Sidebar template ──────────────────────────────────────────────────
   const SIDEBAR_HTML = `
