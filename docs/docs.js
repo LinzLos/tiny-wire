@@ -312,6 +312,7 @@
   // ─── On-page table of contents (long content pages) ────────────────────
   function setupTOC() {
     if (document.querySelector('.audit-meta')) return;   // audit has its own dashboard
+    if (document.querySelector('.color-grid')) return;   // foundations uses token search instead
     const heads = Array.from(document.querySelectorAll('h2.docs-h2[id]'));
     if (heads.length < 6) return;
     const lede = document.querySelector('.docs-lede');
@@ -333,6 +334,60 @@
     lede.insertAdjacentElement('afterend', nav);
   }
 
+  // ─── Token search (Foundations) ────────────────────────────────────────
+  function setupTokenSearch() {
+    if (!document.querySelector('.color-grid')) return;   // only Foundations
+    const lede = document.querySelector('.docs-lede');
+    if (!lede) return;
+    const ROW = '.color-chip, .spacing-row, .type-scale-row, .shadow-item, .radius-item';
+    const NAME = '.color-chip-var, .spacing-token, .type-scale-token, .shadow-token, .radius-token';
+    const rows = Array.from(document.querySelectorAll(ROW));
+
+    const wrap = document.createElement('div');
+    wrap.className = 'token-search';
+    wrap.innerHTML = '<input type="search" class="token-search-input" placeholder="Search tokens — e.g. space, accent, radius" aria-label="Search tokens" autocomplete="off"><span class="token-search-count" aria-live="polite"></span>';
+    lede.insertAdjacentElement('afterend', wrap);
+    const input = wrap.querySelector('.token-search-input');
+    const count = wrap.querySelector('.token-search-count');
+
+    const nameOf = (row) => {
+      const el = row.querySelector(NAME);
+      return (el ? el.textContent : row.textContent).toLowerCase();
+    };
+
+    function filter() {
+      const q = input.value.trim().toLowerCase();
+      let shown = 0;
+      rows.forEach(r => {
+        const ok = !q || nameOf(r).includes(q);
+        r.style.display = ok ? '' : 'none';
+        if (ok) shown++;
+      });
+      // hide emptied color groups (label + grid)
+      document.querySelectorAll('.color-grid').forEach(grid => {
+        const any = Array.from(grid.querySelectorAll('.color-chip')).some(c => c.style.display !== 'none');
+        grid.style.display = any ? '' : 'none';
+        const label = grid.previousElementSibling;
+        if (label && label.classList.contains('token-group-label')) label.style.display = any ? '' : 'none';
+      });
+      // hide section headings whose rows are all filtered out
+      document.querySelectorAll('h2.docs-h2[id]').forEach(h => {
+        let el = h.nextElementSibling, any = false;
+        while (el && el.tagName !== 'H2') {
+          if (el.matches && el.matches(ROW) && el.style.display !== 'none') { any = true; break; }
+          if (el.querySelectorAll && Array.from(el.querySelectorAll(ROW)).some(r => r.style.display !== 'none')) { any = true; break; }
+          el = el.nextElementSibling;
+        }
+        const hide = q && !any;
+        h.style.display = hide ? 'none' : '';
+        const sub = h.nextElementSibling;
+        if (sub && sub.classList && sub.classList.contains('docs-h2-sub')) sub.style.display = hide ? 'none' : '';
+      });
+      count.textContent = q ? (shown + ' token' + (shown === 1 ? '' : 's')) : '';
+    }
+    input.addEventListener('input', filter);
+  }
+
   // ─── Inject sidebar + init ────────────────────────────────────────────
   function init() {
     const slot = document.getElementById('docs-sidebar-slot');
@@ -346,6 +401,7 @@
     setupCopyButtons();
     setupBackToTop();
     setupTOC();
+    setupTokenSearch();
   }
 
   if (document.readyState === 'loading') {

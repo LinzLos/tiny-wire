@@ -280,6 +280,17 @@ body {
 .docs-toc-link:hover { color: var(--text-primary); border-color: var(--border-strong); }
 .docs-toc-link:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
 
+/* Token search (injected by docs.js on Foundations) */
+.token-search { display: flex; align-items: center; gap: var(--space-12); margin: var(--space-20) 0 var(--space-32); }
+.token-search-input {
+  flex: 1; max-width: 420px; height: var(--size-control-md); padding: 0 var(--space-12);
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: var(--text-base); color: var(--text-primary);
+  outline: none; transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+}
+.token-search-input:focus { border-color: var(--accent); box-shadow: var(--shadow-focus); }
+.token-search-count { font-size: var(--text-md); color: var(--text-tertiary); white-space: nowrap; }
+
 .demo-code .c { color: #837873; }   /* comment */
 .demo-code .k { color: #EBB39D; }   /* keyword/tag */
 .demo-code .a { color: #AFBCD0; }   /* attr */
