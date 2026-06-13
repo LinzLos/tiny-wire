@@ -39,7 +39,7 @@
     </div>
 
     <div class="docs-nav-group">
-      <div class="docs-nav-group-label">Reference</div>
+      <a class="docs-nav-group-label" href="audit.html">Reference</a>
       <a class="docs-nav-link" href="audit.html">Audit &amp; changelog</a>
       <a class="docs-nav-link" href="a11y.html">A11y check</a>
     </div>
@@ -276,6 +276,62 @@
         pop.style.display = 'none';
         if (trig && trig.setAttribute) trig.setAttribute('aria-expanded', 'false');
       });
+    });
+
+    // Command palette: filter items as you type
+    document.querySelectorAll('.command .command-input').forEach(input => {
+      const cmd = input.closest('.command');
+      const list = cmd && cmd.querySelector('.command-list');
+      if (!list) return;
+      const items = Array.from(list.querySelectorAll('.menu-item'));
+      const empty = document.createElement('div');
+      empty.className = 'command-empty';
+      empty.style.cssText = 'padding:var(--space-12) var(--space-14); font-size:var(--text-md); color:var(--text-tertiary); display:none;';
+      empty.textContent = 'No results';
+      list.appendChild(empty);
+      input.addEventListener('input', () => {
+        const q = input.value.trim().toLowerCase();
+        let shown = 0;
+        items.forEach(it => {
+          const ok = !q || (it.textContent || '').toLowerCase().includes(q);
+          it.style.display = ok ? '' : 'none';
+          if (ok) shown++;
+        });
+        list.querySelectorAll('.command-group-label').forEach(lab => {
+          let el = lab.nextElementSibling, any = false;
+          while (el && !(el.classList && el.classList.contains('command-group-label'))) {
+            if (el.classList && el.classList.contains('menu-item') && el.style.display !== 'none') { any = true; break; }
+            el = el.nextElementSibling;
+          }
+          lab.style.display = any ? '' : 'none';
+        });
+        empty.style.display = (q && shown === 0) ? '' : 'none';
+      });
+    });
+
+    // Dialog / Sheet demos: the X (and Cancel) close it and reveal a reopen button; Esc closes
+    document.querySelectorAll('.demo .dialog, .demo .sheet').forEach(modal => {
+      const canvas = modal.closest('.demo-canvas');
+      if (!canvas) return;
+      const scrim = (modal.previousElementSibling && !modal.previousElementSibling.className) ? modal.previousElementSibling : null;
+      const reopen = document.createElement('button');
+      reopen.type = 'button';
+      reopen.className = 'btn btn-primary';
+      reopen.textContent = modal.classList.contains('sheet') ? 'Open sheet' : 'Open dialog';
+      reopen.style.display = 'none';
+      canvas.appendChild(reopen);
+      const close = () => { modal.style.display = 'none'; if (scrim) scrim.style.display = 'none'; reopen.style.display = ''; reopen.focus(); };
+      const open = () => { modal.style.display = ''; if (scrim) scrim.style.display = ''; reopen.style.display = 'none'; const f = modal.querySelector('button, [href], input, select'); if (f) f.focus(); };
+      reopen.addEventListener('click', open);
+      modal.querySelectorAll('.dialog-close').forEach(b => b.addEventListener('click', close));
+      modal.querySelectorAll('.btn').forEach(b => { if ((b.textContent || '').trim() === 'Cancel') b.addEventListener('click', close); });
+      modal.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    });
+
+    // Slider: mirror value into aria-valuetext for screen readers
+    document.querySelectorAll('input[type="range"].slider').forEach(sl => {
+      const sync = () => sl.setAttribute('aria-valuetext', sl.value);
+      sync(); sl.addEventListener('input', sync);
     });
   }
 
