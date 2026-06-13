@@ -224,9 +224,40 @@ body {
   overflow-x: auto;
   white-space: pre;
   tab-size: 2;
+  position: relative;
 }
 :root[data-theme="dark"] .demo-code { background: #0B0807; }
 .demo.code-open .demo-code { display: block; }
+
+/* Copy-to-clipboard button (injected by docs.js) */
+.demo-copy {
+  position: absolute; top: var(--space-8); right: var(--space-8);
+  height: 24px; padding: 0 var(--space-8);
+  font-family: var(--font-body); font-size: var(--text-2xs);
+  font-weight: var(--weight-semibold); letter-spacing: var(--tracking-caps); text-transform: uppercase;
+  color: #C8D9C7; background: color-mix(in srgb, #C8D9C7 12%, transparent);
+  border: 1px solid color-mix(in srgb, #C8D9C7 25%, transparent); border-radius: var(--radius-sm);
+  cursor: pointer; opacity: 0;
+  transition: opacity var(--duration-fast), color var(--duration-fast), border-color var(--duration-fast), background var(--duration-fast);
+}
+.demo-code:hover .demo-copy, .demo-copy:focus-visible { opacity: 1; }
+.demo-copy:hover { color: #FFFFFF; border-color: color-mix(in srgb, #C8D9C7 45%, transparent); }
+.demo-copy.copied { opacity: 1; color: var(--brand); border-color: var(--brand); background: color-mix(in srgb, var(--brand) 18%, transparent); }
+
+/* Back-to-top (injected by docs.js) */
+.back-to-top {
+  position: fixed; bottom: var(--space-24); right: var(--space-24);
+  width: 40px; height: 40px; border-radius: var(--radius-full);
+  background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-dropdown);
+  color: var(--text-primary); font-size: var(--text-lg); line-height: 1; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transform: translateY(8px);
+  transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-spring), border-color var(--duration-fast);
+  z-index: var(--z-sticky);
+}
+.back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+.back-to-top:hover { border-color: var(--border-strong); }
+.back-to-top:focus-visible { outline: none; box-shadow: var(--shadow-focus); }
 
 .demo-code .c { color: #837873; }   /* comment */
 .demo-code .k { color: #EBB39D; }   /* keyword/tag */

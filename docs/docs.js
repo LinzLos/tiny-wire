@@ -187,6 +187,128 @@
     update();
   }
 
+  // ─── Interactive demos ─────────────────────────────────────────────────
+  // Docs-level vanilla JS so the demos are honest (no false affordances).
+  // The DESIGN SYSTEM stays CSS-only; this just animates its documented states.
+  function selectTab(tab) {
+    const list = tab.closest('.tabs-list, .tabs-list-pill');
+    if (!list) return;
+    list.querySelectorAll('.tab').forEach(t => {
+      const on = t === tab;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.setAttribute('tabindex', on ? '0' : '-1');
+    });
+    if (list.classList.contains('tabs-list')) {
+      const panel = list.parentElement && list.parentElement.querySelector('.tab-panel');
+      if (panel) {
+        const label = (tab.textContent || '').replace(/\s+\d+\s*$/, '').trim();
+        const p = panel.querySelector('p') || panel;
+        p.textContent = label + ' content goes here.';
+      }
+    }
+  }
+
+  function setupDemos() {
+    // ARIA on tab demos
+    document.querySelectorAll('.tabs-list, .tabs-list-pill').forEach(list => {
+      list.setAttribute('role', 'tablist');
+      list.querySelectorAll('.tab').forEach(t => {
+        t.setAttribute('role', 'tab');
+        const on = t.classList.contains('active');
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.setAttribute('tabindex', on ? '0' : '-1');
+      });
+      list.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        const tabs = Array.from(list.querySelectorAll('.tab'));
+        const i = tabs.indexOf(document.activeElement);
+        if (i < 0) return;
+        e.preventDefault();
+        const n = e.key === 'ArrowRight' ? (i + 1) % tabs.length : (i - 1 + tabs.length) % tabs.length;
+        tabs[n].focus(); selectTab(tabs[n]);
+      });
+    });
+    // aria-expanded on accordion triggers
+    document.querySelectorAll('.accordion-item').forEach(item => {
+      const trig = item.querySelector('.accordion-trigger');
+      if (trig) trig.setAttribute('aria-expanded', item.getAttribute('data-state') === 'open' ? 'true' : 'false');
+    });
+    // demo popovers: hide, toggle from the preceding trigger button
+    document.querySelectorAll('.demo .popover').forEach(pop => {
+      const trigger = pop.previousElementSibling;
+      pop.dataset.popoverDemo = '1';
+      pop.style.display = 'none';
+      if (trigger && trigger.tagName === 'BUTTON') {
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const hidden = pop.style.display === 'none';
+          pop.style.display = hidden ? '' : 'none';
+          trigger.setAttribute('aria-expanded', hidden ? 'true' : 'false');
+        });
+      }
+    });
+
+    // delegated activation
+    document.addEventListener('click', (e) => {
+      const at = e.target.closest('.accordion-trigger');
+      if (at) {
+        const item = at.closest('.accordion-item');
+        const open = item.getAttribute('data-state') === 'open';
+        item.setAttribute('data-state', open ? 'closed' : 'open');
+        at.setAttribute('aria-expanded', open ? 'false' : 'true');
+        return;
+      }
+      const tab = e.target.closest('.tabs-list .tab, .tabs-list-pill .tab');
+      if (tab) { selectTab(tab); return; }
+      // click-away closes demo popovers
+      document.querySelectorAll('.demo .popover[data-popover-demo]').forEach(pop => {
+        if (pop.style.display === 'none') return;
+        if (e.target.closest('.popover') === pop) return;
+        const trig = pop.previousElementSibling;
+        if (trig && trig.contains && trig.contains(e.target)) return;
+        pop.style.display = 'none';
+        if (trig && trig.setAttribute) trig.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  // ─── Copy-to-clipboard on code blocks ──────────────────────────────────
+  function setupCopyButtons() {
+    document.querySelectorAll('pre.demo-code').forEach(pre => {
+      if (pre.querySelector('.demo-copy')) return;
+      const code = pre.textContent;           // captured BEFORE the button is added
+      const btn = document.createElement('button');
+      btn.className = 'demo-copy';
+      btn.type = 'button';
+      btn.textContent = 'Copy';
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const done = () => { btn.textContent = 'Copied'; btn.classList.add('copied');
+          setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1600); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(code).then(done).catch(() => { btn.textContent = '⌘C'; });
+        } else { btn.textContent = '⌘C'; }
+      });
+      pre.appendChild(btn);
+    });
+  }
+
+  // ─── Back-to-top ───────────────────────────────────────────────────────
+  function setupBackToTop() {
+    const btn = document.createElement('button');
+    btn.className = 'back-to-top';
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.innerHTML = '↑';
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    document.body.appendChild(btn);
+    const onScroll = () => btn.classList.toggle('visible', window.scrollY > 600);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   // ─── Inject sidebar + init ────────────────────────────────────────────
   function init() {
     const slot = document.getElementById('docs-sidebar-slot');
@@ -196,6 +318,9 @@
     updateThemeLabel();
     markCurrentPage();
     setupActiveLinks();
+    setupDemos();
+    setupCopyButtons();
+    setupBackToTop();
   }
 
   if (document.readyState === 'loading') {
