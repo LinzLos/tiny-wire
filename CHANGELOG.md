@@ -4,6 +4,35 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 ---
 
+### v1.3 — 2026-06-12 · "Pedigree pass"
+
+Additive, non-breaking. A systematic rigor + signature pass: warm-neutral foundation, a single cobalt accent, editorial type discipline, and a three-tier token architecture. Token **values** changed but no public token name was renamed or removed — anything built on the semantic tier inherits the refresh unchanged.
+
+#### Added
+
+- **Three-tier token architecture** — `primitive` (`--warm-*`, `--cobalt-*`, `--green-*`, `--clay-*`, `--red-*`, `--elevation-*`) → `semantic` (every existing name, now aliasing primitives) → `component` (`--button-bg`, `--card-shadow`, `--input-border`). The semantic tier is the public API; layering it this way is the headline structural change.
+- `--cobalt-*` ramp — a single cool interactive accent (links / focus / secondary actions).
+- `--elevation-sm/md/lg/xl` — a multi-layer, low-opacity, warm-tinted shadow scale. Role shadows (`--shadow-card`, `--shadow-modal`, …) now alias it.
+- `--border-hairline` — a single low-opacity container signal for elevated surfaces.
+- `--numeric-tabular` token + `.nums-tabular` utility; tabular + lining numerals applied to all data contexts (tables, slider readout, status stats, pagination).
+- Disabled states for `.tab` and `.pagination-item`.
+
+#### Changed
+
+- Neutrals consolidated into one coherent warm-neutral ramp; the over-red `--border-dashed` desaturated into it.
+- Accent repointed azure → cobalt; the two overlapping blues (accent + info) collapsed into one cobalt family; focus ring → cobalt.
+- `--warning` brown → a disciplined amber (`--clay-600`); brown demoted to a foundation neutral only.
+- Type: display sizes (`--text-xl`…`--text-4xl`) snapped to a 1.2 modular run; tracking moved from `px` → `em`; unused weight `300` dropped from the font load.
+- Default `--radius` sharpened `10px` → `8px`; arbitrary spacing `5`/`7` snapped to `4`/`8`.
+- Floating overlays (popover, menu, dialog, sheet, toast, command) swap their solid border for `--border-hairline` — elevation does the lifting. The baked `1px` ring removed from `--shadow-card`.
+
+#### Fixed
+
+- Dark `--text-tertiary` lifted `#948682` → `#A0928E` — the old value scored 4.05 on `--surface-inset`, under the 4.5:1 AA threshold. The live a11y checker now passes every pair in both themes.
+- `lib/tokens.js` resynced to `globals.css` — three values had drifted (light/dark tertiary, dark disabled), shipping pre-AA hexes to any JS consumer.
+
+---
+
 ### v1.2 — 2026-06-11 · "Sidebar rail"
 
 Additive, non-breaking. Introduces the collapsed/icon-only form of the app sidebar.

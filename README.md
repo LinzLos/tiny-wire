@@ -1,11 +1,11 @@
 # Tiny Wire
 
-A minimal, warm-toned design system built for dense operational interfaces.
+A minimal, warm-neutral design system with a single cobalt accent, built for dense operational interfaces.
 
 **[Live demo & docs →](https://linzlos.github.io/tiny-wire/)** · License: MIT · No build step
 
 - **2 fonts**: Bricolage Grotesque (display) + DM Sans (body)
-- **~150 design tokens**: colors, type, spacing, radius, shadows, animation — all light & dark
+- **~180 tokens, three tiers** (primitive → semantic → component): colors, type, spacing, radius, elevation, animation — all light & dark
 - **28 components**: forms, feedback, navigation, overlays, data
 - **5 patterns**: dashboard, data table, settings, login, empty states
 - **Built-in WCAG checker**: `docs/a11y.html` computes live contrast in both themes
