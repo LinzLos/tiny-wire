@@ -958,7 +958,8 @@
       indicator.style.display = 'flex';
       indicator.innerHTML = 'Tracing <strong style="font-weight:var(--weight-semibold);">' + LABELS[activeStatus]
         + '</strong> · ' + statusCount(activeStatus) + ' across all releases'
-        + ' <button type="button" id="trace-clear" class="btn btn-sm btn-outline" style="height:24px; margin-left:var(--space-4);">Show all</button>';
+        + ' <button type="button" id="trace-clear" class="btn btn-sm btn-outline" style="height:24px; margin-left:var(--space-4);">Show all</button>'
+        + '<span style="color:var(--text-tertiary); font-size:var(--text-sm);">or click away / Esc</span>';
       document.getElementById('trace-clear').addEventListener('click', () => setStatus('all'));
     }
   }
@@ -1000,6 +1001,19 @@
       if (e.target.closest('a, button, input, label, .switch, .slider, [role="button"]')) return;
       window.open(link.href, '_blank', 'noopener');
     });
+  });
+
+  // Click away (anywhere that isn't a card / tile / control) clears the trace.
+  // Only fires while a filter is active, and never mid text-selection.
+  document.addEventListener('click', (e) => {
+    if (activeStatus === 'all' && activeCat === 'all') return;
+    if (e.target.closest('.finding, .audit-stat-trace, .audit-filter, #trace-indicator, a, button, input, label, .switch, .slider')) return;
+    if (window.getSelection && String(window.getSelection()).length) return;
+    setStatus('all');
+  });
+  // Esc also clears.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && (activeStatus !== 'all' || activeCat !== 'all')) setStatus('all');
   });
 })();
 </script>
