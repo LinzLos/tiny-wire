@@ -252,13 +252,13 @@
   <div class="audit-meta">
     <div class="audit-stat">
       <div class="audit-stat-label">Findings logged</div>
-      <div class="audit-stat-num">12</div>
-      <div class="audit-stat-sub">Across a11y, motion, contrast, and naming.</div>
+      <div class="audit-stat-num">16</div>
+      <div class="audit-stat-sub">Across a11y, motion, contrast, naming, and architecture.</div>
     </div>
     <div class="audit-stat">
       <div class="audit-stat-label">Fixes shipped</div>
-      <div class="audit-stat-num">10</div>
-      <div class="audit-stat-sub">Six tokens, four component patches.</div>
+      <div class="audit-stat-num">14</div>
+      <div class="audit-stat-sub">Tokens, component patches, and a three-tier architecture.</div>
     </div>
     <div class="audit-stat">
       <div class="audit-stat-label">Deferred</div>
@@ -276,6 +276,45 @@
   <h2 class="docs-h2" id="why">Why this page exists</h2>
   <p class="docs-h2-sub">Most of the systems I work on live behind NDAs. I can't show the dashboards, the monitoring panels, or the operator tools that pay the bills. Tiny Wire is the <strong style="color:var(--text-primary); font-weight:600;">public-safe twin</strong> — same constraints, same density, same warm operational tone — built so the process is visible without leaking a single line of client work.</p>
   <p class="docs-text" style="max-width:720px;">This audit is the proof. It shows what shipping a v1.0 and then maintaining it actually looks like: catching the regressions, defending the decisions, and writing down enough context that the next person (or the next quarter's me) doesn't have to relitigate them.</p>
+
+  <div class="docs-divider"></div>
+
+  <!-- v1.3 -->
+  <h2 class="docs-h2" id="v1-3">v1.3 — Pedigree pass</h2>
+  <p class="docs-h2-sub">2026-06-12 · additive, zero breaking changes.</p>
+  <p class="docs-text" style="max-width:720px;">A systematic rigor + signature pass. The neutrals consolidated into one coherent warm-neutral ramp; a single <strong>cobalt</strong> accent replaced the two overlapping blues and now owns focus; the warning brown became a disciplined amber; and the whole set was restructured into a three-tier <strong>primitive → semantic → component</strong> architecture — <em>values only, every public token name preserved</em>, so downstream prototypes inherit it unbroken. Type moved to a 1.2 modular display scale with <code>em</code> tracking and a mandatory tabular-numerals token; the default radius sharpened 10→8; floating overlays dropped their solid border for a hairline and let elevation do the lifting. Four issues surfaced and were fixed in the same pass:</p>
+
+  <div class="card" style="padding:0; overflow:hidden; margin-top:var(--space-16);">
+    <table class="table" style="font-size:var(--text-base);">
+      <thead><tr><th style="padding-left:var(--space-16);">ID</th><th>Finding</th><th>Severity</th><th class="td-num" style="padding-right:var(--space-16);">Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-013</td>
+          <td>Dark <code>--text-tertiary</code> failed AA on <code>--surface-inset</code> (4.05:1). Lifted <code>#948682 → #A0928E</code>; the live checker now passes every pair in both themes.</td>
+          <td><span class="sev sev-high">High</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-014</td>
+          <td><code>lib/tokens.js</code> had drifted from <code>globals.css</code> — three values (light/dark tertiary, dark disabled) shipped <em>pre-AA</em> hexes to JS consumers. Resynced.</td>
+          <td><span class="sev sev-medium">Medium</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-015</td>
+          <td>The <code>.select</code> chevron was a hardcoded <code>#8A7E7D</code> (a stale token value) that read low-contrast in dark mode. Repointed to a mid-neutral legible in both themes.</td>
+          <td><span class="sev sev-medium">Medium</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-016</td>
+          <td>Floating overlays stacked a solid border <em>and</em> a full elevation shadow — a doubled container signal. Border → <code>--border-hairline</code>; elevation does the lifting.</td>
+          <td><span class="sev sev-low">Low</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
   <div class="docs-divider"></div>
 
