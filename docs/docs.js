@@ -31,7 +31,7 @@
 
   <nav class="docs-nav">
     <div class="docs-nav-group">
-      <div class="docs-nav-group-label">Get started</div>
+      <a class="docs-nav-group-label" href="index.html">Get started</a>
       <a class="docs-nav-link" href="index.html">Introduction</a>
       <a class="docs-nav-link" href="index.html#quickstart">Quick start</a>
       <a class="docs-nav-link" href="index.html#principles">Principles</a>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="docs-nav-group">
-      <div class="docs-nav-group-label">Foundations</div>
+      <a class="docs-nav-group-label" href="foundations.html">Foundations</a>
       <a class="docs-nav-link" href="foundations.html#animation">Animation</a>
       <a class="docs-nav-link" href="foundations.html#colors">Colors</a>
       <a class="docs-nav-link" href="foundations.html#radius">Radius</a>
@@ -50,7 +50,7 @@
     </div>
 
     <div class="docs-nav-group">
-      <div class="docs-nav-group-label">Components</div>
+      <a class="docs-nav-group-label" href="components.html">Components</a>
       <a class="docs-nav-link" href="components.html#accordion">Accordion</a>
       <a class="docs-nav-link" href="components.html#alert">Alert</a>
       <a class="docs-nav-link" href="components.html#avatar">Avatar</a>
@@ -84,7 +84,7 @@
     </div>
 
     <div class="docs-nav-group">
-      <div class="docs-nav-group-label">Patterns</div>
+      <a class="docs-nav-group-label" href="patterns.html">Patterns</a>
       <a class="docs-nav-link" href="patterns.html#dashboard">Dashboard</a>
       <a class="docs-nav-link" href="patterns.html#datatable">Data Table</a>
       <a class="docs-nav-link" href="patterns.html#empty-states">Empty States</a>

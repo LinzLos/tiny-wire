@@ -22,9 +22,184 @@
   <h1 class="docs-h1">Component library</h1>
   <p class="docs-lede">28 components covering forms, feedback, navigation, overlays, and data. Every component is plain HTML + a class — no framework, no runtime. Click "Code" on any demo to copy the markup.</p>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       BUTTON
-       ════════════════════════════════════════════════════════════════ -->
+  <h2 class="docs-h2" id="accordion">Accordion</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.accordion · .accordion-item · .accordion-trigger · .accordion-content</span></div></div>
+  <p class="comp-desc">Collapsible sections. The chevron rotates 180° when the item opens.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="max-width: 480px; margin: 0 auto;">
+      <div class="accordion">
+        <div class="accordion-item" data-state="open">
+          <button class="accordion-trigger">
+            What is Tiny Wire?
+            <svg class="accordion-trigger-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content">A minimal, warm-neutral design system with a single cobalt accent, built for dense operational interfaces — control panels, dashboards, and monitoring tools.</div>
+        </div>
+        <div class="accordion-item" data-state="closed">
+          <button class="accordion-trigger">
+            Is it framework-specific?
+            <svg class="accordion-trigger-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content">No. Plain HTML + CSS classes. Works with any framework or no framework at all.</div>
+        </div>
+        <div class="accordion-item" data-state="closed">
+          <button class="accordion-trigger">
+            Does it support dark mode?
+            <svg class="accordion-trigger-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="accordion-content">Yes — every token has a dark variant. Toggle <code>data-theme="dark"</code> on the html element.</div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"accordion"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"accordion-item"</span> <span class="a">data-state</span>=<span class="s">"open"</span><span class="k">&gt;</span>
+    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"accordion-trigger"</span><span class="k">&gt;</span>Question<span class="k">&lt;/button&gt;</span>
+    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"accordion-content"</span><span class="k">&gt;</span>Answer.<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="alert">Alert</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.alert .alert-danger | .alert-warn | .alert-brand | .alert-info</span></div></div>
+  <p class="comp-desc">Inline messages for validation, system feedback, and contextual notes. Composable with an icon and title.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="max-width: 540px; margin: 0 auto; gap: var(--space-10);">
+      <div class="alert alert-danger">
+        <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div class="alert-body">
+          <div class="alert-title">Connection lost</div>
+          We're trying to reconnect — your last changes will be saved when you're back online.
+        </div>
+      </div>
+      <div class="alert alert-warn">
+        <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div class="alert-body">Current rate (3.2%) already meets this threshold — system is now in warn.</div>
+      </div>
+      <div class="alert alert-brand">
+        <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <div class="alert-body"><div class="alert-title">Changes saved</div>Your settings will apply on the next eval window.</div>
+      </div>
+      <div class="alert alert-info">
+        <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div class="alert-body">Evaluation window closes in 47 minutes.</div>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"alert alert-danger"</span><span class="k">&gt;</span>
+  <span class="k">&lt;svg</span> <span class="a">class</span>=<span class="s">"alert-icon"</span><span class="k">&gt;&lt;/svg&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"alert-body"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"alert-title"</span><span class="k">&gt;</span>Connection lost<span class="k">&lt;/div&gt;</span>
+    We're trying to reconnect.
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="avatar">Avatar</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.avatar .avatar-sm | .avatar-lg | .avatar-xl · .avatar-group</span></div></div>
+  <p class="comp-desc">Initials fallback, image override, four sizes. Stack into a <code>.avatar-group</code> for team displays.</p>
+  <div class="demo">
+    <div class="demo-canvas" style="gap: var(--space-20); align-items: flex-end;">
+      <span class="avatar avatar-sm">SC</span>
+      <span class="avatar">TO</span>
+      <span class="avatar avatar-lg" style="background: var(--brand); color: var(--brand-fg);">JL</span>
+      <span class="avatar avatar-xl" style="background: var(--info); color: var(--info-fg);">MR</span>
+      <div class="avatar-group">
+        <span class="avatar">SC</span>
+        <span class="avatar" style="background: var(--brand); color: var(--brand-fg);">TO</span>
+        <span class="avatar" style="background: var(--warning); color: var(--warning-fg);">JL</span>
+        <span class="avatar" style="background: var(--surface-inset);">+5</span>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"avatar"</span><span class="k">&gt;</span>SC<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"avatar avatar-lg"</span><span class="k">&gt;&lt;img</span> <span class="a">src</span>=<span class="s">"/me.jpg"</span><span class="k">&gt;&lt;/span&gt;</span>
+
+<span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"avatar-group"</span><span class="k">&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"avatar"</span><span class="k">&gt;</span>SC<span class="k">&lt;/span&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"avatar"</span><span class="k">&gt;</span>TO<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="banner">Banner</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.banner .banner-danger | .banner-brand | .banner-info</span></div></div>
+  <p class="comp-desc">Full-width contextual banners for system-wide state. The pulsing <code>.banner-dot</code> signals an active condition.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="gap: var(--space-10); padding: var(--space-16);">
+      <div class="banner banner-danger">
+        <span class="banner-dot"></span>
+        <span style="font-weight: var(--weight-semibold);">Dialing stopped</span>
+        <span class="tag tag-danger">Hard stop</span>
+        <span style="opacity: 0.5;">·</span>
+        <span style="opacity: 0.8;">Technical issue · resumes in 14:22</span>
+        <button class="btn-ghost" style="margin-left: auto; color: var(--danger);">Resume now</button>
+      </div>
+      <div class="banner banner-brand">
+        <span class="banner-dot" style="animation: none;"></span>
+        <span style="font-weight: var(--weight-semibold);">All systems operational</span>
+        <span style="opacity: 0.8;">· Updated 2 min ago</span>
+      </div>
+      <div class="banner banner-info">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <span>Scheduled maintenance tonight from 11 PM to 1 AM ET.</span>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"banner banner-danger"</span><span class="k">&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"banner-dot"</span><span class="k">&gt;&lt;/span&gt;</span>
+  <span class="k">&lt;span&gt;</span>Dialing stopped<span class="k">&lt;/span&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-danger"</span><span class="k">&gt;</span>Hard stop<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="breadcrumb">Breadcrumb</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.breadcrumb · .breadcrumb-item · .breadcrumb-sep</span></div></div>
+  <p class="comp-desc">Hierarchical location indicator. Mark the current page with <code>aria-current="page"</code>.</p>
+  <div class="demo">
+    <div class="demo-canvas">
+      <nav class="breadcrumb">
+        <a class="breadcrumb-item" href="#">Workspace</a>
+        <span class="breadcrumb-sep">/</span>
+        <a class="breadcrumb-item" href="#">Projects</a>
+        <span class="breadcrumb-sep">/</span>
+        <a class="breadcrumb-item" href="#">Atlas</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-item" aria-current="page">Settings</span>
+      </nav>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;nav</span> <span class="a">class</span>=<span class="s">"breadcrumb"</span><span class="k">&gt;</span>
+  <span class="k">&lt;a</span> <span class="a">class</span>=<span class="s">"breadcrumb-item"</span> <span class="a">href</span>=<span class="s">"#"</span><span class="k">&gt;</span>Workspace<span class="k">&lt;/a&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"breadcrumb-sep"</span><span class="k">&gt;</span>/<span class="k">&lt;/span&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"breadcrumb-item"</span> <span class="a">aria-current</span>=<span class="s">"page"</span><span class="k">&gt;</span>Settings<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;/nav&gt;</span></pre>
+  </div>
+
   <h2 class="docs-h2" id="button">Button</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.btn .btn-primary | .btn-secondary | .btn-outline | .btn-ghost | .btn-brand | .btn-danger | .btn-link</span></div></div>
   <p class="comp-desc">Seven variants from primary confirmation to inline link. Three sizes via <code>.btn-sm</code> and <code>.btn-lg</code>. Add <code>.btn-icon</code> for a square icon-only button.</p>
@@ -163,9 +338,235 @@
 <span class="k">&lt;/div&gt;</span></pre>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       INPUT
-       ════════════════════════════════════════════════════════════════ -->
+  <h2 class="docs-h2" id="card">Card</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.card · .card-header · .card-title · .card-desc · .card-footer</span></div></div>
+  <p class="comp-desc">The primary container. White surface, 1px border, 8px radius, 16px padding. Add <code>.card-disabled</code> for a locked state.</p>
+  <div class="demo">
+    <div class="demo-canvas" style="gap: var(--space-12); align-items: stretch;">
+      <div class="card" style="width: 260px;">
+        <div class="card-header">
+          <div class="card-title">Monthly active</div>
+          <span class="tag tag-brand">+12%</span>
+        </div>
+        <div style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--text-primary); letter-spacing: -0.6px; margin-bottom: 4px;">24,892</div>
+        <p class="card-desc">vs 22,184 last month</p>
+      </div>
+      <div class="card" style="width: 260px;">
+        <div class="card-header">
+          <div class="card-title">Confirm action</div>
+        </div>
+        <p class="card-desc" style="margin-bottom: var(--space-12);">This will permanently delete the selected items. This action cannot be undone.</p>
+        <div class="card-footer">
+          <button class="btn btn-ghost">Cancel</button>
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </div>
+      </div>
+      <div class="card card-disabled" style="width: 260px;">
+        <div class="card-header"><div class="card-title">Locked card</div></div>
+        <p class="card-desc">Controls are disabled while another operation is in progress.</p>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-header"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-title"</span><span class="k">&gt;</span>Monthly active<span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-brand"</span><span class="k">&gt;</span>+12%<span class="k">&lt;/span&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;p</span> <span class="a">class</span>=<span class="s">"card-desc"</span><span class="k">&gt;</span>vs 22,184 last month<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-footer"</span><span class="k">&gt;</span>
+    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-ghost"</span><span class="k">&gt;</span>Cancel<span class="k">&lt;/button&gt;</span>
+    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-danger btn-sm"</span><span class="k">&gt;</span>Delete<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="checkbox">Checkbox</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.checkbox</span></div></div>
+  <p class="comp-desc">16px square, fills with brand green when checked. Pair with <code>.field-check</code> wrapper for inline labels.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
+      <label class="field-check"><input type="checkbox" class="checkbox" checked /><span class="field-check-label">Subscribe to product updates</span></label>
+      <label class="field-check"><input type="checkbox" class="checkbox" /><span class="field-check-label">Receive marketing emails</span></label>
+      <label class="field-check"><input type="checkbox" class="checkbox" disabled /><span class="field-check-label" style="color:var(--text-disabled);">Disabled option</span></label>
+      <label class="field-check"><input type="checkbox" class="checkbox" aria-invalid="true" /><span class="field-check-label" style="color:var(--danger);">Required — please confirm</span></label>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;label</span> <span class="a">class</span>=<span class="s">"field-check"</span><span class="k">&gt;</span>
+  <span class="k">&lt;input</span> <span class="a">type</span>=<span class="s">"checkbox"</span> <span class="a">class</span>=<span class="s">"checkbox"</span><span class="k">&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"field-check-label"</span><span class="k">&gt;</span>Subscribe to updates<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;/label&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="command">Command</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.command · .command-input · .command-list · .command-group-label</span></div></div>
+  <p class="comp-desc">Searchable action palette (⌘K). The list scrolls; groups are labeled with a small caps header.</p>
+  <div class="demo">
+    <div class="demo-canvas">
+      <div class="command">
+        <div class="command-input-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="command-input" placeholder="Type a command or search..." />
+          <kbd>⌘K</kbd>
+        </div>
+        <div class="command-list">
+          <div class="command-group-label">Suggestions</div>
+          <button class="menu-item"><svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Help &amp; documentation</button>
+          <button class="menu-item"><svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Send feedback</button>
+          <div class="command-group-label">Navigate</div>
+          <button class="menu-item"><svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard<span class="menu-item-shortcut">G H</span></button>
+          <button class="menu-item"><svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/></svg>Settings<span class="menu-item-shortcut">G S</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"command"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"command-input-wrap"</span><span class="k">&gt;</span>
+    <span class="k">&lt;input</span> <span class="a">class</span>=<span class="s">"command-input"</span> <span class="a">placeholder</span>=<span class="s">"Search..."</span><span class="k">&gt;</span>
+    <span class="k">&lt;kbd&gt;</span>⌘K<span class="k">&lt;/kbd&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"command-list"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"command-group-label"</span><span class="k">&gt;</span>Suggestions<span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"menu-item"</span><span class="k">&gt;</span>...<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="dialog">Dialog</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.dialog · .dialog-overlay · .dialog-header · .dialog-body · .dialog-footer</span></div></div>
+  <p class="comp-desc">Centered modal with a blurred scrim. Use for confirmations, forms, and any flow that should block the rest of the page.</p>
+  <div class="demo">
+    <div class="demo-canvas plain" style="position: relative; padding: 0; min-height: 360px; overflow: hidden;">
+      <div style="position: absolute; inset: 0; background: color-mix(in srgb, var(--text-primary) 60%, transparent); backdrop-filter: blur(2px);"></div>
+      <div style="position: relative; z-index: 1;" class="dialog modal-enter">
+        <div class="dialog-header" style="position: relative;">
+          <div class="dialog-title">Delete this segment?</div>
+          <p class="dialog-desc">"High-value renewals" will be removed from routing. Active calls will continue, but no new calls will be routed to this segment.</p>
+          <button class="dialog-close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="dialog-body">
+          <label class="field-check"><input type="checkbox" class="checkbox" /><span class="field-check-label">I understand this action can't be undone</span></label>
+        </div>
+        <div class="dialog-footer">
+          <button class="btn btn-ghost">Cancel</button>
+          <button class="btn btn-danger">Delete segment</button>
+        </div>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-overlay"</span><span class="k">&gt;&lt;/div&gt;</span>
+<span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-header"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-title"</span><span class="k">&gt;</span>Delete this segment?<span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;p</span> <span class="a">class</span>=<span class="s">"dialog-desc"</span><span class="k">&gt;</span>This action can't be undone.<span class="k">&lt;/p&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-body"</span><span class="k">&gt;</span>...<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-footer"</span><span class="k">&gt;</span>
+    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-ghost"</span><span class="k">&gt;</span>Cancel<span class="k">&lt;/button&gt;</span>
+    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-danger"</span><span class="k">&gt;</span>Delete<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="menu">Dropdown Menu</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.menu · .menu-item · .menu-label · .menu-separator</span></div></div>
+  <p class="comp-desc">List-of-actions menu. Supports icons, keyboard shortcuts, grouped sections, and a destructive variant.</p>
+  <div class="demo">
+    <div class="demo-canvas" style="gap: var(--space-24); padding: var(--space-32);">
+      <div class="menu" style="position: relative;">
+        <div class="menu-label">Account</div>
+        <button class="menu-item">
+          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Profile
+          <span class="menu-item-shortcut">⇧ ⌘ P</span>
+        </button>
+        <button class="menu-item">
+          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+          <span class="menu-item-shortcut">⌘ ,</span>
+        </button>
+        <div class="menu-separator"></div>
+        <div class="menu-label">Workspace</div>
+        <button class="menu-item">
+          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          Switch workspace
+        </button>
+        <div class="menu-separator"></div>
+        <button class="menu-item menu-item-danger">
+          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Sign out
+        </button>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"menu"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"menu-label"</span><span class="k">&gt;</span>Account<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"menu-item"</span><span class="k">&gt;</span>
+    <span class="k">&lt;svg</span> <span class="a">class</span>=<span class="s">"menu-item-icon"</span><span class="k">&gt;&lt;/svg&gt;</span> Profile
+    <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"menu-item-shortcut"</span><span class="k">&gt;</span>⇧ ⌘ P<span class="k">&lt;/span&gt;</span>
+  <span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"menu-separator"</span><span class="k">&gt;&lt;/div&gt;</span>
+  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"menu-item menu-item-danger"</span><span class="k">&gt;</span>Sign out<span class="k">&lt;/button&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="empty">Empty State</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.empty-state · .empty-state-icon · .empty-state-title · .empty-state-desc · .empty-state-actions</span></div></div>
+  <p class="comp-desc">Centered placeholder for tables, search results, and feature onboarding. Always include an icon and a primary action.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="padding: 0;">
+      <div class="empty-state">
+        <div class="empty-state-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="empty-state-title">No results found</div>
+        <div class="empty-state-desc">Try adjusting your filters or searching with different keywords.</div>
+        <div class="empty-state-actions">
+          <button class="btn btn-outline btn-sm">Reset filters</button>
+          <button class="btn btn-primary btn-sm">New search</button>
+        </div>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state-icon"</span><span class="k">&gt;&lt;svg /&gt;&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state-title"</span><span class="k">&gt;</span>No results found<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state-desc"</span><span class="k">&gt;</span>Try adjusting your filters.<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state-actions"</span><span class="k">&gt;&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-primary btn-sm"</span><span class="k">&gt;</span>New search<span class="k">&lt;/button&gt;&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
   <h2 class="docs-h2" id="input">Input</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.input</span></div></div>
   <p class="comp-desc">32px tall, 6px radius. Full width by default; <code>.input-sm</code> (24px) for inline numeric fields, <code>.input-lg</code> (40px) for hero inputs. Pair with <code>.label</code>, <code>.helper</code>, and <code>.field-error</code>.</p>
@@ -254,19 +655,19 @@
 <span class="k">&lt;/div&gt;</span></pre>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       TEXTAREA
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="textarea">Textarea</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.textarea</span></div></div>
-  <p class="comp-desc">Multiline input, vertically resizable, with a 72px minimum height.</p>
+  <h2 class="docs-h2" id="pagination">Pagination</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.pagination · .pagination-item · .pagination-ellipsis</span></div></div>
   <div class="demo">
-    <div class="demo-canvas col" style="max-width:480px; margin: 0 auto;">
-      <div>
-        <label class="label">Description</label>
-        <textarea class="textarea" placeholder="Add a note..."></textarea>
-        <p class="helper">Markdown is supported.</p>
-      </div>
+    <div class="demo-canvas">
+      <nav class="pagination">
+        <button class="btn-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="pagination-item">1</button>
+        <button class="pagination-item active" aria-current="page">2</button>
+        <button class="pagination-item">3</button>
+        <span class="pagination-ellipsis">…</span>
+        <button class="pagination-item">12</button>
+        <button class="btn-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+      </nav>
     </div>
     <div class="demo-toolbar">
       <div class="demo-toolbar-tabs">
@@ -274,125 +675,26 @@
         <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
       </div>
     </div>
-    <pre class="demo-code"><span class="k">&lt;textarea</span> <span class="a">class</span>=<span class="s">"textarea"</span> <span class="a">placeholder</span>=<span class="s">"Add a note..."</span><span class="k">&gt;&lt;/textarea&gt;</span></pre>
+    <pre class="demo-code"><span class="k">&lt;nav</span> <span class="a">class</span>=<span class="s">"pagination"</span><span class="k">&gt;</span>
+  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"pagination-item"</span><span class="k">&gt;</span>1<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"pagination-item active"</span><span class="k">&gt;</span>2<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"pagination-ellipsis"</span><span class="k">&gt;</span>…<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;/nav&gt;</span></pre>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       SELECT
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="select">Select</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.select</span></div></div>
-  <p class="comp-desc">Native select with a custom chevron. Matches input height and focus styles.</p>
+  <h2 class="docs-h2" id="popover">Popover</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.popover · .popover-header</span></div></div>
+  <p class="comp-desc">Click-anchored floating panel. Use for rich content — forms, color pickers, inline editors.</p>
   <div class="demo">
-    <div class="demo-canvas col" style="max-width:480px; margin: 0 auto;">
-      <div>
-        <label class="label">Country</label>
-        <select class="select">
-          <option>United States</option>
-          <option>United Kingdom</option>
-          <option>Germany</option>
-          <option>Japan</option>
-        </select>
-      </div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;select</span> <span class="a">class</span>=<span class="s">"select"</span><span class="k">&gt;</span>
-  <span class="k">&lt;option&gt;</span>United States<span class="k">&lt;/option&gt;</span>
-  <span class="k">&lt;option&gt;</span>United Kingdom<span class="k">&lt;/option&gt;</span>
-<span class="k">&lt;/select&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       CHECKBOX & RADIO
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="checkbox">Checkbox</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.checkbox</span></div></div>
-  <p class="comp-desc">16px square, fills with brand green when checked. Pair with <code>.field-check</code> wrapper for inline labels.</p>
-  <div class="demo">
-    <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
-      <label class="field-check"><input type="checkbox" class="checkbox" checked /><span class="field-check-label">Subscribe to product updates</span></label>
-      <label class="field-check"><input type="checkbox" class="checkbox" /><span class="field-check-label">Receive marketing emails</span></label>
-      <label class="field-check"><input type="checkbox" class="checkbox" disabled /><span class="field-check-label" style="color:var(--text-disabled);">Disabled option</span></label>
-      <label class="field-check"><input type="checkbox" class="checkbox" aria-invalid="true" /><span class="field-check-label" style="color:var(--danger);">Required — please confirm</span></label>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;label</span> <span class="a">class</span>=<span class="s">"field-check"</span><span class="k">&gt;</span>
-  <span class="k">&lt;input</span> <span class="a">type</span>=<span class="s">"checkbox"</span> <span class="a">class</span>=<span class="s">"checkbox"</span><span class="k">&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"field-check-label"</span><span class="k">&gt;</span>Subscribe to updates<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;/label&gt;</span></pre>
-  </div>
-
-  <h2 class="docs-h2" id="radio">Radio</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.radio</span></div></div>
-  <p class="comp-desc">Single-selection variant. Same sizing and color treatment as Checkbox.</p>
-  <div class="demo">
-    <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
-      <label class="field-check"><input type="radio" name="plan" class="radio" checked /><span class="field-check-label"><strong>Starter</strong> — $9/mo</span></label>
-      <label class="field-check"><input type="radio" name="plan" class="radio" /><span class="field-check-label"><strong>Pro</strong> — $29/mo</span></label>
-      <label class="field-check"><input type="radio" name="plan" class="radio" /><span class="field-check-label"><strong>Enterprise</strong> — custom</span></label>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;label</span> <span class="a">class</span>=<span class="s">"field-check"</span><span class="k">&gt;</span>
-  <span class="k">&lt;input</span> <span class="a">type</span>=<span class="s">"radio"</span> <span class="a">name</span>=<span class="s">"plan"</span> <span class="a">class</span>=<span class="s">"radio"</span><span class="k">&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"field-check-label"</span><span class="k">&gt;</span>Starter<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;/label&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       SWITCH
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="switch">Switch</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.switch</span></div></div>
-  <p class="comp-desc">Toggle for boolean settings. Use when the state takes effect immediately; use Checkbox when paired with a form submission.</p>
-  <div class="demo">
-    <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
-      <label class="field-check"><input type="checkbox" class="switch" checked /><span class="field-check-label">Email notifications</span></label>
-      <label class="field-check"><input type="checkbox" class="switch" /><span class="field-check-label">Push notifications</span></label>
-      <label class="field-check"><input type="checkbox" class="switch" disabled /><span class="field-check-label" style="color:var(--text-disabled);">SMS (unavailable)</span></label>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;label</span> <span class="a">class</span>=<span class="s">"field-check"</span><span class="k">&gt;</span>
-  <span class="k">&lt;input</span> <span class="a">type</span>=<span class="s">"checkbox"</span> <span class="a">class</span>=<span class="s">"switch"</span> <span class="a">checked</span><span class="k">&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"field-check-label"</span><span class="k">&gt;</span>Email notifications<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;/label&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       SLIDER
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="slider">Slider</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.slider</span></div></div>
-  <p class="comp-desc">Range input with pill track and circular thumb. Pair with <code>.slider-val</code> for a display-font numeric readout.</p>
-  <div class="demo">
-    <div class="demo-canvas col" style="max-width:420px; margin: 0 auto;">
-      <div>
-        <label class="label">Dial speed</label>
-        <div class="slider-wrap">
-          <input type="range" min="1.0" max="2.0" step="0.1" value="1.2" class="slider" oninput="this.nextElementSibling.textContent=parseFloat(this.value).toFixed(1)" />
-          <span class="slider-val">1.2</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; margin-top:var(--space-4); font-size:var(--text-md); color:var(--text-tertiary);">
-          <span>1.0</span><span>2.0</span>
+    <div class="demo-canvas" style="gap: var(--space-24); padding: var(--space-48) var(--space-24); position: relative; align-items: flex-start;">
+      <button class="btn btn-outline">Open popover</button>
+      <div class="popover" style="position: relative; animation: none;">
+        <div class="popover-header">Quick settings</div>
+        <div style="display: flex; flex-direction: column; gap: var(--space-10);">
+          <label class="field-check"><input type="checkbox" class="switch" checked /><span class="field-check-label">Notifications</span></label>
+          <label class="field-check"><input type="checkbox" class="switch" /><span class="field-check-label">Auto-refresh</span></label>
+          <div class="separator"></div>
+          <button class="btn btn-ghost" style="justify-content: flex-start;">More options →</button>
         </div>
       </div>
     </div>
@@ -402,114 +704,12 @@
         <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
       </div>
     </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"slider-wrap"</span><span class="k">&gt;</span>
-  <span class="k">&lt;input</span> <span class="a">type</span>=<span class="s">"range"</span> <span class="a">class</span>=<span class="s">"slider"</span> <span class="a">min</span>=<span class="s">"1.0"</span> <span class="a">max</span>=<span class="s">"2.0"</span> <span class="a">step</span>=<span class="s">"0.1"</span> <span class="a">value</span>=<span class="s">"1.2"</span><span class="k">&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"slider-val"</span><span class="k">&gt;</span>1.2<span class="k">&lt;/span&gt;</span>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"popover"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"popover-header"</span><span class="k">&gt;</span>Quick settings<span class="k">&lt;/div&gt;</span>
+  ...
 <span class="k">&lt;/div&gt;</span></pre>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       TAG & BADGE
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="tag">Tag &amp; Badge</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tag .tag-danger | .tag-brand | .tag-info | .tag-warn | .tag-accent · .badge</span></div></div>
-  <p class="comp-desc">Tags are loud: all-caps, semantic-colored fill. Badges are quiet: muted, used for metadata.</p>
-  <div class="demo">
-    <div class="demo-canvas">
-      <span class="tag tag-danger">Hard stop</span>
-      <span class="tag tag-brand">Active</span>
-      <span class="tag tag-info">Info</span>
-      <span class="tag tag-warn">Review</span>
-      <span class="tag tag-accent">New</span>
-      <span class="tag">Default</span>
-      <span class="badge">rolled back</span>
-      <span class="badge" data-tw-version>v1.3</span>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-danger"</span><span class="k">&gt;</span>Hard stop<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-brand"</span><span class="k">&gt;</span>Active<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"badge"</span><span class="k">&gt;</span>rolled back<span class="k">&lt;/span&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       STATUS CHIP
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="chip">Status Chip</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.chip .chip-ok | .chip-warn | .chip-critical | .chip-info | .chip-stopped</span></div></div>
-  <p class="comp-desc">Pill-shaped semantic status indicators. Always pair with a <code>.chip-dot</code> that inherits the chip color.</p>
-  <div class="demo">
-    <div class="demo-canvas">
-      <span class="chip chip-ok"><span class="chip-dot"></span>Active</span>
-      <span class="chip chip-warn"><span class="chip-dot"></span>Warning</span>
-      <span class="chip chip-critical"><span class="chip-dot"></span>Critical</span>
-      <span class="chip chip-info"><span class="chip-dot"></span>Monitoring</span>
-      <span class="chip chip-stopped"><span class="chip-dot"></span>Stopped</span>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"chip chip-ok"</span><span class="k">&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"chip-dot"</span><span class="k">&gt;&lt;/span&gt;</span>Active
-<span class="k">&lt;/span&gt;</span></pre>
-  </div>
-
-  <h3 class="docs-h3">Status dots</h3>
-  <div class="demo">
-    <div class="demo-canvas" style="gap: var(--space-20);">
-      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-green"></span><span style="font-size:var(--text-md);">.dot-green</span></div>
-      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-amber"></span><span style="font-size:var(--text-md);">.dot-amber</span></div>
-      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-red"></span><span style="font-size:var(--text-md);">.dot-red</span></div>
-      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-blue"></span><span style="font-size:var(--text-md);">.dot-blue</span></div>
-      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-muted"></span><span style="font-size:var(--text-md);">.dot-muted</span></div>
-      <div style="display:flex; align-items:center; gap:var(--space-8);"><span class="monitoring-dot"></span><span style="font-size:var(--text-md);">.monitoring-dot</span></div>
-    </div>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       AVATAR
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="avatar">Avatar</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.avatar .avatar-sm | .avatar-lg | .avatar-xl · .avatar-group</span></div></div>
-  <p class="comp-desc">Initials fallback, image override, four sizes. Stack into a <code>.avatar-group</code> for team displays.</p>
-  <div class="demo">
-    <div class="demo-canvas" style="gap: var(--space-20); align-items: flex-end;">
-      <span class="avatar avatar-sm">SC</span>
-      <span class="avatar">TO</span>
-      <span class="avatar avatar-lg" style="background: var(--brand); color: var(--brand-fg);">JL</span>
-      <span class="avatar avatar-xl" style="background: var(--info); color: var(--info-fg);">MR</span>
-      <div class="avatar-group">
-        <span class="avatar">SC</span>
-        <span class="avatar" style="background: var(--brand); color: var(--brand-fg);">TO</span>
-        <span class="avatar" style="background: var(--warning); color: var(--warning-fg);">JL</span>
-        <span class="avatar" style="background: var(--surface-inset);">+5</span>
-      </div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"avatar"</span><span class="k">&gt;</span>SC<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"avatar avatar-lg"</span><span class="k">&gt;&lt;img</span> <span class="a">src</span>=<span class="s">"/me.jpg"</span><span class="k">&gt;&lt;/span&gt;</span>
-
-<span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"avatar-group"</span><span class="k">&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"avatar"</span><span class="k">&gt;</span>SC<span class="k">&lt;/span&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"avatar"</span><span class="k">&gt;</span>TO<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       PROGRESS
-       ════════════════════════════════════════════════════════════════ -->
   <h2 class="docs-h2" id="progress">Progress</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.progress · .progress-bar</span></div></div>
   <p class="comp-desc">6px-tall bar with a brand-green fill by default. Use <code>.progress-bar-danger</code> or <code>.progress-bar-warning</code> for critical states.</p>
@@ -549,24 +749,14 @@
     </div>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       SKELETON
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="skeleton">Skeleton</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.skeleton</span></div></div>
-  <p class="comp-desc">Animated shimmer placeholder. Use any width/height — it inherits the rounded corner of its parent or you can set <code>border-radius</code> directly.</p>
+  <h2 class="docs-h2" id="radio">Radio</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.radio</span></div></div>
+  <p class="comp-desc">Single-selection variant. Same sizing and color treatment as Checkbox.</p>
   <div class="demo">
-    <div class="demo-canvas col" style="max-width: 380px; margin: 0 auto; gap: var(--space-10);">
-      <div style="display: flex; gap: var(--space-12); align-items: center;">
-        <div class="skeleton" style="width:34px; height:34px; border-radius:var(--radius-full);"></div>
-        <div style="flex:1;">
-          <div class="skeleton" style="height:10px; width:60%; margin-bottom: var(--space-6);"></div>
-          <div class="skeleton" style="height:10px; width:40%;"></div>
-        </div>
-      </div>
-      <div class="skeleton" style="height: 80px; border-radius: var(--radius-md);"></div>
-      <div class="skeleton" style="height: 10px; width: 100%;"></div>
-      <div class="skeleton" style="height: 10px; width: 80%;"></div>
+    <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
+      <label class="field-check"><input type="radio" name="plan" class="radio" checked /><span class="field-check-label"><strong>Starter</strong> — $9/mo</span></label>
+      <label class="field-check"><input type="radio" name="plan" class="radio" /><span class="field-check-label"><strong>Pro</strong> — $29/mo</span></label>
+      <label class="field-check"><input type="radio" name="plan" class="radio" /><span class="field-check-label"><strong>Enterprise</strong> — custom</span></label>
     </div>
     <div class="demo-toolbar">
       <div class="demo-toolbar-tabs">
@@ -574,39 +764,25 @@
         <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
       </div>
     </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"skeleton"</span> <span class="a">style</span>=<span class="s">"height:10px; width:60%;"</span><span class="k">&gt;&lt;/div&gt;</span>
-<span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"skeleton"</span> <span class="a">style</span>=<span class="s">"width:34px; height:34px; border-radius:var(--radius-full);"</span><span class="k">&gt;&lt;/div&gt;</span></pre>
+    <pre class="demo-code"><span class="k">&lt;label</span> <span class="a">class</span>=<span class="s">"field-check"</span><span class="k">&gt;</span>
+  <span class="k">&lt;input</span> <span class="a">type</span>=<span class="s">"radio"</span> <span class="a">name</span>=<span class="s">"plan"</span> <span class="a">class</span>=<span class="s">"radio"</span><span class="k">&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"field-check-label"</span><span class="k">&gt;</span>Starter<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;/label&gt;</span></pre>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       CARD
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="card">Card</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.card · .card-header · .card-title · .card-desc · .card-footer</span></div></div>
-  <p class="comp-desc">The primary container. White surface, 1px border, 8px radius, 16px padding. Add <code>.card-disabled</code> for a locked state.</p>
+  <h2 class="docs-h2" id="select">Select</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.select</span></div></div>
+  <p class="comp-desc">Native select with a custom chevron. Matches input height and focus styles.</p>
   <div class="demo">
-    <div class="demo-canvas" style="gap: var(--space-12); align-items: stretch;">
-      <div class="card" style="width: 260px;">
-        <div class="card-header">
-          <div class="card-title">Monthly active</div>
-          <span class="tag tag-brand">+12%</span>
-        </div>
-        <div style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--text-primary); letter-spacing: -0.6px; margin-bottom: 4px;">24,892</div>
-        <p class="card-desc">vs 22,184 last month</p>
-      </div>
-      <div class="card" style="width: 260px;">
-        <div class="card-header">
-          <div class="card-title">Confirm action</div>
-        </div>
-        <p class="card-desc" style="margin-bottom: var(--space-12);">This will permanently delete the selected items. This action cannot be undone.</p>
-        <div class="card-footer">
-          <button class="btn btn-ghost">Cancel</button>
-          <button class="btn btn-danger btn-sm">Delete</button>
-        </div>
-      </div>
-      <div class="card card-disabled" style="width: 260px;">
-        <div class="card-header"><div class="card-title">Locked card</div></div>
-        <p class="card-desc">Controls are disabled while another operation is in progress.</p>
+    <div class="demo-canvas col" style="max-width:480px; margin: 0 auto;">
+      <div>
+        <label class="label">Country</label>
+        <select class="select">
+          <option>United States</option>
+          <option>United Kingdom</option>
+          <option>Germany</option>
+          <option>Japan</option>
+        </select>
       </div>
     </div>
     <div class="demo-toolbar">
@@ -615,146 +791,10 @@
         <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
       </div>
     </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-header"</span><span class="k">&gt;</span>
-    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-title"</span><span class="k">&gt;</span>Monthly active<span class="k">&lt;/div&gt;</span>
-    <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-brand"</span><span class="k">&gt;</span>+12%<span class="k">&lt;/span&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;p</span> <span class="a">class</span>=<span class="s">"card-desc"</span><span class="k">&gt;</span>vs 22,184 last month<span class="k">&lt;/p&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-footer"</span><span class="k">&gt;</span>
-    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-ghost"</span><span class="k">&gt;</span>Cancel<span class="k">&lt;/button&gt;</span>
-    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-danger btn-sm"</span><span class="k">&gt;</span>Delete<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       ALERT
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="alert">Alert</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.alert .alert-danger | .alert-warn | .alert-brand | .alert-info</span></div></div>
-  <p class="comp-desc">Inline messages for validation, system feedback, and contextual notes. Composable with an icon and title.</p>
-  <div class="demo">
-    <div class="demo-canvas col" style="max-width: 540px; margin: 0 auto; gap: var(--space-10);">
-      <div class="alert alert-danger">
-        <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <div class="alert-body">
-          <div class="alert-title">Connection lost</div>
-          We're trying to reconnect — your last changes will be saved when you're back online.
-        </div>
-      </div>
-      <div class="alert alert-warn">
-        <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <div class="alert-body">Current rate (3.2%) already meets this threshold — system is now in warn.</div>
-      </div>
-      <div class="alert alert-brand">
-        <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <div class="alert-body"><div class="alert-title">Changes saved</div>Your settings will apply on the next eval window.</div>
-      </div>
-      <div class="alert alert-info">
-        <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        <div class="alert-body">Evaluation window closes in 47 minutes.</div>
-      </div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"alert alert-danger"</span><span class="k">&gt;</span>
-  <span class="k">&lt;svg</span> <span class="a">class</span>=<span class="s">"alert-icon"</span><span class="k">&gt;&lt;/svg&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"alert-body"</span><span class="k">&gt;</span>
-    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"alert-title"</span><span class="k">&gt;</span>Connection lost<span class="k">&lt;/div&gt;</span>
-    We're trying to reconnect.
-  <span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       BANNER
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="banner">Banner</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.banner .banner-danger | .banner-brand | .banner-info</span></div></div>
-  <p class="comp-desc">Full-width contextual banners for system-wide state. The pulsing <code>.banner-dot</code> signals an active condition.</p>
-  <div class="demo">
-    <div class="demo-canvas col" style="gap: var(--space-10); padding: var(--space-16);">
-      <div class="banner banner-danger">
-        <span class="banner-dot"></span>
-        <span style="font-weight: var(--weight-semibold);">Dialing stopped</span>
-        <span class="tag tag-danger">Hard stop</span>
-        <span style="opacity: 0.5;">·</span>
-        <span style="opacity: 0.8;">Technical issue · resumes in 14:22</span>
-        <button class="btn-ghost" style="margin-left: auto; color: var(--danger);">Resume now</button>
-      </div>
-      <div class="banner banner-brand">
-        <span class="banner-dot" style="animation: none;"></span>
-        <span style="font-weight: var(--weight-semibold);">All systems operational</span>
-        <span style="opacity: 0.8;">· Updated 2 min ago</span>
-      </div>
-      <div class="banner banner-info">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        <span>Scheduled maintenance tonight from 11 PM to 1 AM ET.</span>
-      </div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"banner banner-danger"</span><span class="k">&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"banner-dot"</span><span class="k">&gt;&lt;/span&gt;</span>
-  <span class="k">&lt;span&gt;</span>Dialing stopped<span class="k">&lt;/span&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-danger"</span><span class="k">&gt;</span>Hard stop<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       DIALOG / SHEET / TOOLTIP / POPOVER / MENU
-       ════════════════════════════════════════════════════════════════ -->
-
-  <h2 class="docs-h2" id="dialog">Dialog</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.dialog · .dialog-overlay · .dialog-header · .dialog-body · .dialog-footer</span></div></div>
-  <p class="comp-desc">Centered modal with a blurred scrim. Use for confirmations, forms, and any flow that should block the rest of the page.</p>
-  <div class="demo">
-    <div class="demo-canvas plain" style="position: relative; padding: 0; min-height: 360px; overflow: hidden;">
-      <div style="position: absolute; inset: 0; background: color-mix(in srgb, var(--text-primary) 60%, transparent); backdrop-filter: blur(2px);"></div>
-      <div style="position: relative; z-index: 1;" class="dialog modal-enter">
-        <div class="dialog-header" style="position: relative;">
-          <div class="dialog-title">Delete this segment?</div>
-          <p class="dialog-desc">"High-value renewals" will be removed from routing. Active calls will continue, but no new calls will be routed to this segment.</p>
-          <button class="dialog-close">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-          </button>
-        </div>
-        <div class="dialog-body">
-          <label class="field-check"><input type="checkbox" class="checkbox" /><span class="field-check-label">I understand this action can't be undone</span></label>
-        </div>
-        <div class="dialog-footer">
-          <button class="btn btn-ghost">Cancel</button>
-          <button class="btn btn-danger">Delete segment</button>
-        </div>
-      </div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-overlay"</span><span class="k">&gt;&lt;/div&gt;</span>
-<span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-header"</span><span class="k">&gt;</span>
-    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-title"</span><span class="k">&gt;</span>Delete this segment?<span class="k">&lt;/div&gt;</span>
-    <span class="k">&lt;p</span> <span class="a">class</span>=<span class="s">"dialog-desc"</span><span class="k">&gt;</span>This action can't be undone.<span class="k">&lt;/p&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-body"</span><span class="k">&gt;</span>...<span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"dialog-footer"</span><span class="k">&gt;</span>
-    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-ghost"</span><span class="k">&gt;</span>Cancel<span class="k">&lt;/button&gt;</span>
-    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-danger"</span><span class="k">&gt;</span>Delete<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
+    <pre class="demo-code"><span class="k">&lt;select</span> <span class="a">class</span>=<span class="s">"select"</span><span class="k">&gt;</span>
+  <span class="k">&lt;option&gt;</span>United States<span class="k">&lt;/option&gt;</span>
+  <span class="k">&lt;option&gt;</span>United Kingdom<span class="k">&lt;/option&gt;</span>
+<span class="k">&lt;/select&gt;</span></pre>
   </div>
 
   <h2 class="docs-h2" id="sheet">Sheet</h2>
@@ -802,167 +842,29 @@
 <span class="k">&lt;/div&gt;</span></pre>
   </div>
 
-  <h2 class="docs-h2" id="tooltip">Tooltip</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tooltip · .tooltip-wrap</span></div></div>
-  <p class="comp-desc">Hovers show after a short delay. Always wrap in <code>.tooltip-wrap</code> for the auto-show behavior.</p>
+  <h2 class="docs-h2" id="sidebar">Sidebar</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.sidebar | .sidebar--rail | .sidebar-link | .sidebar-link.active</span></div></div>
+  <p class="comp-desc">The application sidebar. <code>.sidebar</code> is the full 240px form with labeled links and grouped sections. Add <code>.sidebar--rail</code> for the collapsed, icon-only rail at <code>--sidebar-w</code> (56px). Active state is <code>.sidebar-link.active</code>; icons use <code>currentColor</code>, so they inherit <code>--text-tertiary</code> and shift to <code>--text-primary</code> when active. A Shift-branded example lives at <a href="sidebar-rail.html">sidebar-rail.html</a>.</p>
   <div class="demo">
-    <div class="demo-canvas" style="gap: var(--space-32); padding: var(--space-48) var(--space-24);">
-      <div class="tooltip-wrap"><button class="btn btn-outline">Hover top</button><div class="tooltip" data-side="bottom" style="bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);">Tooltip text</div></div>
-      <div class="tooltip-wrap"><button class="btn btn-outline">Hover right</button><div class="tooltip" data-side="left" style="left: calc(100% + 8px); top: 50%; transform: translateY(-50%);">Tooltip text</div></div>
-      <div class="tooltip-wrap"><button class="btn btn-outline">Hover bottom</button><div class="tooltip" data-side="top" style="top: calc(100% + 8px); left: 50%; transform: translateX(-50%);">Tooltip text</div></div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"tooltip-wrap"</span><span class="k">&gt;</span>
-  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-outline"</span><span class="k">&gt;</span>Hover me<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"tooltip"</span> <span class="a">data-side</span>=<span class="s">"top"</span><span class="k">&gt;</span>Tooltip text<span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
-  </div>
-
-  <h2 class="docs-h2" id="popover">Popover</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.popover · .popover-header</span></div></div>
-  <p class="comp-desc">Click-anchored floating panel. Use for rich content — forms, color pickers, inline editors.</p>
-  <div class="demo">
-    <div class="demo-canvas" style="gap: var(--space-24); padding: var(--space-48) var(--space-24); position: relative; align-items: flex-start;">
-      <button class="btn btn-outline">Open popover</button>
-      <div class="popover" style="position: relative; animation: none;">
-        <div class="popover-header">Quick settings</div>
-        <div style="display: flex; flex-direction: column; gap: var(--space-10);">
-          <label class="field-check"><input type="checkbox" class="switch" checked /><span class="field-check-label">Notifications</span></label>
-          <label class="field-check"><input type="checkbox" class="switch" /><span class="field-check-label">Auto-refresh</span></label>
-          <div class="separator"></div>
-          <button class="btn btn-ghost" style="justify-content: flex-start;">More options →</button>
+    <div class="demo-canvas" style="display:flex; flex-direction:row; gap:var(--space-24); justify-content:center; align-items:flex-start;">
+      <aside class="sidebar" style="height:280px; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
+        <div class="sidebar-header">Atlas</div>
+        <div class="sidebar-group">
+          <div class="sidebar-group-label">Workspace</div>
+          <a class="sidebar-link active" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard</a>
+          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>Projects</a>
+          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Team</a>
         </div>
-      </div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"popover"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"popover-header"</span><span class="k">&gt;</span>Quick settings<span class="k">&lt;/div&gt;</span>
-  ...
-<span class="k">&lt;/div&gt;</span></pre>
-  </div>
-
-  <h2 class="docs-h2" id="menu">Dropdown Menu</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.menu · .menu-item · .menu-label · .menu-separator</span></div></div>
-  <p class="comp-desc">List-of-actions menu. Supports icons, keyboard shortcuts, grouped sections, and a destructive variant.</p>
-  <div class="demo">
-    <div class="demo-canvas" style="gap: var(--space-24); padding: var(--space-32);">
-      <div class="menu" style="position: relative;">
-        <div class="menu-label">Account</div>
-        <button class="menu-item">
-          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Profile
-          <span class="menu-item-shortcut">⇧ ⌘ P</span>
-        </button>
-        <button class="menu-item">
-          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Settings
-          <span class="menu-item-shortcut">⌘ ,</span>
-        </button>
-        <div class="menu-separator"></div>
-        <div class="menu-label">Workspace</div>
-        <button class="menu-item">
-          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-          Switch workspace
-        </button>
-        <div class="menu-separator"></div>
-        <button class="menu-item menu-item-danger">
-          <svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          Sign out
-        </button>
-      </div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"menu"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"menu-label"</span><span class="k">&gt;</span>Account<span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"menu-item"</span><span class="k">&gt;</span>
-    <span class="k">&lt;svg</span> <span class="a">class</span>=<span class="s">"menu-item-icon"</span><span class="k">&gt;&lt;/svg&gt;</span> Profile
-    <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"menu-item-shortcut"</span><span class="k">&gt;</span>⇧ ⌘ P<span class="k">&lt;/span&gt;</span>
-  <span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"menu-separator"</span><span class="k">&gt;&lt;/div&gt;</span>
-  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"menu-item menu-item-danger"</span><span class="k">&gt;</span>Sign out<span class="k">&lt;/button&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       TABS & ACCORDION
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="tabs">Tabs</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tabs-list · .tab · .tab-panel · .tabs-list-pill</span></div></div>
-  <p class="comp-desc">Two variants: bottom-border tabs for primary navigation, pill tabs for filter/segment switching.</p>
-  <div class="demo">
-    <div class="demo-canvas col" style="padding: var(--space-24);">
-      <div class="tabs-list">
-        <button class="tab active">Overview</button>
-        <button class="tab">Activity</button>
-        <button class="tab">Settings</button>
-        <button class="tab">Members <span class="badge" style="font-size:9px; margin-left:4px;">12</span></button>
-      </div>
-      <div class="tab-panel">
-        <p style="font-size:var(--text-md); color: var(--text-secondary);">Overview content goes here. Switch tabs to see different panels.</p>
-      </div>
-      <div class="tabs-list-pill">
-        <button class="tab active">Day</button>
-        <button class="tab">Week</button>
-        <button class="tab">Month</button>
-        <button class="tab">Year</button>
-      </div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"tabs-list"</span><span class="k">&gt;</span>
-  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"tab active"</span><span class="k">&gt;</span>Overview<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"tab"</span><span class="k">&gt;</span>Activity<span class="k">&lt;/button&gt;</span>
-<span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"tab-panel"</span><span class="k">&gt;</span>...<span class="k">&lt;/div&gt;</span></pre>
-  </div>
-
-  <h2 class="docs-h2" id="accordion">Accordion</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.accordion · .accordion-item · .accordion-trigger · .accordion-content</span></div></div>
-  <p class="comp-desc">Collapsible sections. The chevron rotates 180° when the item opens.</p>
-  <div class="demo">
-    <div class="demo-canvas col" style="max-width: 480px; margin: 0 auto;">
-      <div class="accordion">
-        <div class="accordion-item" data-state="open">
-          <button class="accordion-trigger">
-            What is Tiny Wire?
-            <svg class="accordion-trigger-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="accordion-content">A minimal, warm-neutral design system with a single cobalt accent, built for dense operational interfaces — control panels, dashboards, and monitoring tools.</div>
+      </aside>
+      <aside class="sidebar sidebar--rail" style="height:280px; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
+        <div class="sidebar-header"><svg class="sidebar-link-icon" style="width:20px;height:20px;color:var(--danger);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="sidebar-group">
+          <a class="sidebar-link active" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></a>
+          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></a>
+          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></a>
+          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></a>
         </div>
-        <div class="accordion-item" data-state="closed">
-          <button class="accordion-trigger">
-            Is it framework-specific?
-            <svg class="accordion-trigger-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="accordion-content">No. Plain HTML + CSS classes. Works with any framework or no framework at all.</div>
-        </div>
-        <div class="accordion-item" data-state="closed">
-          <button class="accordion-trigger">
-            Does it support dark mode?
-            <svg class="accordion-trigger-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="accordion-content">Yes — every token has a dark variant. Toggle <code>data-theme="dark"</code> on the html element.</div>
-        </div>
-      </div>
+      </aside>
     </div>
     <div class="demo-toolbar">
       <div class="demo-toolbar-tabs">
@@ -970,31 +872,80 @@
         <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
       </div>
     </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"accordion"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"accordion-item"</span> <span class="a">data-state</span>=<span class="s">"open"</span><span class="k">&gt;</span>
-    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"accordion-trigger"</span><span class="k">&gt;</span>Question<span class="k">&lt;/button&gt;</span>
-    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"accordion-content"</span><span class="k">&gt;</span>Answer.<span class="k">&lt;/div&gt;</span>
+    <pre class="demo-code"><span class="c">&lt;!-- Collapsed icon rail --&gt;</span>
+<span class="k">&lt;aside</span> <span class="a">class</span>=<span class="s">"sidebar sidebar--rail"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"sidebar-header"</span><span class="k">&gt;</span>…brand…<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"sidebar-group"</span><span class="k">&gt;</span>
+    <span class="k">&lt;a</span> <span class="a">class</span>=<span class="s">"sidebar-link active"</span><span class="k">&gt;&lt;svg</span> <span class="a">class</span>=<span class="s">"sidebar-link-icon"</span> <span class="a">/&gt;&lt;/a&gt;</span>
+    <span class="k">&lt;a</span> <span class="a">class</span>=<span class="s">"sidebar-link"</span><span class="k">&gt;&lt;svg</span> <span class="a">class</span>=<span class="s">"sidebar-link-icon"</span> <span class="a">/&gt;&lt;/a&gt;</span>
   <span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/aside&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="skeleton">Skeleton</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.skeleton</span></div></div>
+  <p class="comp-desc">Animated shimmer placeholder. Use any width/height — it inherits the rounded corner of its parent or you can set <code>border-radius</code> directly.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="max-width: 380px; margin: 0 auto; gap: var(--space-10);">
+      <div style="display: flex; gap: var(--space-12); align-items: center;">
+        <div class="skeleton" style="width:34px; height:34px; border-radius:var(--radius-full);"></div>
+        <div style="flex:1;">
+          <div class="skeleton" style="height:10px; width:60%; margin-bottom: var(--space-6);"></div>
+          <div class="skeleton" style="height:10px; width:40%;"></div>
+        </div>
+      </div>
+      <div class="skeleton" style="height: 80px; border-radius: var(--radius-md);"></div>
+      <div class="skeleton" style="height: 10px; width: 100%;"></div>
+      <div class="skeleton" style="height: 10px; width: 80%;"></div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"skeleton"</span> <span class="a">style</span>=<span class="s">"height:10px; width:60%;"</span><span class="k">&gt;&lt;/div&gt;</span>
+<span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"skeleton"</span> <span class="a">style</span>=<span class="s">"width:34px; height:34px; border-radius:var(--radius-full);"</span><span class="k">&gt;&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="slider">Slider</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.slider</span></div></div>
+  <p class="comp-desc">Range input with pill track and circular thumb. Pair with <code>.slider-val</code> for a display-font numeric readout.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="max-width:420px; margin: 0 auto;">
+      <div>
+        <label class="label">Dial speed</label>
+        <div class="slider-wrap">
+          <input type="range" min="1.0" max="2.0" step="0.1" value="1.2" class="slider" oninput="this.nextElementSibling.textContent=parseFloat(this.value).toFixed(1)" />
+          <span class="slider-val">1.2</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-top:var(--space-4); font-size:var(--text-md); color:var(--text-tertiary);">
+          <span>1.0</span><span>2.0</span>
+        </div>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"slider-wrap"</span><span class="k">&gt;</span>
+  <span class="k">&lt;input</span> <span class="a">type</span>=<span class="s">"range"</span> <span class="a">class</span>=<span class="s">"slider"</span> <span class="a">min</span>=<span class="s">"1.0"</span> <span class="a">max</span>=<span class="s">"2.0"</span> <span class="a">step</span>=<span class="s">"0.1"</span> <span class="a">value</span>=<span class="s">"1.2"</span><span class="k">&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"slider-val"</span><span class="k">&gt;</span>1.2<span class="k">&lt;/span&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       BREADCRUMB & PAGINATION
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="breadcrumb">Breadcrumb</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.breadcrumb · .breadcrumb-item · .breadcrumb-sep</span></div></div>
-  <p class="comp-desc">Hierarchical location indicator. Mark the current page with <code>aria-current="page"</code>.</p>
+  <h2 class="docs-h2" id="chip">Status Chip</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.chip .chip-ok | .chip-warn | .chip-critical | .chip-info | .chip-stopped</span></div></div>
+  <p class="comp-desc">Pill-shaped semantic status indicators. Always pair with a <code>.chip-dot</code> that inherits the chip color.</p>
   <div class="demo">
     <div class="demo-canvas">
-      <nav class="breadcrumb">
-        <a class="breadcrumb-item" href="#">Workspace</a>
-        <span class="breadcrumb-sep">/</span>
-        <a class="breadcrumb-item" href="#">Projects</a>
-        <span class="breadcrumb-sep">/</span>
-        <a class="breadcrumb-item" href="#">Atlas</a>
-        <span class="breadcrumb-sep">/</span>
-        <span class="breadcrumb-item" aria-current="page">Settings</span>
-      </nav>
+      <span class="chip chip-ok"><span class="chip-dot"></span>Active</span>
+      <span class="chip chip-warn"><span class="chip-dot"></span>Warning</span>
+      <span class="chip chip-critical"><span class="chip-dot"></span>Critical</span>
+      <span class="chip chip-info"><span class="chip-dot"></span>Monitoring</span>
+      <span class="chip chip-stopped"><span class="chip-dot"></span>Stopped</span>
     </div>
     <div class="demo-toolbar">
       <div class="demo-toolbar-tabs">
@@ -1002,67 +953,31 @@
         <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
       </div>
     </div>
-    <pre class="demo-code"><span class="k">&lt;nav</span> <span class="a">class</span>=<span class="s">"breadcrumb"</span><span class="k">&gt;</span>
-  <span class="k">&lt;a</span> <span class="a">class</span>=<span class="s">"breadcrumb-item"</span> <span class="a">href</span>=<span class="s">"#"</span><span class="k">&gt;</span>Workspace<span class="k">&lt;/a&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"breadcrumb-sep"</span><span class="k">&gt;</span>/<span class="k">&lt;/span&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"breadcrumb-item"</span> <span class="a">aria-current</span>=<span class="s">"page"</span><span class="k">&gt;</span>Settings<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;/nav&gt;</span></pre>
+    <pre class="demo-code"><span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"chip chip-ok"</span><span class="k">&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"chip-dot"</span><span class="k">&gt;&lt;/span&gt;</span>Active
+<span class="k">&lt;/span&gt;</span></pre>
   </div>
 
-  <h2 class="docs-h2" id="pagination">Pagination</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.pagination · .pagination-item · .pagination-ellipsis</span></div></div>
+  <h3 class="docs-h3">Status dots</h3>
   <div class="demo">
-    <div class="demo-canvas">
-      <nav class="pagination">
-        <button class="btn-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
-        <button class="pagination-item">1</button>
-        <button class="pagination-item active" aria-current="page">2</button>
-        <button class="pagination-item">3</button>
-        <span class="pagination-ellipsis">…</span>
-        <button class="pagination-item">12</button>
-        <button class="btn-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
-      </nav>
+    <div class="demo-canvas" style="gap: var(--space-20);">
+      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-green"></span><span style="font-size:var(--text-md);">.dot-green</span></div>
+      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-amber"></span><span style="font-size:var(--text-md);">.dot-amber</span></div>
+      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-red"></span><span style="font-size:var(--text-md);">.dot-red</span></div>
+      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-blue"></span><span style="font-size:var(--text-md);">.dot-blue</span></div>
+      <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-muted"></span><span style="font-size:var(--text-md);">.dot-muted</span></div>
+      <div style="display:flex; align-items:center; gap:var(--space-8);"><span class="monitoring-dot"></span><span style="font-size:var(--text-md);">.monitoring-dot</span></div>
     </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;nav</span> <span class="a">class</span>=<span class="s">"pagination"</span><span class="k">&gt;</span>
-  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"pagination-item"</span><span class="k">&gt;</span>1<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"pagination-item active"</span><span class="k">&gt;</span>2<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"pagination-ellipsis"</span><span class="k">&gt;</span>…<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;/nav&gt;</span></pre>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       TOAST & COMMAND
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="toast">Toast</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.toast · .toast-icon · .toast-body · .toast-title · .toast-desc</span></div></div>
-  <p class="comp-desc">Transient feedback. Anchor to a corner (usually bottom-right) and stack.</p>
+  <h2 class="docs-h2" id="switch">Switch</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.switch</span></div></div>
+  <p class="comp-desc">Toggle for boolean settings. Use when the state takes effect immediately; use Checkbox when paired with a form submission.</p>
   <div class="demo">
-    <div class="demo-canvas col" style="max-width: 400px; margin: 0 auto; gap: var(--space-8);">
-      <div class="toast">
-        <svg class="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <div class="toast-body">
-          <div class="toast-title">Changes applied</div>
-          <div class="toast-desc">Dial speed set to 1.2. Expect ~22 additional dials/hr.</div>
-        </div>
-        <button class="toast-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-      </div>
-      <div class="toast toast-danger">
-        <svg class="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        <div class="toast-body">
-          <div class="toast-title">Failed to save</div>
-          <div class="toast-desc">Network error. Your changes are preserved locally.</div>
-        </div>
-      </div>
-      <div class="toast toast-warn">
-        <svg class="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
-        <div class="toast-body"><div class="toast-title">Approaching quota</div><div class="toast-desc">96% of monthly limit used.</div></div>
-      </div>
+    <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
+      <label class="field-check"><input type="checkbox" class="switch" checked /><span class="field-check-label">Email notifications</span></label>
+      <label class="field-check"><input type="checkbox" class="switch" /><span class="field-check-label">Push notifications</span></label>
+      <label class="field-check"><input type="checkbox" class="switch" disabled /><span class="field-check-label" style="color:var(--text-disabled);">SMS (unavailable)</span></label>
     </div>
     <div class="demo-toolbar">
       <div class="demo-toolbar-tabs">
@@ -1070,57 +985,12 @@
         <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
       </div>
     </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"toast"</span><span class="k">&gt;</span>
-  <span class="k">&lt;svg</span> <span class="a">class</span>=<span class="s">"toast-icon"</span><span class="k">&gt;&lt;/svg&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"toast-body"</span><span class="k">&gt;</span>
-    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"toast-title"</span><span class="k">&gt;</span>Changes applied<span class="k">&lt;/div&gt;</span>
-    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"toast-desc"</span><span class="k">&gt;</span>Detail…<span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
+    <pre class="demo-code"><span class="k">&lt;label</span> <span class="a">class</span>=<span class="s">"field-check"</span><span class="k">&gt;</span>
+  <span class="k">&lt;input</span> <span class="a">type</span>=<span class="s">"checkbox"</span> <span class="a">class</span>=<span class="s">"switch"</span> <span class="a">checked</span><span class="k">&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"field-check-label"</span><span class="k">&gt;</span>Email notifications<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;/label&gt;</span></pre>
   </div>
 
-  <h2 class="docs-h2" id="command">Command</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.command · .command-input · .command-list · .command-group-label</span></div></div>
-  <p class="comp-desc">Searchable action palette (⌘K). The list scrolls; groups are labeled with a small caps header.</p>
-  <div class="demo">
-    <div class="demo-canvas">
-      <div class="command">
-        <div class="command-input-wrap">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-tertiary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input class="command-input" placeholder="Type a command or search..." />
-          <kbd>⌘K</kbd>
-        </div>
-        <div class="command-list">
-          <div class="command-group-label">Suggestions</div>
-          <button class="menu-item"><svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Help &amp; documentation</button>
-          <button class="menu-item"><svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Send feedback</button>
-          <div class="command-group-label">Navigate</div>
-          <button class="menu-item"><svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard<span class="menu-item-shortcut">G H</span></button>
-          <button class="menu-item"><svg class="menu-item-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/></svg>Settings<span class="menu-item-shortcut">G S</span></button>
-        </div>
-      </div>
-    </div>
-    <div class="demo-toolbar">
-      <div class="demo-toolbar-tabs">
-        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
-        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
-      </div>
-    </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"command"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"command-input-wrap"</span><span class="k">&gt;</span>
-    <span class="k">&lt;input</span> <span class="a">class</span>=<span class="s">"command-input"</span> <span class="a">placeholder</span>=<span class="s">"Search..."</span><span class="k">&gt;</span>
-    <span class="k">&lt;kbd&gt;</span>⌘K<span class="k">&lt;/kbd&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"command-list"</span><span class="k">&gt;</span>
-    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"command-group-label"</span><span class="k">&gt;</span>Suggestions<span class="k">&lt;/div&gt;</span>
-    <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"menu-item"</span><span class="k">&gt;</span>...<span class="k">&lt;/button&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;/div&gt;</span></pre>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
-       TABLE & EMPTY
-       ════════════════════════════════════════════════════════════════ -->
   <h2 class="docs-h2" id="table">Table</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.table · .table-bordered</span></div></div>
   <p class="comp-desc">Borderless by default — relies on light row dividers. Add <code>.table-bordered</code> for a card-wrapped variant.</p>
@@ -1173,21 +1043,25 @@
 <span class="k">&lt;/table&gt;</span></pre>
   </div>
 
-  <h2 class="docs-h2" id="empty">Empty State</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.empty-state · .empty-state-icon · .empty-state-title · .empty-state-desc · .empty-state-actions</span></div></div>
-  <p class="comp-desc">Centered placeholder for tables, search results, and feature onboarding. Always include an icon and a primary action.</p>
+  <h2 class="docs-h2" id="tabs">Tabs</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tabs-list · .tab · .tab-panel · .tabs-list-pill</span></div></div>
+  <p class="comp-desc">Two variants: bottom-border tabs for primary navigation, pill tabs for filter/segment switching.</p>
   <div class="demo">
-    <div class="demo-canvas col" style="padding: 0;">
-      <div class="empty-state">
-        <div class="empty-state-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        </div>
-        <div class="empty-state-title">No results found</div>
-        <div class="empty-state-desc">Try adjusting your filters or searching with different keywords.</div>
-        <div class="empty-state-actions">
-          <button class="btn btn-outline btn-sm">Reset filters</button>
-          <button class="btn btn-primary btn-sm">New search</button>
-        </div>
+    <div class="demo-canvas col" style="padding: var(--space-24);">
+      <div class="tabs-list">
+        <button class="tab active">Overview</button>
+        <button class="tab">Activity</button>
+        <button class="tab">Settings</button>
+        <button class="tab">Members <span class="badge" style="font-size:9px; margin-left:4px;">12</span></button>
+      </div>
+      <div class="tab-panel">
+        <p style="font-size:var(--text-md); color: var(--text-secondary);">Overview content goes here. Switch tabs to see different panels.</p>
+      </div>
+      <div class="tabs-list-pill">
+        <button class="tab active">Day</button>
+        <button class="tab">Week</button>
+        <button class="tab">Month</button>
+        <button class="tab">Year</button>
       </div>
     </div>
     <div class="demo-toolbar">
@@ -1196,40 +1070,106 @@
         <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
       </div>
     </div>
-    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state-icon"</span><span class="k">&gt;&lt;svg /&gt;&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state-title"</span><span class="k">&gt;</span>No results found<span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state-desc"</span><span class="k">&gt;</span>Try adjusting your filters.<span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"empty-state-actions"</span><span class="k">&gt;&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-primary btn-sm"</span><span class="k">&gt;</span>New search<span class="k">&lt;/button&gt;&lt;/div&gt;</span>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"tabs-list"</span><span class="k">&gt;</span>
+  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"tab active"</span><span class="k">&gt;</span>Overview<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"tab"</span><span class="k">&gt;</span>Activity<span class="k">&lt;/button&gt;</span>
+<span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"tab-panel"</span><span class="k">&gt;</span>...<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="tag">Tag &amp; Badge</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tag .tag-danger | .tag-brand | .tag-info | .tag-warn | .tag-accent · .badge</span></div></div>
+  <p class="comp-desc">Tags are loud: all-caps, semantic-colored fill. Badges are quiet: muted, used for metadata.</p>
+  <div class="demo">
+    <div class="demo-canvas">
+      <span class="tag tag-danger">Hard stop</span>
+      <span class="tag tag-brand">Active</span>
+      <span class="tag tag-info">Info</span>
+      <span class="tag tag-warn">Review</span>
+      <span class="tag tag-accent">New</span>
+      <span class="tag">Default</span>
+      <span class="badge">rolled back</span>
+      <span class="badge" data-tw-version>v1.3</span>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-danger"</span><span class="k">&gt;</span>Hard stop<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-brand"</span><span class="k">&gt;</span>Active<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"badge"</span><span class="k">&gt;</span>rolled back<span class="k">&lt;/span&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="textarea">Textarea</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.textarea</span></div></div>
+  <p class="comp-desc">Multiline input, vertically resizable, with a 72px minimum height.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="max-width:480px; margin: 0 auto;">
+      <div>
+        <label class="label">Description</label>
+        <textarea class="textarea" placeholder="Add a note..."></textarea>
+        <p class="helper">Markdown is supported.</p>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;textarea</span> <span class="a">class</span>=<span class="s">"textarea"</span> <span class="a">placeholder</span>=<span class="s">"Add a note..."</span><span class="k">&gt;&lt;/textarea&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="toast">Toast</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.toast · .toast-icon · .toast-body · .toast-title · .toast-desc</span></div></div>
+  <p class="comp-desc">Transient feedback. Anchor to a corner (usually bottom-right) and stack.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="max-width: 400px; margin: 0 auto; gap: var(--space-8);">
+      <div class="toast">
+        <svg class="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <div class="toast-body">
+          <div class="toast-title">Changes applied</div>
+          <div class="toast-desc">Dial speed set to 1.2. Expect ~22 additional dials/hr.</div>
+        </div>
+        <button class="toast-close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <div class="toast toast-danger">
+        <svg class="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <div class="toast-body">
+          <div class="toast-title">Failed to save</div>
+          <div class="toast-desc">Network error. Your changes are preserved locally.</div>
+        </div>
+      </div>
+      <div class="toast toast-warn">
+        <svg class="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+        <div class="toast-body"><div class="toast-title">Approaching quota</div><div class="toast-desc">96% of monthly limit used.</div></div>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"toast"</span><span class="k">&gt;</span>
+  <span class="k">&lt;svg</span> <span class="a">class</span>=<span class="s">"toast-icon"</span><span class="k">&gt;&lt;/svg&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"toast-body"</span><span class="k">&gt;</span>
+    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"toast-title"</span><span class="k">&gt;</span>Changes applied<span class="k">&lt;/div&gt;</span>
+    <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"toast-desc"</span><span class="k">&gt;</span>Detail…<span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
   </div>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       SIDEBAR
-       ════════════════════════════════════════════════════════════════ -->
-  <h2 class="docs-h2" id="sidebar">Sidebar</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.sidebar | .sidebar--rail | .sidebar-link | .sidebar-link.active</span></div></div>
-  <p class="comp-desc">The application sidebar. <code>.sidebar</code> is the full 240px form with labeled links and grouped sections. Add <code>.sidebar--rail</code> for the collapsed, icon-only rail at <code>--sidebar-w</code> (56px). Active state is <code>.sidebar-link.active</code>; icons use <code>currentColor</code>, so they inherit <code>--text-tertiary</code> and shift to <code>--text-primary</code> when active. A Shift-branded example lives at <a href="sidebar-rail.html">sidebar-rail.html</a>.</p>
+  <h2 class="docs-h2" id="tooltip">Tooltip</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tooltip · .tooltip-wrap</span></div></div>
+  <p class="comp-desc">Hovers show after a short delay. Always wrap in <code>.tooltip-wrap</code> for the auto-show behavior.</p>
   <div class="demo">
-    <div class="demo-canvas" style="display:flex; flex-direction:row; gap:var(--space-24); justify-content:center; align-items:flex-start;">
-      <aside class="sidebar" style="height:280px; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
-        <div class="sidebar-header">Atlas</div>
-        <div class="sidebar-group">
-          <div class="sidebar-group-label">Workspace</div>
-          <a class="sidebar-link active" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Dashboard</a>
-          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="9"/><line x1="9" y1="15" x2="15" y2="15"/></svg>Projects</a>
-          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Team</a>
-        </div>
-      </aside>
-      <aside class="sidebar sidebar--rail" style="height:280px; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden;">
-        <div class="sidebar-header"><svg class="sidebar-link-icon" style="width:20px;height:20px;color:var(--danger);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <div class="sidebar-group">
-          <a class="sidebar-link active" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></a>
-          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></a>
-          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></a>
-          <a class="sidebar-link" href="#"><svg class="sidebar-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></a>
-        </div>
-      </aside>
+    <div class="demo-canvas" style="gap: var(--space-32); padding: var(--space-48) var(--space-24);">
+      <div class="tooltip-wrap"><button class="btn btn-outline">Hover top</button><div class="tooltip" data-side="bottom" style="bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);">Tooltip text</div></div>
+      <div class="tooltip-wrap"><button class="btn btn-outline">Hover right</button><div class="tooltip" data-side="left" style="left: calc(100% + 8px); top: 50%; transform: translateY(-50%);">Tooltip text</div></div>
+      <div class="tooltip-wrap"><button class="btn btn-outline">Hover bottom</button><div class="tooltip" data-side="top" style="top: calc(100% + 8px); left: 50%; transform: translateX(-50%);">Tooltip text</div></div>
     </div>
     <div class="demo-toolbar">
       <div class="demo-toolbar-tabs">
@@ -1237,14 +1177,10 @@
         <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
       </div>
     </div>
-    <pre class="demo-code"><span class="c">&lt;!-- Collapsed icon rail --&gt;</span>
-<span class="k">&lt;aside</span> <span class="a">class</span>=<span class="s">"sidebar sidebar--rail"</span><span class="k">&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"sidebar-header"</span><span class="k">&gt;</span>…brand…<span class="k">&lt;/div&gt;</span>
-  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"sidebar-group"</span><span class="k">&gt;</span>
-    <span class="k">&lt;a</span> <span class="a">class</span>=<span class="s">"sidebar-link active"</span><span class="k">&gt;&lt;svg</span> <span class="a">class</span>=<span class="s">"sidebar-link-icon"</span> <span class="a">/&gt;&lt;/a&gt;</span>
-    <span class="k">&lt;a</span> <span class="a">class</span>=<span class="s">"sidebar-link"</span><span class="k">&gt;&lt;svg</span> <span class="a">class</span>=<span class="s">"sidebar-link-icon"</span> <span class="a">/&gt;&lt;/a&gt;</span>
-  <span class="k">&lt;/div&gt;</span>
-<span class="k">&lt;/aside&gt;</span></pre>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"tooltip-wrap"</span><span class="k">&gt;</span>
+  <span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-outline"</span><span class="k">&gt;</span>Hover me<span class="k">&lt;/button&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"tooltip"</span> <span class="a">data-side</span>=<span class="s">"top"</span><span class="k">&gt;</span>Tooltip text<span class="k">&lt;/div&gt;</span>
+<span class="k">&lt;/div&gt;</span></pre>
   </div>
 
 </main>
