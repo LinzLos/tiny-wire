@@ -346,7 +346,7 @@
 
   <!-- Findings from this run -->
   <h2 class="docs-h2" id="findings-this-run">Issues this tool surfaced</h2>
-  <p class="docs-h2-sub">Running the checker against v1.1 caught five real problems I'd missed in the manual audit. Three were fixed on the spot; two are scheduled for v1.2 because they involve hue shifts that need broader review.</p>
+  <p class="docs-h2-sub">Running the checker against v1.1 caught five real problems I'd missed in the manual audit. Three were fixed on the spot; two needed a broader hue review and were deferred — both since resolved: F-015 when the accent consolidated to cobalt (v1.3), F-014 when brand moved off green (v1.5).</p>
 
   <div style="display: grid; gap: var(--space-12);">
 
@@ -362,21 +362,21 @@
 
     <div class="card" style="display:flex; gap:var(--space-16); align-items:flex-start; padding: var(--space-16) var(--space-20);">
       <div style="flex-shrink:0; width:80px;">
-        <span class="pf pf-warn">Deferred</span>
+        <span class="pf pf-pass">Fixed</span>
       </div>
       <div style="flex:1; min-width:0;">
         <div style="font-family:var(--font-heading); font-size:var(--text-lg); font-weight:var(--weight-semibold); color:var(--text-primary); letter-spacing:var(--tracking-snug); margin-bottom:var(--space-4);">F-014 · Brand text on white fails AA</div>
-        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal);">The forest green <code>--brand</code> (<code>#629460</code>) on white card surfaces is <strong>3.54:1</strong>. Fine for non-text UI elements (chip dots, focus rings), but using <code>--brand</code> for chip text or alert headings reads as a fail. Workaround: use <code>--brand-dark</code> for any text role. <strong>v1.2 plan:</strong> rename brand-dark to <code>--brand-text</code> and add lint rule against bare <code>--brand</code> on text.</p>
+        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal);">The forest green <code>--brand</code> (<code>#629460</code>) on white was <strong>3.54:1</strong> — fine for dots and focus rings, a fail as text. Deferred since v1.1. <strong>Resolved v1.5:</strong> brand moved off green to cobalt (<code>#2F4BA6</code>, <strong>8.3:1</strong> on white), closing the brand-on-white fail. The green-as-text concern transferred to the new <code>--success</code> token (same ~3.5:1 physics) and is now scoped there: <code>--success-dark</code> for any text role, bare <code>--success</code> for non-text only. A lint rule against bare <code>--success</code> on text is queued.</p>
       </div>
     </div>
 
     <div class="card" style="display:flex; gap:var(--space-16); align-items:flex-start; padding: var(--space-16) var(--space-20);">
       <div style="flex-shrink:0; width:80px;">
-        <span class="pf pf-warn">Deferred</span>
+        <span class="pf pf-pass">Fixed</span>
       </div>
       <div style="flex:1; min-width:0;">
         <div style="font-family:var(--font-heading); font-size:var(--text-lg); font-weight:var(--weight-semibold); color:var(--text-primary); letter-spacing:var(--tracking-snug); margin-bottom:var(--space-4);">F-015 · Accent button label invisible</div>
-        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal);">White text on <code>--accent</code> sky blue (<code>#0EA5E9</code>) scores <strong>2.77:1</strong> — fails AA <em>and</em> the 3:1 UI threshold. The accent is currently used only as a chart colour, so no live buttons are broken — but if a consumer reaches for <code>btn-accent</code> by pattern, they'd ship inaccessible UI. <strong>v1.2 plan:</strong> ship a darker <code>--accent</code> (≈ <code>#0078A8</code>) that passes, or remove the implied <code>-fg</code> contract.</p>
+        <p style="font-size:var(--text-md); color:var(--text-secondary); line-height:var(--leading-normal);">White text on the old sky-blue <code>--accent</code> (<code>#0EA5E9</code>) scored <strong>2.77:1</strong> — failed AA <em>and</em> the 3:1 UI threshold. <strong>Resolved v1.3:</strong> the palette consolidated to a single cobalt accent — <code>--accent</code> is now <code>#2F4BA6</code> (white on it = <strong>8.3:1</strong>, passes both); the sky blue is retained chart-only as <code>--azure-500</code>.</p>
       </div>
     </div>
 

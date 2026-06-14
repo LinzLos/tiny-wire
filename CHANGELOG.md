@@ -4,6 +4,35 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 ---
 
+### v1.5 — 2026-06-14 · "Reserve green"
+
+Semantic-color pass, surfaced while building a conceptual attestation prototype **on** the system. Green was doing double duty — the brand accent *and* the "safe / attested / healthy" status signal — so when everything is green, the trust signal never pops. v1.5 reserves green strictly for a new `--success` family and moves brand + all interaction onto the existing cobalt. Additive: every public class still renders.
+
+#### Added
+
+- **`--success*` token family** (`--success`, `-light`, `-mid`, `-dark`, `-fg`) — green, reserved strictly for verified-good states: **attested / approved / safe / healthy / running**. Rarity is the point — green now reads as a real verdict.
+- **`.alert-success` / `.banner-success` / `.tag-success`** — canonical success component classes.
+- New **cobalt hero image** (recaptured from the dashboard pattern).
+
+#### Changed
+
+- **`--brand*` re-pointed from green to cobalt** — identity + primary action, links, focus, and selection controls now read cobalt. Token *names* are unchanged, so downstream prototypes inherit the shift unbroken.
+- Status components (`chip-ok`, `dot-green`, `monitoring-dot`, success alert/banner/tag) now source `--success`; action components (button, focus, controls, progress, spinner) follow `--brand` (cobalt).
+
+#### Fixed
+
+- **F-014 (a11y) closed** — brand-on-white text was 3.54:1 (deferred since v1.1). Moving brand off green to cobalt makes it **8.3:1**. A free win from the semantic split.
+
+#### Deferred
+
+- **Green-as-text contrast** — `--success` (green-500) as text on light tints is still ~3.5:1 (same physics the old brand had). Guidance: use `--success-dark` for any text role, bare `--success` for non-text only (dots, borders, fills). Lint rule against bare `--success` on text is queued.
+
+#### Compatibility
+
+- **Zero breaking changes.** `.alert-brand` / `.banner-brand` / `.tag-brand` remain as back-compat aliases of the new `.*-success` classes.
+
+---
+
 ### v1.4.1 — 2026-06-13 · "Conventions"
 
 Patch — codifies conventions surfaced while building the dialing + shift prototypes on Tiny Wire, so the system stays the source of truth.
