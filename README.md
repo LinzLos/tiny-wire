@@ -1,8 +1,10 @@
 # Tiny Wire
 
-A minimal, warm-neutral design system with a single cobalt accent, built for dense operational interfaces.
+TinyWire is a design system for the interfaces where people operate complex software: dashboards, data tables, and control surfaces. Most of my client work is under NDA, so this is where I show how I approach operator UI. I build prototypes on it and fold what I learn back in.
 
 **[Live demo & docs →](https://linzlos.github.io/tiny-wire/)** · License: MIT · No build step
+
+![TinyWire dashboard pattern — sidebar nav, stat cards, chart, and activity feed](docs/hero.png)
 
 - **2 fonts**: Bricolage Grotesque (display) + DM Sans (body)
 - **~180 tokens, three tiers** (primitive → semantic → component): colors, type, spacing, radius, elevation, animation — all light & dark
