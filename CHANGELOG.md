@@ -4,6 +4,17 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 ---
 
+### v1.4.1 — 2026-06-13 · "Conventions"
+
+Patch — codifies conventions surfaced while building the dialing + shift prototypes on Tiny Wire, so the system stays the source of truth.
+
+#### Added
+
+- **`--logo` token** — the brand logomark color: your brand in light, **ink in dark** (override per brand). A saturated mark glows uncomfortably on dark surfaces; ink keeps it refined.
+- **Foundations "Color conventions" note** — keep accents semantic, not decorative: favorites/bookmarks → `--accent` (not `--brand`); `--warning` is caution-only (not for neutral categories, filters, or counts); logomark → `--logo`.
+
+---
+
 ### v1.4 — 2026-06-13 · "Live demos"
 
 Docs-experience pass, driven by a structured UX critique (FLOWIE). The design system stays **CSS-only**; the docs gain a thin vanilla-JS layer so every demo is honest and every page is navigable. No token or class changes — purely the docs site.

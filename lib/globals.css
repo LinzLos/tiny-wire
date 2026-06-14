@@ -122,6 +122,10 @@ a { color: inherit; text-decoration: none; }
   --brand-dark:     var(--green-700);
   --brand-fg:       #FFFFFF;
 
+  /* Brand logomark — your brand color in light, ink in dark (override per brand).
+     Avoids a saturated mark glowing on dark surfaces. */
+  --logo:           var(--brand);
+
   /* Status — Danger (orange-red; destructive only) */
   --danger:         var(--red-500);
   --danger-light:   var(--red-100);
@@ -279,6 +283,7 @@ a { color: inherit; text-decoration: none; }
   --text-disabled:  #756763;
 
   /* Foreground-on-color tokens invert in dark. */
+  --logo:       var(--text-primary);   /* logomark → ink in dark */
   --brand-fg:   #0E1A0D;
   --danger-fg:  #190B05;
   --warning-fg: #1A100C;

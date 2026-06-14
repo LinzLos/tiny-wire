@@ -75,6 +75,7 @@
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand-light)"></div><div><div class="color-chip-name">Brand Light</div><div class="color-chip-var">--brand-light</div></div></div>
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand-mid)"></div><div><div class="color-chip-name">Brand Mid</div><div class="color-chip-var">--brand-mid</div></div></div>
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand-dark)"></div><div><div class="color-chip-name">Brand Dark</div><div class="color-chip-var">--brand-dark</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--logo)"></div><div><div class="color-chip-name">Logo mark</div><div class="color-chip-var">--logo</div></div></div>
   </div>
 
   <div class="token-group-label">Status — Danger</div>
@@ -109,6 +110,18 @@
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--chart-azure)"></div><div><div class="color-chip-name">Chart Azure</div><div class="color-chip-var">--chart-azure</div></div></div>
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--chart-amber)"></div><div><div class="color-chip-name">Chart Amber</div><div class="color-chip-var">--chart-amber</div></div></div>
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--chart-violet)"></div><div><div class="color-chip-name">Chart Violet</div><div class="color-chip-var">--chart-violet</div></div></div>
+  </div>
+
+  <div class="card" style="margin-top: var(--space-24); background: color-mix(in srgb, var(--info) 5%, var(--surface)); border-color: color-mix(in srgb, var(--info) 22%, var(--border));">
+    <div class="card-title">Color conventions</div>
+    <p class="card-desc" style="margin-top: var(--space-8); line-height: var(--leading-normal);">
+      Keep accents <strong style="color:var(--text-primary);">semantic, not decorative</strong> — every color should mean something:
+    </p>
+    <ul style="margin: var(--space-8) 0 0 var(--space-16); font-size: var(--text-md); color: var(--text-secondary); line-height: var(--leading-normal);">
+      <li><strong style="color:var(--text-primary);">Favorites / bookmarks → <code>--accent</code></strong> (the cool interactive accent), not <code>--brand</code>. Reserve brand green for primary actions and success.</li>
+      <li><strong style="color:var(--text-primary);"><code>--warning</code> is for caution only.</strong> Don't use the amber on neutral categories, filters, or counts — that reads as a false alarm. Use <code>--text-secondary</code> / <code>--text-tertiary</code> for plain labels.</li>
+      <li><strong style="color:var(--text-primary);">Brand logomark → <code>--logo</code>.</strong> Your brand color in light, <strong style="color:var(--text-primary);">ink in dark</strong> — a saturated mark glows uncomfortably on dark surfaces. (Override <code>--logo</code> to your brand's hex.)</li>
+    </ul>
   </div>
 
   <h2 class="docs-h2" id="radius">Radius</h2>
