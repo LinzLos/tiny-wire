@@ -41,7 +41,7 @@
   </div>
 
   <h2 class="docs-h2" id="colors">Colors</h2>
-  <p class="docs-h2-sub">A warm neutral base with a green brand, orange-red danger, and categorical data colors. All hues share a muted, slightly desaturated quality. Toggle the theme in the sidebar to see dark values.</p>
+  <p class="docs-h2-sub">A warm neutral base with a cobalt brand, green reserved strictly for success/trust states, orange-red danger, and categorical data colors. All hues share a muted, slightly desaturated quality. Toggle the theme in the sidebar to see dark values.</p>
 
   <div class="token-group-label">Surfaces</div>
   <div class="color-grid">
@@ -69,13 +69,21 @@
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--text-inverse)"></div><div><div class="color-chip-name">Inverse</div><div class="color-chip-var">--text-inverse</div></div></div>
   </div>
 
-  <div class="token-group-label">Brand — Green</div>
+  <div class="token-group-label">Brand — Cobalt</div>
   <div class="color-grid">
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand)"></div><div><div class="color-chip-name">Brand</div><div class="color-chip-var">--brand</div></div></div>
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand-light)"></div><div><div class="color-chip-name">Brand Light</div><div class="color-chip-var">--brand-light</div></div></div>
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand-mid)"></div><div><div class="color-chip-name">Brand Mid</div><div class="color-chip-var">--brand-mid</div></div></div>
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--brand-dark)"></div><div><div class="color-chip-name">Brand Dark</div><div class="color-chip-var">--brand-dark</div></div></div>
     <div class="color-chip"><div class="color-chip-swatch" style="background:var(--logo)"></div><div><div class="color-chip-name">Logo mark</div><div class="color-chip-var">--logo</div></div></div>
+  </div>
+
+  <div class="token-group-label">Status — Success (Green, reserved)</div>
+  <div class="color-grid">
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--success)"></div><div><div class="color-chip-name">Success</div><div class="color-chip-var">--success</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--success-light)"></div><div><div class="color-chip-name">Success Light</div><div class="color-chip-var">--success-light</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--success-mid)"></div><div><div class="color-chip-name">Success Mid</div><div class="color-chip-var">--success-mid</div></div></div>
+    <div class="color-chip"><div class="color-chip-swatch" style="background:var(--success-dark)"></div><div><div class="color-chip-name">Success Dark</div><div class="color-chip-var">--success-dark</div></div></div>
   </div>
 
   <div class="token-group-label">Status — Danger</div>
@@ -118,7 +126,8 @@
       Keep accents <strong style="color:var(--text-primary);">semantic, not decorative</strong> — every color should mean something:
     </p>
     <ul style="margin: var(--space-8) 0 0 var(--space-16); font-size: var(--text-md); color: var(--text-secondary); line-height: var(--leading-normal);">
-      <li><strong style="color:var(--text-primary);">Favorites / bookmarks → <code>--accent</code></strong> (the cool interactive accent), not <code>--brand</code>. Reserve brand green for primary actions and success.</li>
+      <li><strong style="color:var(--text-primary);">Green is reserved for trust.</strong> <code>--success</code> means a verified-good state only — attested, approved, safe, healthy, running. Never spend green on chrome, actions, or decoration; that rarity is what makes the signal pop.</li>
+      <li><strong style="color:var(--text-primary);">Cobalt carries identity + interaction.</strong> Primary actions, links, focus, and selection use <code>--brand</code> / <code>--accent</code> (same cobalt hue); info notices use <code>--info</code>. Solid fill reads as action, tinted container reads as info.</li>
       <li><strong style="color:var(--text-primary);"><code>--warning</code> is for caution only.</strong> Don't use the amber on neutral categories, filters, or counts — that reads as a false alarm. Use <code>--text-secondary</code> / <code>--text-tertiary</code> for plain labels.</li>
       <li><strong style="color:var(--text-primary);">Brand logomark → <code>--logo</code>.</strong> Your brand color in light, <strong style="color:var(--text-primary);">ink in dark</strong> — a saturated mark glows uncomfortably on dark surfaces. (Override <code>--logo</code> to your brand's hex.)</li>
     </ul>

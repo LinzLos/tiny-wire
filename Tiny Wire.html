@@ -25,10 +25,14 @@
   --text-secondary: #5C504F;
   --text-tertiary:  #8A7E7D;
   --text-inverse:   #FFFFFF;
-  --brand:          #629460;
-  --brand-light:    #F2F6F2;
-  --brand-mid:      #C8D9C7;
-  --brand-dark:     #3F603E;
+  --brand:          #2F4BA6;
+  --brand-light:    #EEF1FB;
+  --brand-mid:      #BCC9EA;
+  --brand-dark:     #243B83;
+  --success:        #629460;
+  --success-light:  #F2F6F2;
+  --success-mid:    #C8D9C7;
+  --success-dark:   #3F603E;
   --danger:         #CE430A;
   --danger-light:   #FBEFEB;
   --danger-mid:     #EBB39D;
@@ -448,7 +452,7 @@ body {
   text-transform: uppercase; padding: 2px 6px; border-radius: var(--radius-xs);
 }
 .tag-danger { background: var(--danger-light); color: var(--danger); }
-.tag-brand  { background: var(--brand-light);  color: var(--brand); }
+.tag-success  { background: var(--success-light);  color: var(--success-dark); }
 .tag-info   { background: var(--info-light);   color: var(--info); }
 .tag-warn   { background: var(--warning-light);color: var(--warning); }
 
@@ -467,7 +471,7 @@ body {
   font-size: var(--text-md); font-weight: var(--weight-medium);
   border: 1px solid transparent;
 }
-.status-chip--ok      { background: color-mix(in srgb, var(--brand)   10%, transparent); border-color: color-mix(in srgb, var(--brand)   25%, transparent); color: var(--brand); }
+.status-chip--ok      { background: color-mix(in srgb, var(--success) 10%, transparent); border-color: color-mix(in srgb, var(--success) 25%, transparent); color: var(--success); }
 .status-chip--warn    { background: color-mix(in srgb, var(--warning) 10%, transparent); border-color: color-mix(in srgb, var(--warning) 25%, transparent); color: var(--warning); }
 .status-chip--critical{ background: color-mix(in srgb, var(--danger)  10%, transparent); border-color: color-mix(in srgb, var(--danger)  25%, transparent); color: var(--danger); }
 .status-chip--stopped { background: var(--surface-muted); border-color: var(--border); color: var(--text-secondary); }
@@ -484,7 +488,7 @@ body {
   border-radius: var(--radius-full);
   display: inline-block; flex-shrink: 0;
 }
-.dot-green  { background: var(--brand); }
+.dot-green  { background: var(--success); }
 .dot-amber  { background: var(--warning); }
 .dot-red    { background: var(--danger); }
 .dot-blue   { background: var(--info); }
@@ -492,13 +496,13 @@ body {
 
 .monitoring-dot {
   position: relative; width: 7px; height: 7px;
-  border-radius: var(--radius-full); background: var(--brand);
+  border-radius: var(--radius-full); background: var(--success);
   flex-shrink: 0; animation: pulse-dot 2.8s ease-in-out infinite;
 }
 .monitoring-dot::after {
   content: ''; position: absolute; inset: 0;
   border-radius: var(--radius-full);
-  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--brand) 55%, transparent);
+  box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--success) 55%, transparent);
   animation: ripple-ring 2.8s ease-in-out infinite;
 }
 @keyframes ripple-ring {
@@ -668,7 +672,7 @@ body {
 }
 .alert-danger  { color: var(--danger);  background: color-mix(in srgb, var(--danger)  8%, transparent); border-color: color-mix(in srgb, var(--danger)  22%, transparent); }
 .alert-warn    { color: var(--warning); background: color-mix(in srgb, var(--warning) 8%, transparent); border-color: color-mix(in srgb, var(--warning) 22%, transparent); }
-.alert-brand   { color: var(--brand);   background: color-mix(in srgb, var(--brand)   8%, transparent); border-color: color-mix(in srgb, var(--brand)   22%, transparent); }
+.alert-success   { color: var(--success-dark); background: color-mix(in srgb, var(--success) 8%, transparent); border-color: color-mix(in srgb, var(--success) 22%, transparent); }
 .alert-info    { color: var(--info);    background: color-mix(in srgb, var(--info)    8%, transparent); border-color: color-mix(in srgb, var(--info)    22%, transparent); }
 
 /* ─── Banner ─────────────────────────────────────────────────────────────── */
@@ -690,8 +694,8 @@ body {
 /* ─── Targeting active ───────────────────────────────────────────────────── */
 .targeting-active {
   display: flex; align-items: center; gap: var(--space-8);
-  background: color-mix(in srgb, var(--brand) 8%, transparent);
-  border: 1px solid color-mix(in srgb, var(--brand) 22%, transparent);
+  background: color-mix(in srgb, var(--success) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--success) 22%, transparent);
   border-radius: var(--radius-sm); padding: var(--space-7) var(--space-10);
 }
 .targeting-label { flex: 1; font-size: var(--text-md); color: var(--text-secondary); }
@@ -867,7 +871,7 @@ code {
 <span class="k">import</span> tokens <span class="k">from</span> <span class="s">'./tokens/design-tokens.js'</span>
 
 <span class="c">// Access any value</span>
-<span class="k">const</span> brand = tokens.colors.brand      <span class="c">// '#629460'</span>
+<span class="k">const</span> brand = tokens.colors.brand      <span class="c">// '#2F4BA6'</span>
 <span class="k">const</span> base  = tokens.typography.fontSize.base <span class="c">// 13</span>
     </div>
   </div>
@@ -875,7 +879,7 @@ code {
   <!-- Colors -->
   <div class="doc-section" id="colors">
     <div class="doc-section-title">Colors</div>
-    <div class="doc-section-sub">A warm neutral base with a green brand, orange-red danger, and categorical data colors. All hues share a muted, slightly desaturated quality.</div>
+    <div class="doc-section-sub">A warm neutral base with a cobalt brand, green reserved strictly for success/trust states, orange-red danger, and categorical data colors. All hues share a muted, slightly desaturated quality.</div>
 
     <div class="token-label">Surfaces</div>
     <div class="color-grid">
@@ -933,23 +937,43 @@ code {
       </div>
     </div>
 
-    <div class="token-label">Brand — Green</div>
+    <div class="token-label">Brand — Cobalt</div>
     <div class="color-grid">
       <div class="color-chip">
-        <div class="color-chip-swatch" style="background:#629460;"></div>
+        <div class="color-chip-swatch" style="background:#2F4BA6;"></div>
         <div class="color-chip-info"><div class="color-chip-name">Brand</div><div class="color-chip-var">--brand</div></div>
       </div>
       <div class="color-chip">
-        <div class="color-chip-swatch" style="background:#F2F6F2;"></div>
+        <div class="color-chip-swatch" style="background:#EEF1FB;"></div>
         <div class="color-chip-info"><div class="color-chip-name">Brand Light</div><div class="color-chip-var">--brand-light</div></div>
       </div>
       <div class="color-chip">
-        <div class="color-chip-swatch" style="background:#C8D9C7;"></div>
+        <div class="color-chip-swatch" style="background:#BCC9EA;"></div>
         <div class="color-chip-info"><div class="color-chip-name">Brand Mid</div><div class="color-chip-var">--brand-mid</div></div>
       </div>
       <div class="color-chip">
-        <div class="color-chip-swatch" style="background:#3F603E;"></div>
+        <div class="color-chip-swatch" style="background:#243B83;"></div>
         <div class="color-chip-info"><div class="color-chip-name">Brand Dark</div><div class="color-chip-var">--brand-dark</div></div>
+      </div>
+    </div>
+
+    <div class="token-label">Success — Green (reserved)</div>
+    <div class="color-grid">
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#629460;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Success</div><div class="color-chip-var">--success</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#F2F6F2;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Success Light</div><div class="color-chip-var">--success-light</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#C8D9C7;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Success Mid</div><div class="color-chip-var">--success-mid</div></div>
+      </div>
+      <div class="color-chip">
+        <div class="color-chip-swatch" style="background:#3F603E;"></div>
+        <div class="color-chip-info"><div class="color-chip-name">Success Dark</div><div class="color-chip-var">--success-dark</div></div>
       </div>
     </div>
 
@@ -1194,14 +1218,14 @@ code {
     <div class="doc-section-sub">Tags are loud: all-caps, colored fill. Badges are quiet: muted, used for metadata like "rolled back".</div>
     <div class="component-canvas" style="align-items:center;">
       <span class="tag tag-danger">Hard stop</span>
-      <span class="tag tag-brand">Active</span>
+      <span class="tag tag-success">Active</span>
       <span class="tag tag-info">Info</span>
       <span class="tag tag-warn">Review</span>
       <span class="badge">rolled back</span>
       <span class="badge">v1.2</span>
     </div>
     <div class="usage-block"><span class="k">class</span>=<span class="s">"tag tag-danger"</span>   <span class="c">/* orange-red · Hard stop, Error */</span>
-<span class="k">class</span>=<span class="s">"tag tag-brand"</span>    <span class="c">/* green · Active, OK */</span>
+<span class="k">class</span>=<span class="s">"tag tag-success"</span>    <span class="c">/* green · Active, OK */</span>
 <span class="k">class</span>=<span class="s">"tag tag-info"</span>     <span class="c">/* navy · Informational */</span>
 <span class="k">class</span>=<span class="s">"tag tag-warn"</span>     <span class="c">/* warm brown · Caution */</span>
 <span class="k">class</span>=<span class="s">"badge"</span>            <span class="c">/* muted · Metadata */</span></div>
@@ -1310,12 +1334,12 @@ code {
     <div class="component-canvas col">
       <div class="alert alert-danger">Warn threshold must be below the pause threshold.</div>
       <div class="alert alert-warn">Current rate (3.2%) already meets this threshold — system is now in warn.</div>
-      <div class="alert alert-brand">Targeting is active — priority routing applied to this segment.</div>
+      <div class="alert alert-success">Targeting is active — priority routing applied to this segment.</div>
       <div class="alert alert-info">Evaluation window closes in 47 minutes.</div>
     </div>
     <div class="usage-block"><span class="k">class</span>=<span class="s">"alert alert-danger"</span>
 <span class="k">class</span>=<span class="s">"alert alert-warn"</span>
-<span class="k">class</span>=<span class="s">"alert alert-brand"</span>
+<span class="k">class</span>=<span class="s">"alert alert-success"</span>
 <span class="k">class</span>=<span class="s">"alert alert-info"</span></div>
   </div>
 
@@ -1477,7 +1501,7 @@ code {
   <div class="tweaks-field">
     <label>Brand color</label>
     <select class="select" style="height:28px;font-size:var(--text-sm);" onchange="setBrand(this.value)">
-      <option value="#629460">Forest green (default)</option>
+      <option value="#2F4BA6">Cobalt (default)</option>
       <option value="#5B7FA6">Steel blue</option>
       <option value="#8B6B4E">Warm umber</option>
     </select>
@@ -1525,7 +1549,7 @@ window.parent.postMessage({ type: '__edit_mode_available' }, '*');
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "tint": "#F7F4F3",
-  "brand": "#629460",
+  "brand": "#2F4BA6",
   "headingFont": "'Bricolage Grotesque', sans-serif"
 }/*EDITMODE-END*/;
 

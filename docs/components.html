@@ -66,7 +66,7 @@
   </div>
 
   <h2 class="docs-h2" id="alert">Alert</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.alert .alert-danger | .alert-warn | .alert-brand | .alert-info</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.alert .alert-danger | .alert-warn | .alert-success | .alert-info</span></div></div>
   <p class="comp-desc">Inline messages for validation, system feedback, and contextual notes. Composable with an icon and title.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width: 540px; margin: 0 auto; gap: var(--space-10);">
@@ -81,7 +81,7 @@
         <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         <div class="alert-body">Current rate (3.2%) already meets this threshold — system is now in warn.</div>
       </div>
-      <div class="alert alert-brand">
+      <div class="alert alert-success">
         <svg class="alert-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
         <div class="alert-body"><div class="alert-title">Changes saved</div>Your settings will apply on the next eval window.</div>
       </div>
@@ -137,7 +137,7 @@
   </div>
 
   <h2 class="docs-h2" id="banner">Banner</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.banner .banner-danger | .banner-brand | .banner-info</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.banner .banner-danger | .banner-success | .banner-info</span></div></div>
   <p class="comp-desc">Full-width contextual banners for system-wide state. The pulsing <code>.banner-dot</code> signals an active condition.</p>
   <div class="demo">
     <div class="demo-canvas col" style="gap: var(--space-10); padding: var(--space-16);">
@@ -149,7 +149,7 @@
         <span style="opacity: 0.8;">Technical issue · resumes in 14:22</span>
         <button class="btn-ghost" style="margin-left: auto; color: var(--danger);">Resume now</button>
       </div>
-      <div class="banner banner-brand">
+      <div class="banner banner-success">
         <span class="banner-dot" style="animation: none;"></span>
         <span style="font-weight: var(--weight-semibold);">All systems operational</span>
         <span style="opacity: 0.8;">· Updated 2 min ago</span>
@@ -346,7 +346,7 @@
       <div class="card" style="width: 260px;">
         <div class="card-header">
           <div class="card-title">Monthly active</div>
-          <span class="tag tag-brand">+12%</span>
+          <span class="tag tag-success">+12%</span>
         </div>
         <div style="font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: 700; color: var(--text-primary); letter-spacing: -0.6px; margin-bottom: 4px;">24,892</div>
         <p class="card-desc">vs 22,184 last month</p>
@@ -375,7 +375,7 @@
     <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card"</span><span class="k">&gt;</span>
   <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-header"</span><span class="k">&gt;</span>
     <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-title"</span><span class="k">&gt;</span>Monthly active<span class="k">&lt;/div&gt;</span>
-    <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-brand"</span><span class="k">&gt;</span>+12%<span class="k">&lt;/span&gt;</span>
+    <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-success"</span><span class="k">&gt;</span>+12%<span class="k">&lt;/span&gt;</span>
   <span class="k">&lt;/div&gt;</span>
   <span class="k">&lt;p</span> <span class="a">class</span>=<span class="s">"card-desc"</span><span class="k">&gt;</span>vs 22,184 last month<span class="k">&lt;/p&gt;</span>
   <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"card-footer"</span><span class="k">&gt;</span>
@@ -387,7 +387,7 @@
 
   <h2 class="docs-h2" id="checkbox">Checkbox</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.checkbox</span></div></div>
-  <p class="comp-desc">16px square, fills with brand green when checked. Pair with <code>.field-check</code> wrapper for inline labels.</p>
+  <p class="comp-desc">16px square, fills with the brand cobalt when checked. Pair with <code>.field-check</code> wrapper for inline labels.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
       <label class="field-check"><input type="checkbox" class="checkbox" checked /><span class="field-check-label">Subscribe to product updates</span></label>
@@ -713,7 +713,7 @@
 
   <h2 class="docs-h2" id="progress">Progress</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.progress · .progress-bar</span></div></div>
-  <p class="comp-desc">6px-tall bar with a brand-green fill by default. Use <code>.progress-bar-danger</code> or <code>.progress-bar-warning</code> for critical states.</p>
+  <p class="comp-desc">6px-tall bar with a brand cobalt fill by default. Use <code>.progress-bar-danger</code> or <code>.progress-bar-warning</code> for critical states.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width: 360px; margin: 0 auto; gap: var(--space-14);">
       <div>
@@ -1080,12 +1080,12 @@
   </div>
 
   <h2 class="docs-h2" id="tag">Tag &amp; Badge</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tag .tag-danger | .tag-brand | .tag-info | .tag-warn | .tag-accent · .badge</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tag .tag-danger | .tag-success | .tag-info | .tag-warn | .tag-accent · .badge</span></div></div>
   <p class="comp-desc">Tags are loud: all-caps, semantic-colored fill. Badges are quiet: muted, used for metadata.</p>
   <div class="demo">
     <div class="demo-canvas">
       <span class="tag tag-danger">Hard stop</span>
-      <span class="tag tag-brand">Active</span>
+      <span class="tag tag-success">Active</span>
       <span class="tag tag-info">Info</span>
       <span class="tag tag-warn">Review</span>
       <span class="tag tag-accent">New</span>
@@ -1100,7 +1100,7 @@
       </div>
     </div>
     <pre class="demo-code"><span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-danger"</span><span class="k">&gt;</span>Hard stop<span class="k">&lt;/span&gt;</span>
-<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-brand"</span><span class="k">&gt;</span>Active<span class="k">&lt;/span&gt;</span>
+<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"tag tag-success"</span><span class="k">&gt;</span>Active<span class="k">&lt;/span&gt;</span>
 <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"badge"</span><span class="k">&gt;</span>rolled back<span class="k">&lt;/span&gt;</span></pre>
   </div>
 
