@@ -54,6 +54,8 @@ body {
 .docs-logo-mark {
   width: 30px; height: 30px; flex-shrink: 0;
   background: var(--text-primary); border-radius: var(--radius-sm);
+  /* glyph inverts against the tile so it stays legible in both themes */
+  color: var(--surface);
   display: flex; align-items: center; justify-content: center;
 }
 .docs-logo-name {
