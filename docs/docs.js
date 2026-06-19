@@ -96,6 +96,11 @@
       <a class="docs-nav-link" href="patterns.html#login">Login</a>
       <a class="docs-nav-link" href="patterns.html#settings">Settings</a>
     </div>
+
+    <div class="docs-nav-group">
+      <a class="docs-nav-group-label" href="https://github.com/LinzLos/tiny-wire" target="_blank" rel="noopener">Source</a>
+      <a class="docs-nav-link" href="https://github.com/LinzLos/tiny-wire" target="_blank" rel="noopener">GitHub repo ↗</a>
+    </div>
   </nav>
 
   <div class="docs-theme-toggle">
