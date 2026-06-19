@@ -29,6 +29,8 @@
     <button class="theme-toggle-icon" data-theme-toggle onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle theme"></button>
   </div>
 
+  <a class="docs-repo-link" href="https://github.com/LinzLos/tiny-wire" target="_blank" rel="noopener">GitHub repo ↗</a>
+
   <nav class="docs-nav">
     <div class="docs-nav-group">
       <a class="docs-nav-group-label" href="index.html">Get started</a>
@@ -95,11 +97,6 @@
       <a class="docs-nav-link" href="patterns.html#empty-states">Empty States</a>
       <a class="docs-nav-link" href="patterns.html#login">Login</a>
       <a class="docs-nav-link" href="patterns.html#settings">Settings</a>
-    </div>
-
-    <div class="docs-nav-group">
-      <a class="docs-nav-group-label" href="https://github.com/LinzLos/tiny-wire" target="_blank" rel="noopener">Source</a>
-      <a class="docs-nav-link" href="https://github.com/LinzLos/tiny-wire" target="_blank" rel="noopener">GitHub repo ↗</a>
     </div>
   </nav>
 
@@ -172,6 +169,8 @@
   function setupActiveLinks() {
     const page = location.pathname.split('/').pop() || 'index.html';
     const links = [...document.querySelectorAll(`.docs-nav-link[href*="${page}#"], .docs-nav-link[href^="#"]`)];
+    // the bare current-page link (e.g. Introduction) is the "top of page" sentinel
+    const topLink = document.querySelector(`.docs-nav-link[href="${page}"]`);
     const sections = [];
     links.forEach(l => {
       const hash = l.getAttribute('href').split('#')[1];
@@ -188,9 +187,12 @@
         if (el.offsetTop <= y) cur = el.id;
       });
       links.forEach(l => l.classList.remove('active'));
+      if (topLink) topLink.classList.remove('active');
       if (cur) {
         const target = sections.find(s => s.el.id === cur);
         if (target) target.link.classList.add('active');
+      } else if (topLink) {
+        topLink.classList.add('active');
       }
     }
     window.addEventListener('scroll', update, { passive: true });
@@ -458,13 +460,17 @@
   function setupPageNav() {
     const main = document.querySelector('.docs-main');
     if (!main) return;
+    // PAGES = the docs pages in nav order — ONE stop per page. The pager is a
+    // page-level device: it moves page → page only. In-page sections (e.g.
+    // "What's in the repo", a section of index) are reached via the sidebar and
+    // the on-page TOC, never the pager. Order MUST mirror the sidebar's page order.
     const PAGES = [
-      { file: 'index.html', title: 'Introduction' },
+      { file: 'index.html',       title: 'Introduction' },
+      { file: 'audit.html',       title: 'Audit & changelog' },
+      { file: 'a11y.html',        title: 'A11y check' },
       { file: 'foundations.html', title: 'Foundations' },
-      { file: 'components.html', title: 'Components' },
-      { file: 'patterns.html', title: 'Patterns' },
-      { file: 'audit.html', title: 'Audit & changelog' },
-      { file: 'a11y.html', title: 'Accessibility check' },
+      { file: 'components.html',  title: 'Components' },
+      { file: 'patterns.html',    title: 'Patterns' },
     ];
     const here = (location.pathname.split('/').pop() || 'index.html');
     const i = PAGES.findIndex(p => p.file === here);

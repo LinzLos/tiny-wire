@@ -32,7 +32,6 @@ body {
    always visible without scrolling the sidebar. */
 .docs-logo-row {
   display: flex; align-items: stretch;
-  border-bottom: 1px solid var(--border-light);
 }
 .docs-logo-row .docs-logo {
   border-bottom: 0;
@@ -67,6 +66,18 @@ body {
   font-size: var(--text-xs); color: var(--text-tertiary);
   font-family: var(--font-mono);
 }
+
+/* persistent repo link — tucked under the logo, above the header divider,
+   left-aligned with the logo mark and the nav labels */
+.docs-repo-link {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: 0 var(--space-20) var(--space-16);
+  border-bottom: 1px solid var(--border-light);
+  font-size: var(--text-md); color: var(--text-secondary); line-height: 1.4;
+  transition: color var(--duration-fast);
+}
+.docs-repo-link:hover { color: var(--brand); }
+.docs-repo-link:focus-visible { outline: none; box-shadow: var(--shadow-focus); border-radius: var(--radius-xs); }
 
 .docs-nav { padding: var(--space-12) 0 var(--space-32); flex: 1; }
 .docs-nav-group { padding: var(--space-12) var(--space-12); }
