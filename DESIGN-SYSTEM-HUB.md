@@ -94,6 +94,7 @@ Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift
 
 | Candidate | Reinvented in | Note |
 |-----------|---------------|------|
+| Ledger area/line chart (incl. dual-axis) | 2 (shift) | extracted to token-pure `LedgerChart` (`shift/src/components/LedgerChart.tsx`); consumed by QueueMonitor + Performance · [shift#2](https://github.com/LinzLos/shift-prototype/issues/2) · upstream-token decision [#8](https://github.com/LinzLos/tiny-wire/issues/8) |
 | Segmented / tab control | **3/3** | strongest case (agentic `app.css:103`, dialing `App.css:709`, shift `QueueMonitor.tsx:127`) |
 | Live status pill + pulse dot | **3/3** | custom keyframes diverging from `pulse-dot` |
 | Icon system | 2 | shift (20+ inline SVGs), agentic (inline SVG); none in Tiny Wire today |
