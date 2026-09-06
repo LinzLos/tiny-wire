@@ -8,7 +8,7 @@ TinyWire is a design system for the interfaces where people operate complex soft
 
 - **2 fonts**: Bricolage Grotesque (display) + DM Sans (body)
 - **~180 tokens, three tiers** (primitive → semantic → component): colors, type, spacing, radius, elevation, animation — all light & dark
-- **28 components**: forms, feedback, navigation, overlays, data
+- **30 components**: forms, feedback, navigation, overlays, data
 - **5 patterns**: dashboard, data table, settings, login, empty states
 - **Built-in WCAG checker**: `docs/a11y.html` computes live contrast in both themes
 - **No framework, no build step**: drop two CSS files in and go
@@ -18,7 +18,7 @@ TinyWire is a design system for the interfaces where people operate complex soft
 ```
 lib/
 ├── globals.css      Tokens (light + dark) + reset + base + keyframes
-├── components.css   All 28 components
+├── components.css   All 30 components
 └── tokens.js        Same tokens as a JS object (for scripts/generators)
 
 docs/

@@ -4,6 +4,14 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 ---
 
+### Unreleased
+
+#### Fixed
+
+- **Docs**: component count corrected from 28 to 30 in README, `docs/index.html`, and `docs/components.html`. The 28 dated from v1.0 and was never updated as Sidebar, Command, Sheet, and others landed.
+
+---
+
 ### v1.5 — 2026-06-14 · "Reserve green"
 
 Semantic-color pass, surfaced while building a conceptual attestation prototype **on** the system. Green was doing double duty — the brand accent *and* the "safe / attested / healthy" status signal — so when everything is green, the trust signal never pops. v1.5 reserves green strictly for a new `--success` family and moves brand + all interaction onto the existing cobalt. Additive: every public class still renders.
