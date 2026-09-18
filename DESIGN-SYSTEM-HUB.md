@@ -2,7 +2,7 @@
 
 The committed registry and architecture record for Tiny Wire and the repos that vendor it. This is the durable companion to the intake issue [LinzLos/tiny-wire#6](https://github.com/LinzLos/tiny-wire/issues/6): the issue is the working thread, this file is the source of record. When they disagree, reconcile toward this file.
 
-> **Status note (2026-06-18):** All three consumers are migrated to the [`lib/CONSUMING.md`](lib/CONSUMING.md) contract and pin **v1.5**. The "three different ways" framing in issue #6 predates that migration and should be updated to match the registry below.
+> **Status note (2026-09-17):** All four consumers are migrated to the [`lib/CONSUMING.md`](lib/CONSUMING.md) contract and pin **v1.5**. `agentic-trust-devtools` was already wired to the contract — pinned, both sync scripts, zero drift — but missing from this registry until now. The "three different ways" framing in issue #6 predates that migration and should be updated to match the registry below.
 
 ---
 
@@ -71,6 +71,7 @@ A **Vite + React + Tiny Wire starter template** is the default for new quick tak
 
 | Consumer | Profile | Vendors | Pinned | Deploy | Coupling map | Candidates |
 |----------|---------|---------|--------|--------|--------------|------------|
+| [`agentic-trust-devtools`](https://github.com/LinzLos/agentic-trust-devtools) | A — vanilla showcase | full `lib/`: tokens, base, components, globals | v1.5 | GitHub Pages | — | — |
 | [`agentic-trust-ux`](https://github.com/LinzLos/agentic-trust-ux) | A — vanilla showcase | full `lib/`: tokens, base, components, globals | v1.5 | GitHub Pages | [#1](https://github.com/LinzLos/agentic-trust-ux/issues/1) | [#2](https://github.com/LinzLos/agentic-trust-ux/issues/2) |
 | [`dialing-prototype`](https://github.com/LinzLos/dialing-prototype) | B — React / Tailwind | `tokens.css` only | v1.5 | Netlify | [#1](https://github.com/LinzLos/dialing-prototype/issues/1) | [#2](https://github.com/LinzLos/dialing-prototype/issues/2) |
 | [`shift-prototype`](https://github.com/LinzLos/shift-prototype) | B — React / Tailwind | `tokens.css` only | v1.5 | Netlify | [#1](https://github.com/LinzLos/shift-prototype/issues/1) | [#2](https://github.com/LinzLos/shift-prototype/issues/2) |
@@ -95,9 +96,12 @@ Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift
 | Candidate | Reinvented in | Note |
 |-----------|---------------|------|
 | Ledger area/line chart (incl. dual-axis) | 2 (shift) | extracted to token-pure `LedgerChart` (`shift/src/components/LedgerChart.tsx`); consumed by QueueMonitor + Performance · [shift#2](https://github.com/LinzLos/shift-prototype/issues/2) · upstream-token decision [#8](https://github.com/LinzLos/tiny-wire/issues/8) |
-| Segmented / tab control | **3/3** | strongest case (agentic `app.css:103`, dialing `App.css:709`, shift `QueueMonitor.tsx:127`) |
 | Live status pill + pulse dot | **3/3** | custom keyframes diverging from `pulse-dot` |
 | Icon system | 2 | shift (20+ inline SVGs), agentic (inline SVG); none in Tiny Wire today |
+| Shell (app layout) | 2 | shift + dialing `src/components/Shell.tsx`; dialing's is already prop-driven (`navItems`, `logo`) |
+| Sidenav | 2 | shift + dialing `src/components/Sidenav.tsx`; dialing's takes `navItems`, `logo`. Duplicates the shipped `.sidebar` because Profile B can't consume `components.css` |
+| Tabs | 1 | shift `src/screens/QueueMonitor.tsx:136` — ARIA tabs (`tablist` / `tab`), switches panels |
+| Segmented control | 1 | agentic `app.css:103` — `role="group"`, sets a value. devtools `.pnav-seg` is a bespoke mobile variant (no role), not counted. Was one 3/3 row with tabs; its dialing citation was segment *targeting* |
 | App-bar / top header | 1 | agentic `.appbar`; Tiny Wire has only a sidebar pattern |
 | Trust Dial | 1 | agentic `app.css:127` |
 | Pre-flight decision surface | 1 | agentic `app.css:161` |

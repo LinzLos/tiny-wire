@@ -9,6 +9,10 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 #### Fixed
 
 - **Docs**: component count corrected from 28 to 30 in README, `docs/index.html`, and `docs/components.html`. The 28 dated from v1.0 and was never updated as Sidebar, Command, Sheet, and others landed.
+- **Hub**: registered `agentic-trust-devtools` as the fourth consumer. It was fully wired to the vendoring contract — pinned v1.5, both sync scripts, zero drift — but missing from the registry.
+- **Hub**: split the "Segmented / tab control" candidate (scored 3/3) into Tabs and Segmented control, one consumer each. They carry different a11y contracts, and the dialing citation pointed at segment targeting, not a control.
+- **Hub**: added Shell and Sidenav as candidates, each reinvented in shift and dialing.
+- **Audit**: the breaking-changes card claimed every v1.0 class still renders, but v1.0 predates this repo's history. It now claims only what can be checked: no class removed since the initial public release.
 
 ---
 
