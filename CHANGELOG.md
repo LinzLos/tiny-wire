@@ -8,7 +8,7 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 #### Added
 
-- **CONSUMING.md**: a `Promotion` section stating how candidates are judged — the four-question sameness test, the glyph rule for visual atoms, and two thresholds: present in ≥ 2 consumers promotes; ≥ 2 copies inside one consumer consolidates there. The hub's heuristic line now states the numbers instead of `N`.
+- **CONSUMING.md**: a `Promotion` section stating how candidates are judged — the four-question sameness test, the glyph rule for visual atoms, and two thresholds: present in ≥ 2 consumers promotes; ≥ 2 copies inside one consumer consolidates there. The hub's heuristic line now states the numbers instead of `N`; the Layer 3 build-order line no longer names examples (all three had failed verification) and points at the candidates table instead; the "status pill 3/3" row is split into a passive status chip and an interactive live indicator, one consumer each — the dot itself already ships as `.monitoring-dot`.
 - **Card**: `.card-value` and `.card-delta` (+ `-success` / `-danger`) — the stat tile. Three consumers and both docs pages had each built this from inline styles; it now ships. Badge slot is a `.tag` in `.card-header`, so nothing new there.
 
 #### Fixed

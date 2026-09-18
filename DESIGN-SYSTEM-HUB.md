@@ -61,7 +61,7 @@ React apps `npm install`; static showcases copy or CDN-link the CSS. No forks.
 
 1. **Layer 1 — token parity + Tailwind bridge.** Tokens flow today; add a `@theme` bridge so Vite/Tailwind apps get `bg-brand`, `text-success`. Color/type/spacing parity everywhere. *Cheapest, ships first.*
 2. **Layer 2 — `components.css` as the shared look contract.** Promote to "used by everyone," document the class API. Static builds get visual component fidelity with zero JS to maintain.
-3. **Layer 3 — the React component package, one component at a time.** Radix / React Aria for behavior, shared classes/tokens for look. Start with the patterns reinvented 3/3 (segmented/tab control, button, status pill); each one retires real duplication in the existing apps. Grow as needed.
+3. **Layer 3 — the React component package, one component at a time.** Radix / React Aria for behavior, shared classes/tokens for look. Start with the candidates table's highest-spread rows — each one retires real duplication in the existing apps. Grow as needed.
 
 A **Vite + React + Tiny Wire starter template** is the default for new quick takes.
 
@@ -96,7 +96,8 @@ Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift
 | Candidate | Reinvented in | Note |
 |-----------|---------------|------|
 | Ledger area/line chart (incl. dual-axis) | 1 | one definition, used 2× in shift — extracted to token-pure `LedgerChart` (`shift/src/components/LedgerChart.tsx`); consumed by QueueMonitor + Performance. Below threshold until a second consumer needs it · [shift#2](https://github.com/LinzLos/shift-prototype/issues/2) · upstream-token decision [#8](https://github.com/LinzLos/tiny-wire/issues/8) |
-| Live status pill + pulse dot | **3/3** | custom keyframes diverging from `pulse-dot` |
+| Status chip (dot + label + state) | 1 | dialing `.status-chip`; wraps a copy of the shipped `.monitoring-dot`. Composable from `.tag` + `.monitoring-dot` once Profile B can reach `components.css` |
+| Live indicator (dot + label + tooltip) | 1 | shift `LiveIndicator`; interactive (tooltip button), so a different contract from the chip. Rebuilds the dot with its own keyframes, brand-colored where Tiny Wire uses `--success` |
 | Icon system | 2 | shift (20+ inline SVGs), agentic (inline SVG); none in Tiny Wire today |
 | Shell (app layout) | 2 | shift + dialing `src/components/Shell.tsx`; dialing's is already prop-driven (`navItems`, `logo`) |
 | Sidenav | 2 | shift + dialing `src/components/Sidenav.tsx`; dialing's takes `navItems`, `logo`. Duplicates the shipped `.sidebar` because Profile B can't consume `components.css` |
