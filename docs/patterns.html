@@ -20,11 +20,6 @@
   .p-title { font-family: var(--font-heading); font-size: var(--text-2xl); font-weight: var(--weight-bold); letter-spacing: var(--tracking-tight); color: var(--text-primary); }
   .p-subtitle { font-size: var(--text-md); color: var(--text-tertiary); margin-top: 2px; }
   .p-stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-12); margin-bottom: var(--space-20); }
-  .p-stat { display: flex; flex-direction: column; gap: var(--space-4); }
-  .p-stat-label { font-size: var(--text-md); color: var(--text-tertiary); }
-  .p-stat-value { font-family: var(--font-heading); font-size: var(--text-3xl); font-weight: var(--weight-bold); color: var(--text-primary); letter-spacing: var(--tracking-tight); line-height: 1; }
-  .p-stat-delta { font-size: var(--text-sm); color: var(--brand); font-weight: var(--weight-medium); }
-  .p-stat-delta-down { color: var(--danger); }
   .p-row { display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-12); }
   .p-mini-chart {
     height: 180px;
@@ -143,23 +138,23 @@
           <div class="p-stat-grid">
             <div class="card">
               <div class="card-title">Active dials</div>
-              <div class="p-stat-value" style="margin-top: var(--space-6);">2,481</div>
-              <div class="p-stat-delta">↑ 12.4% vs last week</div>
+              <div class="card-value">2,481</div>
+              <div class="card-delta card-delta-success">↑ 12.4% vs last week</div>
             </div>
             <div class="card">
               <div class="card-title">Connection rate</div>
-              <div class="p-stat-value" style="margin-top: var(--space-6);">68%</div>
-              <div class="p-stat-delta">↑ 2.1pp</div>
+              <div class="card-value">68%</div>
+              <div class="card-delta card-delta-success">↑ 2.1pp</div>
             </div>
             <div class="card">
               <div class="card-title">Failed connections</div>
-              <div class="p-stat-value" style="margin-top: var(--space-6);">3.2<span style="font-size: var(--text-xl); color: var(--text-tertiary); font-weight: var(--weight-regular);">%</span></div>
-              <div class="p-stat-delta p-stat-delta-down">↑ 0.8pp</div>
+              <div class="card-value">3.2<span style="font-size: var(--text-xl); color: var(--text-tertiary); font-weight: var(--weight-regular);">%</span></div>
+              <div class="card-delta card-delta-danger">↑ 0.8pp</div>
             </div>
             <div class="card">
               <div class="card-title">Avg. handle time</div>
-              <div class="p-stat-value" style="margin-top: var(--space-6);">4:12</div>
-              <div class="p-stat-delta">↓ 18s</div>
+              <div class="card-value">4:12</div>
+              <div class="card-delta card-delta-success">↓ 18s</div>
             </div>
           </div>
 

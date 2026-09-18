@@ -6,7 +6,13 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 ### Unreleased
 
+#### Added
+
+- **Card**: `.card-value` and `.card-delta` (+ `-success` / `-danger`) — the stat tile. Three consumers and both docs pages had each built this from inline styles; it now ships. Badge slot is a `.tag` in `.card-header`, so nothing new there.
+
 #### Fixed
+
+- **Patterns**: the dashboard pattern's stat cards used `.p-stat-*` classes that existed only inside `docs/patterns.html`, so the pattern couldn't be lifted as promised. They now use the shipped Card parts. Positive deltas move from `--brand` to `--success-dark`, matching `.tag-success` per the v1.5 semantic-color pass.
 
 - **Docs**: component count corrected from 28 to 30 in README, `docs/index.html`, and `docs/components.html`. The 28 dated from v1.0 and was never updated as Sidebar, Command, Sheet, and others landed.
 - **Hub**: registered `agentic-trust-devtools` as the fourth consumer. It was fully wired to the vendoring contract — pinned v1.5, both sync scripts, zero drift — but missing from the registry.
