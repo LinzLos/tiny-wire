@@ -91,11 +91,11 @@ Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift
 
 ## Promotion candidates
 
-**Heuristic: reinvented in N consumers = promote.** These also seed the Layer 3 build order — build the most-reinvented components first.
+**Rule: present in 2 or more consumers = promotion candidate. 2 or more copies inside one consumer = consolidate there, not here.** Counts are of confirmed component groups, not of definitions sharing a name — full rule in [`lib/CONSUMING.md`](lib/CONSUMING.md#promotion). These also seed the Layer 3 build order — build the most-reinvented components first.
 
 | Candidate | Reinvented in | Note |
 |-----------|---------------|------|
-| Ledger area/line chart (incl. dual-axis) | 2 (shift) | extracted to token-pure `LedgerChart` (`shift/src/components/LedgerChart.tsx`); consumed by QueueMonitor + Performance · [shift#2](https://github.com/LinzLos/shift-prototype/issues/2) · upstream-token decision [#8](https://github.com/LinzLos/tiny-wire/issues/8) |
+| Ledger area/line chart (incl. dual-axis) | 1 | one definition, used 2× in shift — extracted to token-pure `LedgerChart` (`shift/src/components/LedgerChart.tsx`); consumed by QueueMonitor + Performance. Below threshold until a second consumer needs it · [shift#2](https://github.com/LinzLos/shift-prototype/issues/2) · upstream-token decision [#8](https://github.com/LinzLos/tiny-wire/issues/8) |
 | Live status pill + pulse dot | **3/3** | custom keyframes diverging from `pulse-dot` |
 | Icon system | 2 | shift (20+ inline SVGs), agentic (inline SVG); none in Tiny Wire today |
 | Shell (app layout) | 2 | shift + dialing `src/components/Shell.tsx`; dialing's is already prop-driven (`navItems`, `logo`) |
