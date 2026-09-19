@@ -8,7 +8,7 @@ Thanks for wanting to contribute. Tiny Wire is a small, opinionated design syste
 
 Every color, spacing, radius, font, and duration in `lib/components.css` must be a `var(--token)` reference — zero raw hex, zero magic pixel colors. This is what lets the whole system rebrand or theme by overriding tokens alone. A CI check fails any PR that introduces a hardcoded hex color into `lib/components.css`, so this isn't optional.
 
-If you need a value that doesn't exist yet, add a **token** in `lib/globals.css` (light and dark) and reference it — don't inline the value.
+If you need a value that doesn't exist yet, add a **token** in `lib/tokens.css` (light and dark) and reference it — don't inline the value.
 
 ## Running it locally
 
@@ -25,21 +25,12 @@ python3 -m http.server 8000   # then visit http://localhost:8000/docs/
 
 ## Project structure
 
-```
-lib/
-├── globals.css      design tokens (light + dark), reset, base, keyframes
-├── components.css   all components — token-driven only
-└── tokens.js        the same tokens as a JS object
-docs/
-├── index · foundations · components · patterns   reference pages
-├── a11y.html        live WCAG contrast checker
-└── sidebar-rail.html  example: the collapsed sidebar variant
-```
+What `lib/` contains and who takes each file: [`lib/CONSUMING.md` § The lib unit](lib/CONSUMING.md#the-lib-unit). The docs pages live in `docs/` — reference pages, the live WCAG checker (`a11y.html`), and focused examples like `sidebar-rail.html`.
 
 ## Adding or changing a component
 
 1. **Edit `lib/components.css`** — add your component or variant using existing tokens. Follow the established class-naming conventions (`.thing`, `.thing-part`, `.thing--variant`, `.thing.is-state` / `.active`).
-2. **Add a token if needed** to `lib/globals.css` — define it for **both** the light `:root` and the `:root[data-theme="dark"]` block.
+2. **Add a token if needed** to `lib/tokens.css` — define it for **both** the light `:root` and the `:root[data-theme="dark"]` block.
 3. **Demo it** — add a usage example to the relevant docs page (`docs/components.html` or a focused page like `docs/sidebar-rail.html`) so it's discoverable.
 4. **Check accessibility** — open `docs/a11y.html` and confirm any text/icon colors clear **WCAG AA** (4.5:1 for text, 3:1 for large text/UI). If your change shifts a token, re-run the checker in both themes.
 5. **Verify dark mode** — toggle `data-theme="dark"` and confirm the component holds up.

@@ -1,36 +1,27 @@
 # Tiny Wire
 
-TinyWire is a design system for the interfaces where people operate complex software: dashboards, data tables, and control surfaces. Most of my client work is under NDA, so this is where I show how I approach operator UI. I build prototypes on it and fold what I learn back in.
+*For: someone who found this on GitHub and wants to know what it is and whether to use it. Taking it into a project: [`lib/CONSUMING.md`](lib/CONSUMING.md). Maintaining it: the [hub](DESIGN-SYSTEM-HUB.md).*
+
+TinyWire is a design system for the interfaces where people operate complex software: dashboards, data tables, and control surfaces. Most of my client work is under NDA, so this is where I show how I approach operator UI. I build prototypes on it and fold what they teach me back in.
 
 **[Live demo & docs →](https://linzlos.github.io/tiny-wire/)** · License: MIT · No build step
 
 ![TinyWire dashboard pattern — sidebar nav, stat cards, chart, and activity feed](docs/hero.png)
 
+<!-- record:counts start -->
+- **142 tokens** in `lib/tokens.css`, three tiers (primitive → semantic → component), light and dark
+- **30 documented components** on the [components page](docs/components.html) — `lib/components.css` ships 37 class families; 5 have no section yet
+- **5 patterns**: Dashboard · Data Table with Filters · Empty states · Login · Settings
+<!-- record:counts end -->
 - **2 fonts**: Bricolage Grotesque (display) + DM Sans (body)
-- **~180 tokens, three tiers** (primitive → semantic → component): colors, type, spacing, radius, elevation, animation — all light & dark
-- **30 components**: forms, feedback, navigation, overlays, data
-- **5 patterns**: dashboard, data table, settings, login, empty states
-- **Built-in WCAG checker**: `docs/a11y.html` computes live contrast in both themes
-- **No framework, no build step**: drop two CSS files in and go
+- **Built-in WCAG checker**: [`docs/a11y.html`](docs/a11y.html) computes live contrast in both themes
+- **No framework, no build step**: two stylesheet links and go
 
-## Files
-
-```
-lib/
-├── globals.css      Tokens (light + dark) + reset + base + keyframes
-├── components.css   All 30 components
-└── tokens.js        Same tokens as a JS object (for scripts/generators)
-
-docs/
-├── index.html       Intro + quick start
-├── foundations.html Token reference
-├── components.html  Component library
-├── patterns.html    Composed patterns
-├── docs.css         Docs-only styles
-└── docs.js          Sidebar, dark mode, code reveal
-```
+The three counts above are rendered from `lib/` and the docs pages by `scripts/render-readme.py`, which also lists anything shipped that the docs don't show yet. Hand edits between the markers are overwritten.
 
 ## Quick start
+
+For a plain HTML page. Building a React or Tailwind app? Take `tokens.css` only — [`lib/CONSUMING.md`](lib/CONSUMING.md#two-profiles) says why.
 
 1. Add the fonts to your `<head>`:
 
@@ -63,40 +54,11 @@ docs/
 document.documentElement.setAttribute('data-theme', 'dark');
 ```
 
-## Conventions
+## What's in `lib/`
 
-| Prefix         | Purpose                                          |
-| -------------- | ------------------------------------------------ |
-| `.btn-*`       | Buttons (`.btn-primary`, `.btn-ghost`, etc.)     |
-| `.input`       | Text input                                       |
-| `.select`      | Select dropdown                                  |
-| `.checkbox`    | Checkbox                                         |
-| `.radio`       | Radio                                            |
-| `.switch`      | Toggle switch                                    |
-| `.slider`      | Range slider                                     |
-| `.card`        | Container                                        |
-| `.tag-*`       | Loud, all-caps tags                              |
-| `.badge`       | Quiet metadata                                   |
-| `.chip-*`      | Status pills                                     |
-| `.dot-*`       | Status indicators                                |
-| `.alert-*`     | Inline messages                                  |
-| `.banner-*`    | Full-width banners                               |
-| `.dialog`      | Modal                                            |
-| `.sheet`       | Side drawer                                      |
-| `.tooltip`     | Tooltip                                          |
-| `.popover`     | Click popover                                    |
-| `.menu`        | Dropdown menu                                    |
-| `.tabs-list`   | Tabs                                             |
-| `.accordion`   | Accordion                                        |
-| `.breadcrumb`  | Breadcrumb                                       |
-| `.pagination`  | Pagination                                       |
-| `.toast`       | Toast notification                               |
-| `.command`     | Command palette (⌘K)                             |
-| `.table`       | Data table                                       |
-| `.sidebar`     | App sidebar (`.sidebar--rail` for the collapsed icon rail) |
-| `.empty-state` | Empty state placeholder                          |
+One table, one home: [`lib/CONSUMING.md` § The lib unit](lib/CONSUMING.md#the-lib-unit). Every class the system ships, with a live example: the [components page](docs/components.html).
 
-## Token map
+## Rebranding
 
 Every component reads from CSS custom properties. To rebrand, override the tokens — never touch the component CSS.
 
