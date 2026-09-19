@@ -9,8 +9,8 @@ TinyWire is a design system for the interfaces where people operate complex soft
 ![TinyWire dashboard pattern — sidebar nav, stat cards, chart, and activity feed](docs/hero.png)
 
 <!-- record:counts start -->
-- **142 tokens** in `lib/tokens.css`, three tiers (primitive → semantic → component), light and dark
-- **30 documented components** on the [components page](docs/components.html) — `lib/components.css` ships 37 class families; 5 have no section yet
+- **186 tokens** in `lib/tokens.css`, three tiers (primitive → semantic → component), light and dark
+- **30 documented components** on the [components page](docs/components.html) — `lib/components.css` ships 38 class families; 6 have no section yet
 - **5 patterns**: Dashboard · Data Table with Filters · Empty states · Login · Settings
 <!-- record:counts end -->
 - **2 fonts**: Bricolage Grotesque (display) + DM Sans (body)

@@ -14,7 +14,7 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 #### Changed
 
 - **README, `lib/CONSUMING.md`, the hub, and CONTRIBUTING** restructured for legibility. Each names its reader and opens in plain words. The `lib/` file list has one home (CONSUMING § The lib unit); the other three link to it. CONSUMING's rules are written as invariants — what must hold, what breaks if it doesn't, what checks it — marked `deterministic` or `judgment`. The hub reads state → contract → decisions → verified clean → coverage; its architecture / roadmap section is cut, and the one settled decision from it (components are authored once) is kept as a dated entry.
-- **README counts are rendered**, not typed: `scripts/render-readme.py` counts tokens in `lib/tokens.css`, documented components on the components page, and patterns, and rewrites the block between markers. It reports 142 tokens where the README said "~180" — the number had not been re-counted since v1.4 — and lists the class families `components.css` ships that have no docs section yet.
+- **README counts are rendered**, not typed: `scripts/render-readme.py` counts tokens in `lib/tokens.css`, documented components on the components page, and patterns, and rewrites the block between markers. It counts 186 tokens (the README said "~180"; the count is now exact and re-rendered on every run) and lists the class families `components.css` ships that have no docs section yet.
 - **Consumer profiles** are named `static` and `react` instead of A and B, in `lib/CONSUMING.md` and the hub. The letters only meant something to whoever wrote them.
 
 #### Fixed

@@ -36,8 +36,11 @@ def strip_comments(css):
 
 
 def token_names():
-    css = (ROOT / "lib" / "tokens.css").read_text()
-    return sorted(set(re.findall(r"^\s*(--[a-z0-9-]+)\s*:", css, re.M)))
+    """Every custom property declared in tokens.css — several sit on one
+    line (`--space-2: 2px; --space-4: 4px;`), so match anywhere, not at
+    line start."""
+    css = strip_comments((ROOT / "lib" / "tokens.css").read_text())
+    return sorted(set(re.findall(r"(--[a-z0-9-]+)\s*:", css)))
 
 
 def token_tiers():
@@ -46,8 +49,10 @@ def token_tiers():
 
 
 def families():
+    """Top-level class families: the first segment of every class selector
+    that starts a rule or follows a comma at the top level."""
     css = strip_comments((ROOT / "lib" / "components.css").read_text())
-    return sorted(set(re.findall(r"^\.([a-z][a-z0-9]*)", css, re.M)))
+    return sorted(set(re.findall(r"(?:^|,)\s*\.([a-z][a-z0-9]*)", css, re.M)))
 
 
 def sections(page):
