@@ -71,12 +71,12 @@ A **Vite + React + Tiny Wire starter template** is the default for new quick tak
 
 | Consumer | Profile | Vendors | Pinned | Deploy | Coupling map | Candidates |
 |----------|---------|---------|--------|--------|--------------|------------|
-| [`agentic-trust-devtools`](https://github.com/LinzLos/agentic-trust-devtools) | A — vanilla showcase | full `lib/`: tokens, base, components, globals | v1.5 | GitHub Pages | — | — |
-| [`agentic-trust-ux`](https://github.com/LinzLos/agentic-trust-ux) | A — vanilla showcase | full `lib/`: tokens, base, components, globals | v1.5 | GitHub Pages | [#1](https://github.com/LinzLos/agentic-trust-ux/issues/1) | [#2](https://github.com/LinzLos/agentic-trust-ux/issues/2) |
-| [`dialing-prototype`](https://github.com/LinzLos/dialing-prototype) | B — React / Tailwind | `tokens.css` only | v1.5 | Netlify | [#1](https://github.com/LinzLos/dialing-prototype/issues/1) | [#2](https://github.com/LinzLos/dialing-prototype/issues/2) |
-| [`shift-prototype`](https://github.com/LinzLos/shift-prototype) | B — React / Tailwind | `tokens.css` only | v1.5 | Netlify | [#1](https://github.com/LinzLos/shift-prototype/issues/1) | [#2](https://github.com/LinzLos/shift-prototype/issues/2) |
+| [`agentic-trust-devtools`](https://github.com/LinzLos/agentic-trust-devtools) | static — vanilla showcase | full `lib/`: tokens, base, components, globals | v1.5 | GitHub Pages | — | — |
+| [`agentic-trust-ux`](https://github.com/LinzLos/agentic-trust-ux) | static — vanilla showcase | full `lib/`: tokens, base, components, globals | v1.5 | GitHub Pages | [#1](https://github.com/LinzLos/agentic-trust-ux/issues/1) | [#2](https://github.com/LinzLos/agentic-trust-ux/issues/2) |
+| [`dialing-prototype`](https://github.com/LinzLos/dialing-prototype) | react — React / Tailwind | `tokens.css` only | v1.5 | Netlify | [#1](https://github.com/LinzLos/dialing-prototype/issues/1) | [#2](https://github.com/LinzLos/dialing-prototype/issues/2) |
+| [`shift-prototype`](https://github.com/LinzLos/shift-prototype) | react — React / Tailwind | `tokens.css` only | v1.5 | Netlify | [#1](https://github.com/LinzLos/shift-prototype/issues/1) | [#2](https://github.com/LinzLos/shift-prototype/issues/2) |
 
-Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift.sh`, and a `.tinywire-version` pin. Once the React package ships, Profile B consumers move from vendoring `tokens.css` to importing `@linzlos/tiny-wire/react`.
+Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift.sh`, and a `.tinywire-version` pin. Once the React package ships, `react` consumers move from vendoring `tokens.css` to importing `@linzlos/tiny-wire/react`.
 
 ---
 
@@ -96,11 +96,11 @@ Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift
 | Candidate | Reinvented in | Note |
 |-----------|---------------|------|
 | Ledger area/line chart (incl. dual-axis) | 1 | one definition, used 2× in shift — extracted to token-pure `LedgerChart` (`shift/src/components/LedgerChart.tsx`); consumed by QueueMonitor + Performance. Below threshold until a second consumer needs it · [shift#2](https://github.com/LinzLos/shift-prototype/issues/2) · upstream-token decision [#8](https://github.com/LinzLos/tiny-wire/issues/8) |
-| Status chip (dot + label + state) | 1 | dialing `.status-chip`; wraps a copy of the shipped `.monitoring-dot`. Composable from `.tag` + `.monitoring-dot` once Profile B can reach `components.css` |
+| Status chip (dot + label + state) | 1 | dialing `.status-chip`; wraps a copy of the shipped `.monitoring-dot`. Composable from `.tag` + `.monitoring-dot` once `react` consumers can reach `components.css` |
 | Live indicator (dot + label + tooltip) | 1 | shift `LiveIndicator`; interactive (tooltip button), so a different contract from the chip. Rebuilds the dot with its own keyframes, brand-colored where Tiny Wire uses `--success` |
 | Icon system | 2 | shift (20+ inline SVGs), agentic (inline SVG); none in Tiny Wire today |
 | Shell (app layout) | 2 | shift + dialing `src/components/Shell.tsx`; dialing's is already prop-driven (`navItems`, `logo`) |
-| Sidenav | 2 | shift + dialing `src/components/Sidenav.tsx`; dialing's takes `navItems`, `logo`. Duplicates the shipped `.sidebar` because Profile B can't consume `components.css` |
+| Sidenav | 2 | shift + dialing `src/components/Sidenav.tsx`; dialing's takes `navItems`, `logo`. Duplicates the shipped `.sidebar` because `react` consumers can't consume `components.css` |
 | Tabs | 1 | shift `src/screens/QueueMonitor.tsx:136` — ARIA tabs (`tablist` / `tab`), switches panels |
 | Segmented control | 1 | agentic `app.css:103` — `role="group"`, sets a value. devtools `.pnav-seg` is a bespoke mobile variant (no role), not counted. Was one 3/3 row with tabs; its dialing citation was segment *targeting* |
 | App-bar / top header | 1 | agentic `.appbar`; Tiny Wire has only a sidebar pattern |

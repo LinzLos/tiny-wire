@@ -14,10 +14,10 @@ Tiny Wire is vendored into consumer prototypes as a **verbatim copy** of the rel
 
 ## Consumer profiles
 
-**Profile A — vanilla (no build, no CSS framework reset), e.g. agentic-trust-ux.**
+**Profile `static` — vanilla HTML, no build, no CSS framework reset. e.g. agentic-trust-ux.**
 Vendor `tokens.css`, `base.css`, `components.css` (and `globals.css` if you want the single-file entry). Link `globals.css` then `components.css`, or link the three files directly.
 
-**Profile B — build + framework reset (Tailwind), e.g. shift / dialing.**
+**Profile `react` — a bundled app with a framework reset (Tailwind). e.g. shift / dialing.**
 Vendor `tokens.css` only (add `components.css` when you adopt component classes). Import `tokens.css`; **do not** vendor `base.css` — your framework already ships a reset, and stacking Tiny Wire's reset on top causes conflicts. Tokens still flow verbatim, so design decisions propagate; the framework keeps owning layout.
 
 ## The rules (both profiles)
@@ -54,7 +54,7 @@ Tiny Wire's own docs and patterns are not consumers for this count.
 ## Load order
 
 ```html
-<!-- Profile A (vanilla) -->
+<!-- Profile static (vanilla) -->
 <link rel="stylesheet" href="lib/globals.css">     <!-- vendored: tokens + base (via @import) -->
 <link rel="stylesheet" href="lib/components.css">  <!-- vendored: components -->
 <link rel="stylesheet" href="app-tokens.css">      <!-- local: token overrides / additions -->
@@ -62,7 +62,7 @@ Tiny Wire's own docs and patterns are not consumers for this count.
 ```
 
 ```css
-/* Profile B (Tailwind / build) — in your entry CSS */
+/* Profile react (Tailwind / build) — in your entry CSS */
 @import 'tailwindcss';          /* framework reset + utilities */
 @import './lib/tokens.css';     /* vendored: Tiny Wire tokens — do not edit */
 /* ...then your app-specific token overrides and styles... */

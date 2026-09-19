@@ -11,6 +11,10 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 - **CONSUMING.md**: a `Promotion` section stating how candidates are judged — the four-question sameness test, the glyph rule for visual atoms, and two thresholds: present in ≥ 2 consumers promotes; ≥ 2 copies inside one consumer consolidates there. The hub's heuristic line now states the numbers instead of `N`; the Layer 3 build-order line no longer names examples (all three had failed verification) and points at the candidates table instead; the "status pill 3/3" row is split into a passive status chip and an interactive live indicator, one consumer each — the dot itself already ships as `.monitoring-dot`.
 - **Card**: `.card-value` and `.card-delta` (+ `-success` / `-danger`) — the stat tile. Three consumers and both docs pages had each built this from inline styles; it now ships. Badge slot is a `.tag` in `.card-header`, so nothing new there.
 
+#### Changed
+
+- **Consumer profiles** are named `static` and `react` instead of A and B, in `lib/CONSUMING.md` and the hub. The letters only meant something to whoever wrote them.
+
 #### Fixed
 
 - **Patterns**: the dashboard pattern's stat cards used `.p-stat-*` classes that existed only inside `docs/patterns.html`, so the pattern couldn't be lifted as promised. They now use the shipped Card parts. Positive deltas move from `--brand` to `--success-dark`, matching `.tag-success` per the v1.5 semantic-color pass.
