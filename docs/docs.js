@@ -7,9 +7,9 @@
   const root = document.documentElement;
 
   // ─── Single source of truth for the current version ────────────────────
-  // Bump this ONE constant each release. It drives the sidebar below and every
+  // Rendered from /VERSION — do not edit by hand. It drives the sidebar below and every
   // element marked [data-tw-version] across the docs (see init()).
-  const VERSION = 'v1.5';
+  const VERSION = /* record:version start */'v1.5'/* record:version end */;  // rendered from /VERSION by scripts/render-docs.py
 
   // ─── Sidebar template ──────────────────────────────────────────────────
   const SIDEBAR_HTML = `
@@ -68,9 +68,11 @@
       <a class="docs-nav-link" href="components.html#checkbox">Checkbox</a>
       <a class="docs-nav-link" href="components.html#command">Command</a>
       <a class="docs-nav-link" href="components.html#dialog">Dialog</a>
+      <a class="docs-nav-link" href="components.html#divider">Divider</a>
       <a class="docs-nav-link" href="components.html#menu">Dropdown Menu</a>
       <a class="docs-nav-link" href="components.html#empty">Empty State</a>
       <a class="docs-nav-link" href="components.html#input">Input</a>
+      <a class="docs-nav-link" href="components.html#kbd">Kbd</a>
       <a class="docs-nav-link" href="components.html#pagination">Pagination</a>
       <a class="docs-nav-link" href="components.html#popover">Popover</a>
       <a class="docs-nav-link" href="components.html#progress">Progress</a>
@@ -78,9 +80,13 @@
       <a class="docs-nav-link" href="components.html#select">Select</a>
       <a class="docs-nav-link" href="components.html#sheet">Sheet</a>
       <a class="docs-nav-link" href="components.html#sidebar">Sidebar</a>
+      <a class="docs-nav-link" href="sidebar-rail.html">Sidebar rail (example)</a>
       <a class="docs-nav-link" href="components.html#skeleton">Skeleton</a>
       <a class="docs-nav-link" href="components.html#slider">Slider</a>
+      <a class="docs-nav-link" href="components.html#spinner">Spinner</a>
+      <a class="docs-nav-link" href="components.html#status-bar">Status Bar</a>
       <a class="docs-nav-link" href="components.html#chip">Status Chip</a>
+      <a class="docs-nav-link" href="components.html#dot">Status Dot</a>
       <a class="docs-nav-link" href="components.html#switch">Switch</a>
       <a class="docs-nav-link" href="components.html#table">Table</a>
       <a class="docs-nav-link" href="components.html#tabs">Tabs</a>

@@ -306,13 +306,13 @@
       <thead><tr><th style="padding-left:var(--space-16);">ID</th><th>Finding</th><th>Severity</th><th class="td-num" style="padding-right:var(--space-16);">Status</th></tr></thead>
       <tbody>
         <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">F-017</td>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-022</td>
           <td>Green carried both the brand accent and the "safe / attested" status meaning — overloaded, so the trust signal never popped. Reserved green for a new <code>--success</code> family; brand + all interaction moved to cobalt; back-compat aliases kept.</td>
           <td><span class="sev sev-medium">Medium</span></td>
           <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
         </tr>
         <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">F-018</td>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-023</td>
           <td>The green-as-text contrast issue moved with the role: <code>--success</code> (green-500) as text on light tints is still ~3.5:1. Guidance shipped — <code>--success-dark</code> for text, bare <code>--success</code> for non-text (dots, borders, fills); a lint rule against bare <code>--success</code> on text is queued.</td>
           <td><span class="sev sev-low">Low</span></td>
           <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-deferred">Deferred · lint rule</span></td>
@@ -339,25 +339,25 @@
       <thead><tr><th style="padding-left:var(--space-16);">ID</th><th>Finding</th><th>Severity</th><th class="td-num" style="padding-right:var(--space-16);">Status</th></tr></thead>
       <tbody>
         <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">F-013</td>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-018</td>
           <td>Dark <code>--text-tertiary</code> failed AA on <code>--surface-inset</code> (4.05:1). Lifted <code>#948682 → #A0928E</code>; the live checker now passes every pair in both themes.</td>
           <td><span class="sev sev-high">High</span></td>
           <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
         </tr>
         <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">F-014</td>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-019</td>
           <td><code>lib/tokens.js</code> had drifted from <code>globals.css</code> — three values (light/dark tertiary, dark disabled) shipped <em>pre-AA</em> hexes to JS consumers. Resynced.</td>
           <td><span class="sev sev-medium">Medium</span></td>
           <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
         </tr>
         <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">F-015</td>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-020</td>
           <td>The <code>.select</code> chevron was a hardcoded <code>#8A7E7D</code> (a stale token value) that read low-contrast in dark mode. Repointed to a mid-neutral legible in both themes.</td>
           <td><span class="sev sev-medium">Medium</span></td>
           <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
         </tr>
         <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">F-016</td>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-021</td>
           <td>Floating overlays stacked a solid border <em>and</em> a full elevation shadow — a doubled container signal. Border → <code>--border-hairline</code>; elevation does the lifting.</td>
           <td><span class="sev sev-low">Low</span></td>
           <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
@@ -378,6 +378,7 @@
   <!-- v1.1 findings -->
   <h2 class="docs-h2" id="findings">v1.1 — Findings</h2>
   <p class="docs-h2-sub">Twelve issues, grouped by theme. Click a filter to scope the list. Every fixed finding links to the line that changed.</p>
+  <p class="docs-text" style="margin-bottom: var(--space-16);">The live checker's five findings from the same release, F-013 – F-017, are on the <a href="a11y.html#findings-this-run">A11y check</a> page and keep those IDs. The audit's later findings start at F-018 — one ID space across both pages.</p>
 
   <div class="audit-filters" id="audit-filters">
     <span class="audit-filters-label">Filter</span>
@@ -877,26 +878,30 @@
 
   <div class="docs-divider"></div>
 
-  <!-- What I won't ship -->
-  <h2 class="docs-h2" id="boundaries">What I won't ship (and why)</h2>
-  <p class="docs-h2-sub">A design system is as much about what you refuse to add as what's in. These came up during the audit and stayed out.</p>
+  <!-- Decisions -->
+  <h2 class="docs-h2" id="boundaries">Decisions</h2>
+  <p class="docs-h2-sub">A design system is as much about what you refuse to add as what's in. These came up during audits and were decided; each says when. The findings above are the checked part of this page — this section is the judgment part.</p>
 
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12);">
     <div class="card">
       <div class="card-title">A third type weight ramp</div>
       <p class="card-desc" style="margin-top:var(--space-6);">Bricolage + DM Sans is the system. Adding a mono display family "for code-forward dashboards" was floated and rejected — every font is a maintenance contract.</p>
+      <div style="font-size:var(--text-sm); color:var(--text-tertiary); margin-top:var(--space-8);">Decided at v1.1 · 2026-05-20</div>
     </div>
     <div class="card">
       <div class="card-title">A separate "compact" density</div>
       <p class="card-desc" style="margin-top:var(--space-6);">Tiny Wire is already dense by default (13px base, 32px controls). A "compact" override would double the surface area of every state matrix. If 13px is too big, override the token at scope.</p>
+      <div style="font-size:var(--text-sm); color:var(--text-tertiary); margin-top:var(--space-8);">Decided at v1.1 · 2026-05-20</div>
     </div>
     <div class="card">
       <div class="card-title">Hand-drawn iconography</div>
-      <p class="card-desc" style="margin-top:var(--space-6);">Examples use Lucide-style strokes inline. The system doesn't ship icons — bundling a set means owning a set. Consumers pick their own.</p>
+      <p class="card-desc" style="margin-top:var(--space-6);">The system doesn't draw an icon set — owning a set means maintaining a set. Amended: it names one library, <a href="https://phosphoricons.com/" style="color:var(--brand-dark); text-decoration:underline;">Phosphor</a>, and will ship size and stroke conventions, so consumers stop hand-drawing. Still no bundled glyphs.</p>
+      <div style="font-size:var(--text-sm); color:var(--text-tertiary); margin-top:var(--space-8);">Decided at v1.1 · 2026-05-20 · amended 2026-09-18</div>
     </div>
     <div class="card">
       <div class="card-title">A second brand colour</div>
       <p class="card-desc" style="margin-top:var(--space-6);">The temptation is real — every operational tool has a "secondary accent" moment. But every additional brand-mapped token doubles the override matrix for re-skinning. Override <code>--brand</code> at the consumer's scope instead.</p>
+      <div style="font-size:var(--text-sm); color:var(--text-tertiary); margin-top:var(--space-8);">Decided at v1.1 · 2026-05-20</div>
     </div>
   </div>
 
@@ -904,45 +909,7 @@
 
   <!-- Next -->
   <h2 class="docs-h2" id="next">What's next</h2>
-  <p class="docs-h2-sub">The next release is in flight. The deferred findings get their fix, plus the additions below.</p>
-
-  <div class="card" style="padding:0; overflow:hidden;">
-    <table class="table" style="font-size:var(--text-base);">
-      <thead><tr><th style="padding-left:var(--space-16);">Target</th><th>Type</th><th>Notes</th><th class="td-num" style="padding-right:var(--space-16);">Status</th></tr></thead>
-      <tbody>
-        <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">ARIA documentation pass</td>
-          <td>Docs</td>
-          <td>Toast, spinner, skeleton, alert — one block per component on the components page.</td>
-          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-warn">In progress</span></td>
-        </tr>
-        <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">Segmented control</td>
-          <td>New component</td>
-          <td>A formal name for what <code>.btn-group + .btn.active</code> is doing. Comes with keyboard arrow nav.</td>
-          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-info">Drafting</span></td>
-        </tr>
-        <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">Date / range picker</td>
-          <td>New component</td>
-          <td>The most-requested gap from the v1.0 feedback round.</td>
-          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-info">Drafting</span></td>
-        </tr>
-        <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">Theme builder</td>
-          <td>Tooling</td>
-          <td>Live token editor in the docs site. Drop a brand colour, see every component re-skin.</td>
-          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-stopped">Backlog</span></td>
-        </tr>
-        <tr>
-          <td class="td-primary" style="padding-left:var(--space-16);">Focus-trap RFC (TW-018)</td>
-          <td>Spec</td>
-          <td>The "does Tiny Wire ship JS?" decision. Drafting.</td>
-          <td class="td-num" style="padding-right:var(--space-16);"><span class="chip chip-stopped">Backlog</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <p class="docs-h2-sub">Not a roadmap. The candidates table in the <a href="https://github.com/LinzLos/tiny-wire/blob/main/DESIGN-SYSTEM-HUB.md#candidates" style="color:var(--brand-dark); text-decoration:underline; font-weight:var(--weight-medium);">Design System Hub</a> is what's next — every row is something a real app built, counted, and sorted by how many apps built it. Deferred findings above keep their IDs until they close.</p>
 
   <p class="docs-text" style="margin-top:var(--space-32); max-width:720px;">Every release ships with a page like this. The point isn't the changelog — every repo has one of those. The point is to make the <em>reasoning</em> visible: what changed, what didn't, and what I refused to add.</p>
 

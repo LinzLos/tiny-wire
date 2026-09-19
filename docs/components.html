@@ -21,7 +21,7 @@
 
   <div class="docs-eyebrow">Components</div>
   <h1 class="docs-h1">Component library</h1>
-  <p class="docs-lede">30 components covering forms, feedback, navigation, overlays, and data. Every component is plain HTML + a class — no framework, no runtime. Click "Code" on any demo to copy the markup.</p>
+  <p class="docs-lede"><!-- record:n-components start -->35<!-- record:n-components end --> documented components covering forms, feedback, navigation, overlays, and data. Every component is plain HTML + a class — no framework, no runtime. Click "Code" on any demo to copy the markup.</p>
 
   <h2 class="docs-h2" id="accordion">Accordion</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.accordion · .accordion-item · .accordion-trigger · .accordion-content</span></div></div>
@@ -491,6 +491,28 @@
 <span class="k">&lt;/div&gt;</span></pre>
   </div>
 
+  <h2 class="docs-h2" id="divider">Divider</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.separator · .separator-strong · .separator-v</span></div></div>
+  <p class="comp-desc">A hairline between things. Horizontal by default; <code>.separator-strong</code> for a heavier line; <code>.separator-v</code> for a vertical rule inside a row. It carries no meaning of its own — if the break matters to a screen reader, use a heading or a landmark instead.</p>
+  <div class="demo">
+    <div class="demo-canvas col" style="max-width: 380px; margin: 0 auto; gap: var(--space-12);">
+      <p class="card-desc">Above the line</p>
+      <hr class="separator">
+      <p class="card-desc">Below the line, then a stronger one</p>
+      <hr class="separator separator-strong">
+      <div style="display:flex; align-items:center; gap: var(--space-10);"><span class="card-desc">Left</span><span class="separator-v"></span><span class="card-desc">Right</span></div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;hr</span> <span class="a">class</span>=<span class="s">"separator"</span><span class="k">&gt;</span>
+<span class="k">&lt;hr</span> <span class="a">class</span>=<span class="s">"separator separator-strong"</span><span class="k">&gt;</span>
+<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"separator-v"</span><span class="k">&gt;&lt;/span&gt;</span></pre>
+  </div>
+
   <h2 class="docs-h2" id="menu">Dropdown Menu</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.menu · .menu-item · .menu-label · .menu-separator</span></div></div>
   <p class="comp-desc">List-of-actions menu. Supports icons, keyboard shortcuts, grouped sections, and a destructive variant.</p>
@@ -655,6 +677,25 @@
   <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"input-group-addon"</span><span class="k">&gt;</span>https://<span class="k">&lt;/span&gt;</span>
   <span class="k">&lt;input</span> <span class="a">class</span>=<span class="s">"input"</span> <span class="a">placeholder</span>=<span class="s">"example.com"</span><span class="k">&gt;</span>
 <span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="kbd">Kbd</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">kbd · .kbd</span></div></div>
+  <p class="comp-desc">A key. The native <code>&lt;kbd&gt;</code> element is styled directly; the class does the same for a span. The Command palette's ⌘K badge is this.</p>
+  <div class="demo">
+    <div class="demo-canvas" style="justify-content:center; gap: var(--space-20); align-items:center;">
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-8);">Search <span style="display:inline-flex; gap:var(--space-4);"><kbd>⌘</kbd><kbd>K</kbd></span></span>
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-8);">Save <span style="display:inline-flex; gap:var(--space-4);"><kbd>⌘</kbd><kbd>S</kbd></span></span>
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-8);">Close <span class="kbd">Esc</span></span>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;kbd&gt;</span>⌘<span class="k">&lt;/kbd&gt;&lt;kbd&gt;</span>K<span class="k">&lt;/kbd&gt;</span>
+<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"kbd"</span><span class="k">&gt;</span>Esc<span class="k">&lt;/span&gt;</span></pre>
   </div>
 
   <h2 class="docs-h2" id="pagination">Pagination</h2>
@@ -939,6 +980,56 @@
 <span class="k">&lt;/div&gt;</span></pre>
   </div>
 
+  <h2 class="docs-h2" id="spinner">Spinner</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.spinner · .spinner-sm · .spinner-lg</span></div></div>
+  <p class="comp-desc">An in-progress ring in three sizes. Put it beside a label, or inside a button while it waits. Give it <code>role="status"</code> and an <code>aria-label</code> — the ring itself says nothing.</p>
+  <div class="demo">
+    <div class="demo-canvas" style="justify-content:center; gap: var(--space-24); align-items:center;">
+      <span class="spinner spinner-sm" role="status" aria-label="Loading"></span>
+      <span class="spinner" role="status" aria-label="Loading"></span>
+      <span class="spinner spinner-lg" role="status" aria-label="Loading"></span>
+      <button class="btn btn-secondary" disabled><span class="spinner spinner-sm" role="status" aria-label="Saving"></span> Saving…</button>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"spinner"</span> <span class="a">role</span>=<span class="s">"status"</span> <span class="a">aria-label</span>=<span class="s">"Loading"</span><span class="k">&gt;&lt;/span&gt;</span>
+<span class="k">&lt;button</span> <span class="a">class</span>=<span class="s">"btn btn-secondary"</span> <span class="a">disabled</span><span class="k">&gt;&lt;span</span> <span class="a">class</span>=<span class="s">"spinner spinner-sm"</span><span class="k">&gt;&lt;/span&gt;</span> Saving…<span class="k">&lt;/button&gt;</span></pre>
+  </div>
+
+  <h2 class="docs-h2" id="status-bar">Status Bar</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.status-bar · .status-stat · .status-stat-label · .status-stat-value · .status-stat-context · .status-bar-rule</span></div></div>
+  <p class="comp-desc">A row of small stats with rules between them — the strip under a dashboard header. Each <code>.status-stat</code> is a label, a value in tabular numerals, and optional context.</p>
+  <div class="demo">
+    <div class="demo-canvas" style="padding: var(--space-16);">
+      <div class="status-bar" style="width:100%; border:1px solid var(--border-light); border-radius: var(--radius-md); background: var(--surface);">
+        <div class="status-stat"><span class="status-stat-label">Queue</span><span class="status-stat-value">1,284</span><span class="status-stat-context">open</span></div>
+        <span class="status-bar-rule"></span>
+        <div class="status-stat"><span class="status-stat-label">Agents</span><span class="status-stat-value"><span class="monitoring-dot"></span> 12</span><span class="status-stat-context">live</span></div>
+        <span class="status-bar-rule"></span>
+        <div class="status-stat"><span class="status-stat-label">SLA</span><span class="status-stat-value">98.2%</span></div>
+      </div>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"status-bar"</span><span class="k">&gt;</span>
+  <span class="k">&lt;div</span> <span class="a">class</span>=<span class="s">"status-stat"</span><span class="k">&gt;</span>
+    <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"status-stat-label"</span><span class="k">&gt;</span>Queue<span class="k">&lt;/span&gt;</span>
+    <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"status-stat-value"</span><span class="k">&gt;</span>1,284<span class="k">&lt;/span&gt;</span>
+    <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"status-stat-context"</span><span class="k">&gt;</span>open<span class="k">&lt;/span&gt;</span>
+  <span class="k">&lt;/div&gt;</span>
+  <span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"status-bar-rule"</span><span class="k">&gt;&lt;/span&gt;</span>
+  …
+<span class="k">&lt;/div&gt;</span></pre>
+  </div>
+
   <h2 class="docs-h2" id="chip">Status Chip</h2>
   <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.chip .chip-ok | .chip-warn | .chip-critical | .chip-info | .chip-stopped</span></div></div>
   <p class="comp-desc">Pill-shaped semantic status indicators. Always pair with a <code>.chip-dot</code> that inherits the chip color.</p>
@@ -971,6 +1062,29 @@
       <div style="display:flex; align-items:center; gap:var(--space-6);"><span class="dot dot-muted"></span><span style="font-size:var(--text-md);">.dot-muted</span></div>
       <div style="display:flex; align-items:center; gap:var(--space-8);"><span class="monitoring-dot"></span><span style="font-size:var(--text-md);">.monitoring-dot</span></div>
     </div>
+  </div>
+
+  <h2 class="docs-h2" id="dot">Status Dot</h2>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.dot .dot-green | .dot-warn | .dot-amber | .dot-red | .dot-blue | .dot-muted · .monitoring-dot</span></div></div>
+  <p class="comp-desc">A colored dot that means a state. <code>.dot-*</code> is still; <code>.monitoring-dot</code> pulses for something live right now. Both are decorative — the meaning goes in text beside them, never in the color alone. The <a href="#chip">Status Chip</a> is a dot with its label built in.</p>
+  <div class="demo">
+    <div class="demo-canvas" style="justify-content:center; gap: var(--space-20); align-items:center; flex-wrap:wrap;">
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-6);"><span class="dot dot-green"></span> Healthy</span>
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-6);"><span class="dot dot-warn"></span> Degraded</span>
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-6);"><span class="dot dot-amber"></span> Chart amber</span>
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-6);"><span class="dot dot-red"></span> Down</span>
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-6);"><span class="dot dot-blue"></span> Info</span>
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-6);"><span class="dot dot-muted"></span> Off</span>
+      <span class="card-desc" style="display:inline-flex; align-items:center; gap:var(--space-6);"><span class="monitoring-dot"></span> Live</span>
+    </div>
+    <div class="demo-toolbar">
+      <div class="demo-toolbar-tabs">
+        <button class="demo-tab active" onclick="setDemoTab(this, 'preview')">Preview</button>
+        <button class="demo-tab" onclick="setDemoTab(this, 'code')">Code</button>
+      </div>
+    </div>
+    <pre class="demo-code"><span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"dot dot-green"</span><span class="k">&gt;&lt;/span&gt;</span> Healthy
+<span class="k">&lt;span</span> <span class="a">class</span>=<span class="s">"monitoring-dot"</span><span class="k">&gt;&lt;/span&gt;</span> Live</pre>
   </div>
 
   <h2 class="docs-h2" id="switch">Switch</h2>
@@ -1092,7 +1206,7 @@
       <span class="tag tag-accent">New</span>
       <span class="tag">Default</span>
       <span class="badge">rolled back</span>
-      <span class="badge" data-tw-version>v1.3</span>
+      <span class="badge" data-tw-version><!-- record:version start -->v1.5<!-- record:version end --></span>
     </div>
     <div class="demo-toolbar">
       <div class="demo-toolbar-tabs">
