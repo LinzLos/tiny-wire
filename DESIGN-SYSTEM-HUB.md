@@ -69,12 +69,14 @@ A **Vite + React + Tiny Wire starter template** is the default for new quick tak
 
 ## Consumer registry
 
+<!-- record:registry start -->
 | Consumer | Profile | Vendors | Pinned | Deploy | Coupling map | Candidates |
-|----------|---------|---------|--------|--------|--------------|------------|
-| [`agentic-trust-devtools`](https://github.com/LinzLos/agentic-trust-devtools) | static — vanilla showcase | full `lib/`: tokens, base, components, globals | v1.5 | GitHub Pages | — | — |
-| [`agentic-trust-ux`](https://github.com/LinzLos/agentic-trust-ux) | static — vanilla showcase | full `lib/`: tokens, base, components, globals | v1.5 | GitHub Pages | [#1](https://github.com/LinzLos/agentic-trust-ux/issues/1) | [#2](https://github.com/LinzLos/agentic-trust-ux/issues/2) |
-| [`dialing-prototype`](https://github.com/LinzLos/dialing-prototype) | react — React / Tailwind | `tokens.css` only | v1.5 | Netlify | [#1](https://github.com/LinzLos/dialing-prototype/issues/1) | [#2](https://github.com/LinzLos/dialing-prototype/issues/2) |
-| [`shift-prototype`](https://github.com/LinzLos/shift-prototype) | react — React / Tailwind | `tokens.css` only | v1.5 | Netlify | [#1](https://github.com/LinzLos/shift-prototype/issues/1) | [#2](https://github.com/LinzLos/shift-prototype/issues/2) |
+| --- | --- | --- | --- | --- | --- | --- |
+| [`agentic-trust-devtools`](https://github.com/LinzLos/agentic-trust-devtools) | `static` — vanilla HTML | `tokens.css`, `base.css`, `components.css`, `globals.css` | v1.5 | GitHub Pages | — | — |
+| [`agentic-trust-ux`](https://github.com/LinzLos/agentic-trust-ux) | `static` — vanilla HTML | `tokens.css`, `base.css`, `components.css`, `globals.css` | v1.5 | GitHub Pages | [#1](https://github.com/LinzLos/agentic-trust-ux/issues/1) | [#2](https://github.com/LinzLos/agentic-trust-ux/issues/2) |
+| [`dialing-prototype`](https://github.com/LinzLos/dialing-prototype) | `react` — React / Tailwind | `tokens.css` | v1.5 | Netlify | [#1](https://github.com/LinzLos/dialing-prototype/issues/1) | [#2](https://github.com/LinzLos/dialing-prototype/issues/2) |
+| [`shift-prototype`](https://github.com/LinzLos/shift-prototype) | `react` — React / Tailwind | `tokens.css` | v1.5 | Netlify | [#1](https://github.com/LinzLos/shift-prototype/issues/1) | [#2](https://github.com/LinzLos/shift-prototype/issues/2) |
+<!-- record:registry end -->
 
 Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift.sh`, and a `.tinywire-version` pin. Once the React package ships, `react` consumers move from vendoring `tokens.css` to importing `@linzlos/tiny-wire/react`.
 
@@ -93,22 +95,21 @@ Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift
 
 **Rule: present in 2 or more consumers = promotion candidate. 2 or more copies inside one consumer = consolidate there, not here.** Counts are of confirmed component groups, not of definitions sharing a name — full rule in [`lib/CONSUMING.md`](lib/CONSUMING.md#promotion). These also seed the Layer 3 build order — build the most-reinvented components first.
 
-| Candidate | Reinvented in | Note |
-|-----------|---------------|------|
-| Ledger area/line chart (incl. dual-axis) | 1 | one definition, used 2× in shift — extracted to token-pure `LedgerChart` (`shift/src/components/LedgerChart.tsx`); consumed by QueueMonitor + Performance. Below threshold until a second consumer needs it · [shift#2](https://github.com/LinzLos/shift-prototype/issues/2) · upstream-token decision [#8](https://github.com/LinzLos/tiny-wire/issues/8) |
-| Status chip (dot + label + state) | 1 | dialing `.status-chip`; wraps a copy of the shipped `.monitoring-dot`. Composable from `.tag` + `.monitoring-dot` once `react` consumers can reach `components.css` |
-| Live indicator (dot + label + tooltip) | 1 | shift `LiveIndicator`; interactive (tooltip button), so a different contract from the chip. Rebuilds the dot with its own keyframes, brand-colored where Tiny Wire uses `--success` |
-| Icon system | 2 | shift (20+ inline SVGs), agentic (inline SVG); none in Tiny Wire today |
-| Shell (app layout) | 2 | shift + dialing `src/components/Shell.tsx`; dialing's is already prop-driven (`navItems`, `logo`) |
-| Sidenav | 2 | shift + dialing `src/components/Sidenav.tsx`; dialing's takes `navItems`, `logo`. Duplicates the shipped `.sidebar` because `react` consumers can't consume `components.css` |
-| Tabs | 1 | shift `src/screens/QueueMonitor.tsx:136` — ARIA tabs (`tablist` / `tab`), switches panels |
-| Segmented control | 1 | agentic `app.css:103` — `role="group"`, sets a value. devtools `.pnav-seg` is a bespoke mobile variant (no role), not counted. Was one 3/3 row with tabs; its dialing citation was segment *targeting* |
-| App-bar / top header | 1 | agentic `.appbar`; Tiny Wire has only a sidebar pattern |
-| Trust Dial | 1 | agentic `app.css:127` |
-| Pre-flight decision surface | 1 | agentic `app.css:161` |
-| Attestation Shield | 1 | agentic `index.html:84` |
-| Search-with-clear input | 1 | shift `Overview.tsx:295` |
-| Cursor-tracking gradient card | 1 | shift `Overview.tsx:491` |
+Rows are the candidates that have been assessed against the rule. Ideas not yet assessed stay in each consumer's `ds:candidate` issue (the registry's Candidates column). Spread · copies · uses are the three counts from the rule; a shipped candidate stays in the table with status `shipped` so the trail is visible.
+
+<!-- record:candidates start -->
+| Candidate | What it is | Where | Spread | Copies | Uses | Status | Build |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Shell | The frame every screen sits in — sidebar on the left, page in the middle. | `shift-prototype`, `dialing-prototype` | 2 | 2 | 2 | promote | not-started |
+| Sidenav | The sidebar: logo, links, theme toggle. | `shift-prototype`, `dialing-prototype` | 2 | 2 | 2 | promote | not-started |
+| Icon system | Icons for every app — which library, what sizes, what stroke. | `shift-prototype`, `agentic-trust-ux` | 2 | 0 | 0 | resolved | not-started |
+| Ledger chart | An area chart with an optional second axis. | `shift-prototype` | 1 | 1 | 2 | candidate | not-started |
+| Live indicator | A Real Time pill with a pulsing dot and a tooltip you can tab to. | `shift-prototype` | 1 | 1 | 3 | candidate | not-started |
+| Segmented control | A row of buttons, one selected — a toggle with more than two options. | `agentic-trust-ux` | 1 | 1 | 2 | candidate | not-started |
+| Status chip | A pill with a pulsing dot and a state word: ok, warn, critical. | `dialing-prototype` | 1 | 1 | 1 | candidate | not-started |
+| Tabs | Click a tab, the panel changes. | `shift-prototype` | 1 | 1 | 1 | candidate | not-started |
+| Stat tile | A big number in a box with a label and a delta. | `shift-prototype` | 1 | 2 | 4 | shipped | shipped |
+<!-- record:candidates end -->
 
 **Assessment per candidate:** generalizes beyond one prototype? · token / a11y debt · API shape · decision: promote / keep-local / reject.
 
@@ -138,4 +139,4 @@ Hosting is chosen per stack, not forced onto one host:
 
 ## Maintaining this hub
 
-On each release: re-sync every consumer, reconcile each Lane A coupling map, and bump the registry version column here. When a candidate is promoted, move it out of the table and note it in the changelog. Keep this file and issue #6 in agreement.
+On each release: re-sync every consumer, reconcile each Lane A coupling map, and bump the registry version column here. The registry and candidates tables sit between `record:` markers and are generated from the maintainer's record — change the record and re-render; hand edits between the markers are overwritten. When a candidate ships, its status becomes `shipped` and the changelog gets the entry. Keep this file and issue #6 in agreement.
