@@ -2,7 +2,7 @@
 
 The committed registry and architecture record for Tiny Wire and the repos that vendor it. This is the durable companion to the intake issue [LinzLos/tiny-wire#6](https://github.com/LinzLos/tiny-wire/issues/6): the issue is the working thread, this file is the source of record. When they disagree, reconcile toward this file.
 
-> **Status note (2026-09-17):** All four consumers are migrated to the [`lib/CONSUMING.md`](lib/CONSUMING.md) contract and pin **v1.5**. `agentic-trust-devtools` was already wired to the contract — pinned, both sync scripts, zero drift — but missing from this registry until now. The "three different ways" framing in issue #6 predates that migration and should be updated to match the registry below.
+> **Status note (2026-09-17):** Every consumer is migrated to the [`lib/CONSUMING.md`](lib/CONSUMING.md) contract; current pins are in the registry below. `agentic-trust-devtools` was already wired to the contract — pinned, both sync scripts, zero drift — but missing from this registry until now. The "three different ways" framing in issue #6 predates that migration and should be updated to match the registry below.
 
 ---
 
@@ -31,7 +31,7 @@ Tiny Wire is a **React-first design system**. The design decisions live in a fra
 ## The system
 
 - **Repo:** `LinzLos/tiny-wire`
-- **Current version:** `1.5` (canonical number in [`/VERSION`](VERSION))
+- **Current version:** `<!-- record:version start -->1.5<!-- record:version end -->` (rendered from [`/VERSION`](VERSION))
 - **Vendoring contract:** [`lib/CONSUMING.md`](lib/CONSUMING.md)
 - **Deploy:** GitHub Pages, push to `main` = publish — https://linzlos.github.io/tiny-wire/
 
@@ -93,7 +93,7 @@ Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift
 
 ## Promotion candidates
 
-**Rule: present in 2 or more consumers = promotion candidate. 2 or more copies inside one consumer = consolidate there, not here.** Counts are of confirmed component groups, not of definitions sharing a name — full rule in [`lib/CONSUMING.md`](lib/CONSUMING.md#promotion). These also seed the Layer 3 build order — build the most-reinvented components first.
+**The rule lives in [`lib/CONSUMING.md` § Promotion](lib/CONSUMING.md#promotion)** — a spread threshold promotes to Tiny Wire, a copies threshold consolidates inside the consumer. Counts are of confirmed component groups, not of definitions sharing a name. These also seed the Layer 3 build order — build the most-reinvented components first.
 
 Rows are the candidates that have been assessed against the rule. Ideas not yet assessed stay in each consumer's `ds:candidate` issue (the registry's Candidates column). Spread · copies · uses are the three counts from the rule; a shipped candidate stays in the table with status `shipped` so the trail is visible.
 
