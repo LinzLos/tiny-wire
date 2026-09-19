@@ -108,6 +108,15 @@ Rows are the candidates that have been assessed against the rule. Ideas not yet 
 | Segmented control | A row of buttons, one selected — a toggle with more than two options. | `agentic-trust-ux` | 1 | 1 | 2 | candidate | not-started |
 | Status chip | A pill with a pulsing dot and a state word: ok, warn, critical. | `dialing-prototype` | 1 | 1 | 1 | candidate | not-started |
 | Tabs | Click a tab, the panel changes. | `shift-prototype` | 1 | 1 | 1 | candidate | not-started |
+| App bar | The strip across the top: logo, links, actions. | `agentic-trust-ux` | 1 | 1 | 1 | unassessed | not-started |
+| Attestation shield | A card that flips between plain-words proof and raw proof. | `agentic-trust-ux` | 1 | 1 | 1 | unassessed | not-started |
+| Cursor card | A card that glows where your mouse is. | `shift-prototype` | 1 | 1 | 1 | unassessed | not-started |
+| Formula box | A recessed box that shows the math. | `dialing-prototype` | 1 | 1 | 1 | unassessed | not-started |
+| Lever slider | A horizontal slider with a thumb you grab. | `dialing-prototype` | 1 | 1 | 1 | unassessed | not-started |
+| Pre-flight surface | The approve-or-stop screen before an agent acts. | `agentic-trust-ux` | 1 | 1 | 1 | unassessed | not-started |
+| Search with clear | A search box with an × that empties it. | `shift-prototype` | 1 | 1 | 1 | unassessed | not-started |
+| Solver table | A grid for picking one option out of several, numbers side by side. | `agentic-trust-ux` | 1 | 1 | 1 | unassessed | not-started |
+| Trust dial | A dial you drag to set how far the agent may go. | `agentic-trust-ux` | 1 | 1 | 1 | unassessed | not-started |
 | Stat tile | A big number in a box with a label and a delta. | `shift-prototype` | 1 | 2 | 4 | shipped | shipped |
 <!-- record:candidates end -->
 
