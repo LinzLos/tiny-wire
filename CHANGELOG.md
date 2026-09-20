@@ -8,17 +8,25 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 #### Added
 
+- **Components page**: Divider, Kbd, Spinner, Status Bar, and Status Dot get sections. `components.css` shipped six class families with no place a reader could find them; one consumer rebuilt `.status-stat` locally for exactly that reason.
+- **Foundations**: an Every-token table at the end of the page, rendered from `lib/tokens.css` — all 186, light and dark, by tier. The curated sections above it show 92.
 - **CONSUMING.md**: a `Promotion` section stating how candidates are judged — the four-question sameness test, the glyph rule for visual atoms, and two thresholds: present in ≥ 2 consumers promotes; ≥ 2 copies inside one consumer consolidates there. The hub's heuristic line now states the numbers instead of `N`; the Layer 3 build-order line no longer names examples (all three had failed verification) and points at the candidates table instead; the "status pill 3/3" row is split into a passive status chip and an interactive live indicator, one consumer each — the dot itself already ships as `.monitoring-dot`.
 - **Card**: `.card-value` and `.card-delta` (+ `-success` / `-danger`) — the stat tile. Three consumers and both docs pages had each built this from inline styles; it now ships. Badge slot is a `.tag` in `.card-header`, so nothing new there.
 
 #### Changed
 
 - **README, `lib/CONSUMING.md`, the hub, and CONTRIBUTING** restructured for legibility. Each names its reader and opens in plain words. The `lib/` file list has one home (CONSUMING § The lib unit); the other three link to it. CONSUMING's rules are written as invariants — what must hold, what breaks if it doesn't, what checks it — marked `deterministic` or `judgment`. The hub reads state → contract → decisions → verified clean → coverage; its architecture / roadmap section is cut, and the one settled decision from it (components are authored once) is kept as a dated entry.
+- **Every typed number in the docs is rendered**: `scripts/render-docs.py` (replaces `render-readme.py`) writes the token, component, pattern, and finding counts and the version into the README, the intro page, the components page, the audit card, and `docs.js`. Hand edits between the markers are overwritten.
+- **Audit page**: "What I won't ship" is now "Decisions", each dated to the release it was made at; the icon decision is amended for Phosphor. "What's next" points at the hub's candidates table instead of carrying its own roadmap.
 - **README counts are rendered**, not typed: `scripts/render-readme.py` counts tokens in `lib/tokens.css`, documented components on the components page, and patterns, and rewrites the block between markers. It counts 186 tokens (the README said "~180"; the count is now exact and re-rendered on every run) and lists the class families `components.css` ships that have no docs section yet.
 - **Consumer profiles** are named `static` and `react` instead of A and B, in `lib/CONSUMING.md` and the hub. The letters only meant something to whoever wrote them.
 
 #### Fixed
 
+- **Intro page** said brand is forest green; it has been cobalt since v1.5. Its counts (16 findings, 28 components, three files in `lib/`) were typed and stale; they are rendered or linked now.
+- **Finding IDs**: the audit page's v1.3 and v1.5 findings reused F-013–F-018, which the a11y page and this changelog already used for the v1.1 contrast findings. The audit's are renumbered F-018–F-023; the a11y page keeps the originals. One ID space.
+- **`Tiny Wire.html`** at the repo root — a 1,579-line single-file copy of the system with its own token values, linked from nowhere — is removed. Git history keeps it.
+- **Sidebar rail** example page is in the nav.
 - **CONTRIBUTING** pointed token additions at `lib/globals.css`; tokens are declared in `lib/tokens.css`. The project-structure tree that repeated the `lib/` list is replaced by a link.
 - **Patterns**: the dashboard pattern's stat cards used `.p-stat-*` classes that existed only inside `docs/patterns.html`, so the pattern couldn't be lifted as promised. They now use the shipped Card parts. Positive deltas move from `--brand` to `--success-dark`, matching `.tag-success` per the v1.5 semantic-color pass.
 
