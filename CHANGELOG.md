@@ -23,6 +23,7 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 #### Fixed
 
+- **Hub registry** gained a Drift column, and its Verified-clean block no longer claims all four consumers match the source. `agentic-trust-ux` and `agentic-trust-devtools` are behind it: `.card-value` / `.card-delta` landed on `main` after v1.5 with no version bump, so both hold a faithful copy of their pin while the source moved on. Neither was hand-edited; cutting this release and running each consumer's sync script clears it.
 - **Intro page** said brand is forest green; it has been cobalt since v1.5. Its counts (16 findings, 28 components, three files in `lib/`) were typed and stale; they are rendered or linked now.
 - **Finding IDs**: the audit page's v1.3 and v1.5 findings reused F-013–F-018, which the a11y page and this changelog already used for the v1.1 contrast findings. The audit's are renumbered F-018–F-023; the a11y page keeps the originals. One ID space.
 - **`Tiny Wire.html`** at the repo root — a 1,579-line single-file copy of the system with its own token values, linked from nowhere — is removed. Git history keeps it.
