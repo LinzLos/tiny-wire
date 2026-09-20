@@ -15,10 +15,10 @@ Repo `LinzLos/tiny-wire` · version `<!-- record:version start -->1.6<!-- record
 <!-- record:registry start -->
 | Consumer | Profile | Vendors | Pinned | Drift | Deploy | Coupling map | Candidates |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| [`agentic-trust-devtools`](https://github.com/LinzLos/agentic-trust-devtools) | `static` — vanilla HTML | `tokens.css`, `base.css`, `components.css`, `globals.css` | v1.5 | behind-source | GitHub Pages | — | — |
-| [`agentic-trust-ux`](https://github.com/LinzLos/agentic-trust-ux) | `static` — vanilla HTML | `tokens.css`, `base.css`, `components.css`, `globals.css` | v1.5 | behind-source | GitHub Pages | [#1](https://github.com/LinzLos/agentic-trust-ux/issues/1) | [#2](https://github.com/LinzLos/agentic-trust-ux/issues/2) |
-| [`dialing-prototype`](https://github.com/LinzLos/dialing-prototype) | `react` — React / Tailwind | `tokens.css` | v1.5 | none | Netlify | [#1](https://github.com/LinzLos/dialing-prototype/issues/1) | [#2](https://github.com/LinzLos/dialing-prototype/issues/2) |
-| [`shift-prototype`](https://github.com/LinzLos/shift-prototype) | `react` — React / Tailwind | `tokens.css` | v1.5 | none | Netlify | [#1](https://github.com/LinzLos/shift-prototype/issues/1) | [#2](https://github.com/LinzLos/shift-prototype/issues/2) |
+| [`agentic-trust-devtools`](https://github.com/LinzLos/agentic-trust-devtools) | `static` — vanilla HTML | `tokens.css`, `base.css`, `components.css`, `globals.css` | v1.6 | none | GitHub Pages | — | — |
+| [`agentic-trust-ux`](https://github.com/LinzLos/agentic-trust-ux) | `static` — vanilla HTML | `tokens.css`, `base.css`, `components.css`, `globals.css` | v1.6 | none | GitHub Pages | [#1](https://github.com/LinzLos/agentic-trust-ux/issues/1) | [#2](https://github.com/LinzLos/agentic-trust-ux/issues/2) |
+| [`dialing-prototype`](https://github.com/LinzLos/dialing-prototype) | `react` — React / Tailwind | `tokens.css` | v1.6 | none | Netlify | [#1](https://github.com/LinzLos/dialing-prototype/issues/1) | [#2](https://github.com/LinzLos/dialing-prototype/issues/2) |
+| [`shift-prototype`](https://github.com/LinzLos/shift-prototype) | `react` — React / Tailwind | `tokens.css` | v1.6 | none | Netlify | [#1](https://github.com/LinzLos/shift-prototype/issues/1) | [#2](https://github.com/LinzLos/shift-prototype/issues/2) |
 <!-- record:registry end -->
 
 Every consumer carries `scripts/sync-tinywire.sh`, `scripts/check-tinywire-drift.sh`, and a `.tinywire-version` pin; the rules they hold to are in [`lib/CONSUMING.md` § Contract](lib/CONSUMING.md#contract). *Coupling map* is the consumer's `ds:consumes` issue — what it binds to, and its drift debt. The candidates issues are closed; the table below is the docket now.
@@ -85,7 +85,7 @@ Judgment calls, dated, with the reason. Everything in this section is an opinion
 <!-- record:verified start -->
 As of 2026-09-20, the latest verification date in the record.
 
-- 2 of 4 consumers match the source exactly, at pin v1.5
+- 4 of 4 consumers match the source exactly, at pin v1.6
 - 15 of 18 candidates carry definitions the inventory script checks against the consumer repos
 - The registry, candidates, version, and these two sections are rendered from the record; nothing in them was typed
 <!-- record:verified end -->
@@ -94,7 +94,6 @@ As of 2026-09-20, the latest verification date in the record.
 
 <!-- record:coverage start -->
 - Consumers in the record: `agentic-trust-devtools`, `agentic-trust-ux`, `dialing-prototype`, `shift-prototype`
-- Behind the source, faithful to their pin (the source carries unreleased changes; clears at the next release and sync): `agentic-trust-devtools`, `agentic-trust-ux`
 - Candidates with no definition the script can watch: Cursor card, Icon system, Search with clear
 - Sameness assessments without a confirmation: HeaderBar
 <!-- record:coverage end -->
