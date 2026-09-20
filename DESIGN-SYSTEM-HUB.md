@@ -6,7 +6,7 @@ I build prototypes, make the case for what should move up, and this is where the
 
 The tables and the two closing sections are rendered from the maintainer's record by script; the prose between them is hand-written. Where they disagree, the rendered parts win — they were checked more recently. Working thread: [#6](https://github.com/LinzLos/tiny-wire/issues/6).
 
-Repo `LinzLos/tiny-wire` · version `<!-- record:version start -->1.5<!-- record:version end -->` (rendered from [`/VERSION`](VERSION)) · deploy: GitHub Pages, push to `main` = publish — https://linzlos.github.io/tiny-wire/
+Repo `LinzLos/tiny-wire` · version `<!-- record:version start -->1.6<!-- record:version end -->` (rendered from [`/VERSION`](VERSION)) · deploy: GitHub Pages, push to `main` = publish — https://linzlos.github.io/tiny-wire/
 
 ## State
 

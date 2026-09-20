@@ -264,22 +264,22 @@
   <!-- Stats -->
   <div class="audit-meta-head" style="display:flex; align-items:baseline; justify-content:space-between; gap:var(--space-12); flex-wrap:wrap; margin-bottom:var(--space-12);">
     <span style="font-size:var(--text-xs); font-weight:var(--weight-semibold); letter-spacing:var(--tracking-caps); text-transform:uppercase; color:var(--text-tertiary);">Cumulative totals · all releases</span>
-    <span style="font-size:var(--text-md); color:var(--text-tertiary);">v1.0 → <strong style="color:var(--text-secondary); font-weight:var(--weight-semibold);">v1.5</strong> · latest pass <a href="#v1-5" style="color:var(--info); text-decoration:underline; text-underline-offset:2px;">Reserve green</a> (semantic-color pass)</span>
+    <span style="font-size:var(--text-md); color:var(--text-tertiary);">v1.0 → <strong style="color:var(--text-secondary); font-weight:var(--weight-semibold);"><!-- record:version start -->v1.6<!-- record:version end --></strong> · latest pass <!-- record:latest-pass start --><a href="#v1-6" style="color:var(--info); text-decoration:underline; text-underline-offset:2px;">Receipts</a> (documentation and record pass)<!-- record:latest-pass end --></span>
   </div>
   <div class="audit-meta">
     <div class="audit-stat audit-stat-trace" data-trace="all" role="button" tabindex="0" title="Show all findings">
       <div class="audit-stat-label">Findings logged</div>
-      <div class="audit-stat-num">18</div>
+      <div class="audit-stat-num"><!-- record:n-audit-findings start -->26<!-- record:n-audit-findings end --></div>
       <div class="audit-stat-sub">Across a11y, motion, contrast, naming, color, and architecture.</div>
     </div>
     <div class="audit-stat audit-stat-trace" data-trace="fixed" role="button" tabindex="0" title="Show the fixed findings">
       <div class="audit-stat-label">Fixes shipped</div>
-      <div class="audit-stat-num">15</div>
+      <div class="audit-stat-num"><!-- record:n-audit-fixed start -->23<!-- record:n-audit-fixed end --></div>
       <div class="audit-stat-sub">Tokens, component patches, and a three-tier architecture.</div>
     </div>
     <div class="audit-stat audit-stat-trace" data-trace="deferred" role="button" tabindex="0" title="Show the deferred findings">
       <div class="audit-stat-label">Deferred</div>
-      <div class="audit-stat-num">3</div>
+      <div class="audit-stat-num"><!-- record:n-audit-deferred start -->3<!-- record:n-audit-deferred end --></div>
       <div class="audit-stat-sub">Out-of-scope or needs broader RFC.</div>
     </div>
     <div class="audit-stat">
@@ -296,12 +296,76 @@
 
   <div class="docs-divider"></div>
 
+  <!-- v1.6 -->
+  <h2 class="docs-h2" id="v1-6">v1.6 — Receipts</h2>
+  <p class="docs-h2-sub">2026-09-20 · documentation and record pass, zero breaking changes.</p>
+  <p class="docs-text" style="max-width:720px;">Every earlier release audited what the CSS does. This one audits what the documents <em>say</em>. A record layer built alongside the system — a page per consumer, per promotion candidate, per sameness call — got checked against the four consumer repos by script, and the script disagreed with the documents eight times. What follows is mostly claims that were true when written and quietly stopped being true.</p>
+  <p class="docs-text" style="max-width:720px;">One thing shipped in <code>lib/</code>: the stat tile, as Card parts (<code>.card-value</code>, <code>.card-delta</code>), because three consumers and both docs pages had each built it from inline styles. Everything else is the paperwork catching up — and then being wired so it cannot fall behind again. The counts on the README, the introduction, the components page, this page's tiles, and the hub's tables are rendered from the source files now. Typing one is overwritten.</p>
+
+  <div class="card release-findings" id="v16-findings" style="padding:0; overflow:hidden; margin-top:var(--space-16);">
+    <table class="table" style="font-size:var(--text-base);">
+      <thead><tr><th style="padding-left:var(--space-16);">ID</th><th>Finding</th><th>Severity</th><th class="td-num" style="padding-right:var(--space-16);">Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-024</td>
+          <td>The hub's registry claimed all four consumers matched the source with no drift. Two did not: <code>.card-value</code> / <code>.card-delta</code> landed on <code>main</code> after v1.5 with no version bump, so both static consumers held a faithful copy of their pin while the source moved on. The registry gained a Drift column and the claim is now rendered from the record, not typed.</td>
+          <td><span class="sev sev-medium">Medium</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-025</td>
+          <td>The introduction page said the brand is forest green. v1.5 moved brand to cobalt — this page said so, one click away. A stale claim on the first page a reader sees.</td>
+          <td><span class="sev sev-medium">Medium</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-026</td>
+          <td>Finding IDs <code>F-013</code>–<code>F-018</code> meant different findings on this page and on the A11y check page, and the changelog referenced both. Renumbered: this page's later findings start at F-018, the checker keeps F-013–F-017, and there is one ID space.</td>
+          <td><span class="sev sev-medium">Medium</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-027</td>
+          <td>The README's token count read “~180” and had not been recounted since v1.4. <code>lib/tokens.css</code> declares 186. The count is now rendered from the file.</td>
+          <td><span class="sev sev-low">Low</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-028</td>
+          <td>Six class families shipped in <code>components.css</code> with no section on the components page — <code>.dot</code>, <code>.monitoring-dot</code>, <code>.separator</code>, <code>.spinner</code>, <code>.status-bar</code>, <code>.kbd</code>. Not cosmetic: a consumer rebuilt <code>.status-stat</code> locally because it could not find it. All six are documented, and the renderer now fails loudly when a shipped family has no home.</td>
+          <td><span class="sev sev-medium">Medium</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-029</td>
+          <td>CONTRIBUTING told contributors to add new tokens to <code>lib/globals.css</code>. Tokens are declared in <code>lib/tokens.css</code>; <code>globals.css</code> is a compatibility shim. Anyone following the guide would have put a token where nothing reads it.</td>
+          <td><span class="sev sev-low">Low</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-030</td>
+          <td><code>Tiny Wire.html</code> sat at the repo root — 1,579 lines, a single-file copy of the system carrying its own hardcoded token values from a mix of releases, linked from nowhere. Removed; git history keeps it.</td>
+          <td><span class="sev sev-low">Low</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+        <tr>
+          <td class="td-primary" style="padding-left:var(--space-16);">F-031</td>
+          <td>No release had ever been tagged, and <code>/VERSION</code> had been edited exactly once. A consumer pinned to “v1.5” could not be checked against v1.5, because nothing in the repo could produce it. This release is tagged, and every release from here is.</td>
+          <td><span class="sev sev-medium">Medium</span></td>
+          <td class="td-num" style="padding-right:var(--space-16);"><span class="status-pill status-fixed">Fixed</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="docs-divider"></div>
+
   <!-- v1.5 -->
   <h2 class="docs-h2" id="v1-5">v1.5 — Reserve green</h2>
   <p class="docs-h2-sub">2026-06-14 · semantic-color pass, zero breaking changes (back-compat aliases kept).</p>
   <p class="docs-text" style="max-width:720px;">Building a conceptual attestation prototype <em>on</em> the system surfaced the finding the manual eye had normalized: <strong>green was doing double duty</strong> — the brand accent <em>and</em> the semantic "healthy / attested / safe" signal. When the brand mark, primary buttons, focus rings, and the "this is safe" chip all share one green, the trust signal stops popping. v1.5 reserves green strictly for a new <code>--success</code> family (attested / approved / safe / healthy / running) and moves brand + all interaction onto the existing <strong>cobalt</strong> — so the rarer green now reads as a real verdict. Token <em>names</em> are unchanged and the old <code>.alert-brand</code> / <code>.banner-brand</code> / <code>.tag-brand</code> remain as aliases, so the prototype inherited the entire shift through the semantic tokens — no per-screen edits. A free win fell out of it: moving brand off green <strong>closed the longest-deferred a11y finding</strong> (brand-on-white text, 3.54:1 → cobalt 8.3:1).</p>
 
-  <div class="card" id="v15-findings" style="padding:0; overflow:hidden; margin-top:var(--space-16);">
+  <div class="card release-findings" id="v15-findings" style="padding:0; overflow:hidden; margin-top:var(--space-16);">
     <table class="table" style="font-size:var(--text-base);">
       <thead><tr><th style="padding-left:var(--space-16);">ID</th><th>Finding</th><th>Severity</th><th class="td-num" style="padding-right:var(--space-16);">Status</th></tr></thead>
       <tbody>
@@ -334,7 +398,7 @@
   <p class="docs-h2-sub">2026-06-12 · additive, zero breaking changes.</p>
   <p class="docs-text" style="max-width:720px;">A systematic rigor + signature pass. The neutrals consolidated into one coherent warm-neutral ramp; a single <strong>cobalt</strong> accent replaced the two overlapping blues and now owns focus; the warning brown became a disciplined amber; and the whole set was restructured into a three-tier <strong>primitive → semantic → component</strong> architecture — <em>values only, every public token name preserved</em>, so downstream prototypes inherit it unbroken. Type moved to a 1.2 modular display scale with <code>em</code> tracking and a mandatory tabular-numerals token; the default radius sharpened 10→8; floating overlays dropped their solid border for a hairline and let elevation do the lifting. Four issues surfaced and were fixed in the same pass:</p>
 
-  <div class="card" id="v13-findings" data-allstatus="fixed" style="padding:0; overflow:hidden; margin-top:var(--space-16);">
+  <div class="card release-findings" id="v13-findings" data-allstatus="fixed" style="padding:0; overflow:hidden; margin-top:var(--space-16);">
     <table class="table" style="font-size:var(--text-base);">
       <thead><tr><th style="padding-left:var(--space-16);">ID</th><th>Finding</th><th>Severity</th><th class="td-num" style="padding-right:var(--space-16);">Status</th></tr></thead>
       <tbody>
@@ -920,11 +984,10 @@
   const findings  = Array.from(document.querySelectorAll('.finding'));
   const catChips  = Array.from(document.querySelectorAll('.audit-filter'));
   const statTiles = Array.from(document.querySelectorAll('.audit-stat-trace'));
-  const v13       = document.getElementById('v13-findings');
-  const v13rows   = v13 ? v13.querySelectorAll('tbody tr').length : 0;
-  const v15       = document.getElementById('v15-findings');
-  const v15fixed  = v15 ? v15.querySelectorAll('tbody .status-fixed').length : 0;
-  const v15def    = v15 ? v15.querySelectorAll('tbody .status-deferred').length : 0;
+  // Every release findings table, whatever the release — no per-release ids to keep.
+  const tblRows   = Array.from(document.querySelectorAll('.release-findings tbody tr'));
+  const tblFixed  = tblRows.filter(r => r.querySelector('.status-fixed')).length;
+  const tblDef    = tblRows.filter(r => r.querySelector('.status-deferred')).length;
   let activeCat = 'all', activeStatus = 'all';
 
   // status of a v1.1 finding card, read from its status pill
@@ -932,9 +995,9 @@
 
   // how many findings a status spans across ALL releases (reconciles with the tiles)
   function statusCount(s) {
-    if (s === 'deferred') return findings.filter(c => statusOf(c) === 'deferred').length + v15def;
-    if (s === 'fixed')    return findings.filter(c => statusOf(c) === 'fixed').length + v13rows + v15fixed;
-    return findings.length + v13rows + v15fixed + v15def;
+    if (s === 'deferred') return findings.filter(c => statusOf(c) === 'deferred').length + tblDef;
+    if (s === 'fixed')    return findings.filter(c => statusOf(c) === 'fixed').length + tblFixed;
+    return findings.length + tblRows.length;
   }
 
   // trace indicator, injected above the first findings section (#v1-3)

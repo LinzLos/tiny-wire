@@ -9,7 +9,7 @@
   // ─── Single source of truth for the current version ────────────────────
   // Rendered from /VERSION — do not edit by hand. It drives the sidebar below and every
   // element marked [data-tw-version] across the docs (see init()).
-  const VERSION = /* record:version start */'v1.5'/* record:version end */;  // rendered from /VERSION by scripts/render-docs.py
+  const VERSION = /* record:version start */'v1.6'/* record:version end */;  // rendered from /VERSION by scripts/render-docs.py
 
   // ─── Sidebar template ──────────────────────────────────────────────────
   const SIDEBAR_HTML = `

@@ -118,15 +118,51 @@ def shown_inside(fam, secs):
     return None
 
 
-def finding_ids():
+# A finding DECLARES its id in one of three shapes; anywhere else on the page
+# an F-### is a cross-reference to a finding declared elsewhere, and counting
+# those inflates the total.
+DECLARED_ID_RE = re.compile(
+    r'class="finding-id"[^>]*>\s*(F-\d{3})'        # audit page, v1.1 cards
+    r'|class="td-primary"[^>]*>\s*(F-\d{3})'        # audit page, release tables
+    r'|space-4\);">(F-\d{3}) \u00b7'                    # a11y page, finding headings
+)
+
+
+def finding_ids(*pages):
+    """Distinct F-### ids DECLARED on a page. No argument = both finding pages."""
     ids = set()
-    for page in ("audit.html", "a11y.html"):
-        ids.update(re.findall(r"\bF-\d{3}\b", (ROOT / "docs" / page).read_text()))
+    for page in pages or ("audit.html", "a11y.html"):
+        for groups in DECLARED_ID_RE.findall((ROOT / "docs" / page).read_text()):
+            ids.update(g for g in groups if g)
     return sorted(ids)
+
+
+def audit_status():
+    """(fixed, deferred) status pills on the audit page — what its tiles count."""
+    html_ = (ROOT / "docs" / "audit.html").read_text()
+    return (len(re.findall(r"status-pill status-fixed", html_)),
+            len(re.findall(r"status-pill status-deferred", html_)))
 
 
 def version():
     return (ROOT / "VERSION").read_text().strip()
+
+
+LATEST_PASS_RE = re.compile(
+    r'<h2 class="docs-h2" id="(v1-\d+)">v1\.\d+ \u2014 ([^<]+)</h2>\s*'
+    r'<p class="docs-h2-sub">[^<\u00b7]*\u00b7\s*([^,.<]+)')
+
+
+def latest_pass():
+    """The newest release section on the audit page: (anchor, name, character).
+    The page orders newest-first, so the first match is the latest release \u2014
+    no second place to keep the name."""
+    m = LATEST_PASS_RE.search((ROOT / "docs" / "audit.html").read_text())
+    if not m:
+        return None
+    anchor, name, character = m.group(1), m.group(2).strip(), m.group(3).strip()
+    return (f'<a href="#{anchor}" style="color:var(--info); text-decoration:underline; '
+            f'text-underline-offset:2px;">{name}</a> ({character})')
 
 
 # ------------------------------------------------------------------ renders
@@ -204,12 +240,19 @@ def main():
         "patterns": len(patterns),
         "pattern_titles": [t for t, _ in patterns],
         "findings": len(finding_ids()),
+        "audit_findings": len(finding_ids("audit.html")),
         "version": version(),
     }
+    n["audit_fixed"], n["audit_deferred"] = audit_status()
+    if n["audit_fixed"] + n["audit_deferred"] != n["audit_findings"]:
+        gap = n["audit_findings"] - n["audit_fixed"] - n["audit_deferred"]
+        print(f"  ! audit page: {n['audit_findings']} declared ids but "
+              f"{n['audit_fixed']} fixed + {n['audit_deferred']} deferred ({gap:+d})")
 
     print(f"tokens {n['tokens']} ({n['tiers']} tiers) · documented components {n['components']} · "
           f"class families {n['families']} (+{len(fams) - len(components)} parts) · "
-          f"patterns {n['patterns']} · findings {n['findings']} · v{n['version']}")
+          f"patterns {n['patterns']} · findings {n['findings']} "
+          f"({n['audit_findings']} on the audit page: {n['audit_fixed']} fixed, {n['audit_deferred']} deferred) · v{n['version']}")
     if undocumented:
         print("\nSHIPPED, NO DOCS SECTION")
         for fam in undocumented:
@@ -221,6 +264,8 @@ def main():
         "n-tokens": str(n["tokens"]), "n-components": str(n["components"]),
         "n-families": str(n["families"]), "n-patterns": str(n["patterns"]),
         "n-findings": str(n["findings"]), "version": "v" + n["version"],
+        "n-audit-findings": str(n["audit_findings"]), "n-audit-fixed": str(n["audit_fixed"]),
+        "n-audit-deferred": str(n["audit_deferred"]),
     }
     targets = [
         ROOT / "README.md", ROOT / "docs" / "index.html", ROOT / "docs" / "components.html",
@@ -239,6 +284,9 @@ def main():
             rendered, _ = splice_block(rendered, "tokens", render_tokens_html(light, dark))
             for key, value in inline.items():
                 rendered, _ = splice_inline(rendered, key, value)
+            lp = latest_pass()
+            if lp:
+                rendered, _ = splice_inline(rendered, "latest-pass", lp)
         if rendered == current:
             continue
         stale.append(path)

@@ -4,7 +4,7 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 ---
 
-### Unreleased
+### v1.6 — 2026-09-20 · "Receipts"
 
 #### Added
 
