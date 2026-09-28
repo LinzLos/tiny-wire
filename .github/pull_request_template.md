@@ -14,7 +14,7 @@
 ## Checklist
 
 - [ ] Components read **tokens only** — no hardcoded hex in `lib/components.css` (the CI check passes)
-- [ ] Any new value is defined as a token in `lib/globals.css` for **both** light and dark
+- [ ] Any new value is defined as a token in `lib/tokens.css` for **both** light and dark
 - [ ] Works in **light and dark** (`data-theme="dark"`)
 - [ ] Text/icon colors clear **WCAG AA** — verified in `docs/a11y.html`
 - [ ] Added or updated a **docs demo** so it's discoverable

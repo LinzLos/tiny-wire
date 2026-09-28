@@ -18,7 +18,23 @@ jobs:
           # in a comment doesn't false-positive the check.
           stripped=$(perl -0777 -pe 's{/\*.*?\*/}{ (my $c=$&) =~ s/[^\n]/ /g; $c }ges' lib/components.css)
           if printf '%s' "$stripped" | grep -nEi '#[0-9a-f]{6}\b|#[0-9a-f]{3}\b'; then
-            echo "::error::Hardcoded hex color(s) found above in lib/components.css (comments excluded). Use a var(--token) from lib/globals.css instead."
+            echo "::error::Hardcoded hex color(s) found above in lib/components.css (comments excluded). Use a var(--token) from lib/tokens.css instead."
             exit 1
           fi
           echo "OK — lib/components.css is fully token-driven."
+
+  docs-current:
+    name: Docs rendered from source
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if rendered counts / version markers are stale
+        run: python3 scripts/render-docs.py
+
+  tokens-sync:
+    name: tokens.js mirrors tokens.css
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if lib/tokens.js values drift from lib/tokens.css
+        run: python3 scripts/check-tokens.py
