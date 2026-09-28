@@ -17,7 +17,7 @@ TinyWire is a design system for the interfaces where people operate complex soft
 - **Built-in WCAG checker**: [`docs/a11y.html`](docs/a11y.html) computes live contrast in both themes
 - **No framework, no build step**: two stylesheet links and go
 
-The three counts above are rendered from `lib/` and the docs pages by `scripts/render-readme.py`, which also lists anything shipped that the docs don't show yet. Hand edits between the markers are overwritten.
+The three counts above are rendered from `lib/` and the docs pages by [`scripts/render-docs.py`](scripts/render-docs.py), which also lists anything shipped that the docs don't show yet. Hand edits between the markers are overwritten.
 
 ## Quick start
 
