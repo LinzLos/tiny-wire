@@ -24,7 +24,7 @@
   <p class="docs-lede"><!-- record:n-components start -->35<!-- record:n-components end --> documented components covering forms, feedback, navigation, overlays, and data. Every component is plain HTML + a class — no framework, no runtime. Click "Code" on any demo to copy the markup.</p>
 
   <h2 class="docs-h2" id="accordion">Accordion</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.accordion · .accordion-item · .accordion-trigger · .accordion-content</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.accordion · .accordion-content · .accordion-item · .accordion-trigger · .accordion-trigger-icon<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Collapsible sections. The chevron rotates 180° when the item opens.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width: 480px; margin: 0 auto;">
@@ -67,7 +67,7 @@
   </div>
 
   <h2 class="docs-h2" id="alert">Alert</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.alert .alert-danger | .alert-warn | .alert-success | .alert-info</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.alert · .alert-body · <s>.alert-brand</s> <em>deprecated, use .alert-success</em> · .alert-danger · .alert-icon · .alert-info · .alert-success · .alert-title · .alert-warn<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Inline messages for validation, system feedback, and contextual notes. Composable with an icon and title.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width: 540px; margin: 0 auto; gap: var(--space-10);">
@@ -107,7 +107,7 @@
   </div>
 
   <h2 class="docs-h2" id="avatar">Avatar</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.avatar .avatar-sm | .avatar-lg | .avatar-xl · .avatar-group</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.avatar · .avatar-group · .avatar-lg · .avatar-sm · .avatar-xl<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Initials fallback, image override, four sizes. Stack into a <code>.avatar-group</code> for team displays.</p>
   <div class="demo">
     <div class="demo-canvas" style="gap: var(--space-20); align-items: flex-end;">
@@ -138,7 +138,7 @@
   </div>
 
   <h2 class="docs-h2" id="banner">Banner</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.banner .banner-danger | .banner-success | .banner-info</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.banner · <s>.banner-brand</s> <em>deprecated, use .banner-success</em> · .banner-danger · .banner-dot · .banner-info · .banner-success · .banner-warn<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Full-width contextual banners for system-wide state. The pulsing <code>.banner-dot</code> signals an active condition.</p>
   <div class="demo">
     <div class="demo-canvas col" style="gap: var(--space-10); padding: var(--space-16);">
@@ -154,6 +154,12 @@
         <span class="banner-dot" style="animation: none;"></span>
         <span style="font-weight: var(--weight-semibold);">All systems operational</span>
         <span style="opacity: 0.8;">· Updated 2 min ago</span>
+      </div>
+      <div class="banner banner-warn">
+        <span class="banner-dot" style="animation: none;"></span>
+        <span style="font-weight: var(--weight-semibold);">Queue depth above threshold</span>
+        <span style="opacity: 0.8;">· 1,284 waiting · 12 agents live</span>
+        <button class="btn-ghost" style="margin-left: auto; color: var(--warning);">Add agents</button>
       </div>
       <div class="banner banner-info">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -174,7 +180,7 @@
   </div>
 
   <h2 class="docs-h2" id="breadcrumb">Breadcrumb</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.breadcrumb · .breadcrumb-item · .breadcrumb-sep</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.breadcrumb · .breadcrumb-item · .breadcrumb-sep<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Hierarchical location indicator. Mark the current page with <code>aria-current="page"</code>.</p>
   <div class="demo">
     <div class="demo-canvas">
@@ -202,7 +208,7 @@
   </div>
 
   <h2 class="docs-h2" id="button">Button</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.btn .btn-primary | .btn-secondary | .btn-outline | .btn-ghost | .btn-brand | .btn-danger | .btn-link</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.btn · .btn-brand · .btn-danger · .btn-ghost · .btn-group · .btn-icon · .btn-lg · .btn-link · .btn-outline · .btn-primary · .btn-rollback · .btn-secondary · .btn-sm · .btn-stop<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Seven variants from primary confirmation to inline link. Three sizes via <code>.btn-sm</code> and <code>.btn-lg</code>. Add <code>.btn-icon</code> for a square icon-only button.</p>
 
   <div class="demo">
@@ -340,7 +346,7 @@
   </div>
 
   <h2 class="docs-h2" id="card">Card</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.card · .card-header · .card-title · .card-desc · .card-value · .card-delta · .card-footer</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.card · .card-delta · .card-delta-danger · .card-delta-success · .card-desc · .card-disabled · .card-footer · .card-header · .card-title · .card-value<!-- record:classes end --></span></div></div>
   <p class="comp-desc">The primary container. White surface, 1px border, 8px radius, 16px padding. Add <code>.card-disabled</code> for a locked state.</p>
   <div class="demo">
     <div class="demo-canvas" style="gap: var(--space-12); align-items: stretch;">
@@ -387,7 +393,7 @@
   </div>
 
   <h2 class="docs-h2" id="checkbox">Checkbox</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.checkbox</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.checkbox<!-- record:classes end --></span></div></div>
   <p class="comp-desc">16px square, fills with the brand cobalt when checked. Pair with <code>.field-check</code> wrapper for inline labels.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
@@ -409,7 +415,7 @@
   </div>
 
   <h2 class="docs-h2" id="command">Command</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.command · .command-input · .command-list · .command-group-label</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.command · .command-group-label · .command-input · .command-input-wrap · .command-list<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Searchable action palette (⌘K). The list scrolls; groups are labeled with a small caps header.</p>
   <div class="demo">
     <div class="demo-canvas">
@@ -448,7 +454,7 @@
   </div>
 
   <h2 class="docs-h2" id="dialog">Dialog</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.dialog · .dialog-overlay · .dialog-header · .dialog-body · .dialog-footer</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.dialog · .dialog-body · .dialog-close · .dialog-desc · .dialog-footer · .dialog-header · .dialog-overlay · .dialog-title<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Centered modal with a blurred scrim. Use for confirmations, forms, and any flow that should block the rest of the page.</p>
   <p class="comp-a11y"><strong>Accessibility:</strong> render with <code>role="dialog"</code> <code>aria-modal="true"</code> and point <code>aria-labelledby</code> at the title. On open, move focus into the dialog and trap <kbd>Tab</kbd> inside it; on close, return focus to the trigger and dismiss on <kbd>Esc</kbd>. The demo above does this.</p>
   <div class="demo">
@@ -492,7 +498,7 @@
   </div>
 
   <h2 class="docs-h2" id="divider">Divider</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.separator · .separator-strong · .separator-v</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.separator · .separator-strong · .separator-v<!-- record:classes end --></span></div></div>
   <p class="comp-desc">A hairline between things. Horizontal by default; <code>.separator-strong</code> for a heavier line; <code>.separator-v</code> for a vertical rule inside a row. It carries no meaning of its own — if the break matters to a screen reader, use a heading or a landmark instead.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width: 380px; margin: 0 auto; gap: var(--space-12);">
@@ -514,7 +520,7 @@
   </div>
 
   <h2 class="docs-h2" id="menu">Dropdown Menu</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.menu · .menu-item · .menu-label · .menu-separator</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.menu · .menu-item · .menu-item-danger · .menu-item-icon · .menu-item-shortcut · .menu-label · .menu-separator<!-- record:classes end --></span></div></div>
   <p class="comp-desc">List-of-actions menu. Supports icons, keyboard shortcuts, grouped sections, and a destructive variant.</p>
   <div class="demo">
     <div class="demo-canvas" style="gap: var(--space-24); padding: var(--space-32);">
@@ -561,7 +567,7 @@
   </div>
 
   <h2 class="docs-h2" id="empty">Empty State</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.empty-state · .empty-state-icon · .empty-state-title · .empty-state-desc · .empty-state-actions</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.empty-state · .empty-state-actions · .empty-state-desc · .empty-state-icon · .empty-state-title<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Centered placeholder for tables, search results, and feature onboarding. Always include an icon and a primary action.</p>
   <div class="demo">
     <div class="demo-canvas col" style="padding: 0;">
@@ -592,7 +598,7 @@
   </div>
 
   <h2 class="docs-h2" id="input">Input</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.input</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.input · .input-group · .input-group-addon · .input-lg · .input-sm<!-- record:classes end --></span></div></div>
   <p class="comp-desc">32px tall, 6px radius. Full width by default; <code>.input-sm</code> (24px) for inline numeric fields, <code>.input-lg</code> (40px) for hero inputs. Pair with <code>.label</code>, <code>.helper</code>, and <code>.field-error</code>.</p>
 
   <div class="demo">
@@ -680,7 +686,7 @@
   </div>
 
   <h2 class="docs-h2" id="kbd">Kbd</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">kbd · .kbd</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.kbd<!-- record:classes end --></span></div></div>
   <p class="comp-desc">A key. The native <code>&lt;kbd&gt;</code> element is styled directly; the class does the same for a span. The Command palette's ⌘K badge is this.</p>
   <div class="demo">
     <div class="demo-canvas" style="justify-content:center; gap: var(--space-20); align-items:center;">
@@ -699,7 +705,7 @@
   </div>
 
   <h2 class="docs-h2" id="pagination">Pagination</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.pagination · .pagination-item · .pagination-ellipsis</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.pagination · .pagination-ellipsis · .pagination-item<!-- record:classes end --></span></div></div>
   <div class="demo">
     <div class="demo-canvas">
       <nav class="pagination">
@@ -726,7 +732,7 @@
   </div>
 
   <h2 class="docs-h2" id="popover">Popover</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.popover · .popover-header</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.popover · .popover-header<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Click-anchored floating panel. Use for rich content — forms, color pickers, inline editors.</p>
   <div class="demo">
     <div class="demo-canvas" style="gap: var(--space-24); padding: var(--space-48) var(--space-24); position: relative; align-items: flex-start;">
@@ -754,7 +760,7 @@
   </div>
 
   <h2 class="docs-h2" id="progress">Progress</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.progress · .progress-bar</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.progress · .progress-bar · .progress-bar-danger · .progress-bar-warning<!-- record:classes end --></span></div></div>
   <p class="comp-desc">6px-tall bar with a brand cobalt fill by default. Use <code>.progress-bar-danger</code> or <code>.progress-bar-warning</code> for critical states.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width: 360px; margin: 0 auto; gap: var(--space-14);">
@@ -793,7 +799,7 @@
   </div>
 
   <h2 class="docs-h2" id="radio">Radio</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.radio</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.radio<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Single-selection variant. Same sizing and color treatment as Checkbox.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
@@ -814,7 +820,7 @@
   </div>
 
   <h2 class="docs-h2" id="select">Select</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.select</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.select<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Native select with a custom chevron. Matches input height and focus styles.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width:480px; margin: 0 auto;">
@@ -841,7 +847,7 @@
   </div>
 
   <h2 class="docs-h2" id="sheet">Sheet</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.sheet · .sheet-header · .sheet-body · .sheet-footer</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.sheet · .sheet-body · .sheet-footer · .sheet-header<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Side-anchored drawer. Use for detail panels, filter sets, and contextual forms that should stay accessible alongside the main view.</p>
   <p class="comp-a11y"><strong>Accessibility:</strong> same contract as the dialog — <code>role="dialog"</code> <code>aria-modal="true"</code>, <code>aria-labelledby</code> on the title, focus moved in and trapped on open, returned to the trigger on close, <kbd>Esc</kbd> to dismiss.</p>
   <div class="demo">
@@ -887,7 +893,7 @@
   </div>
 
   <h2 class="docs-h2" id="sidebar">Sidebar</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.sidebar | .sidebar--rail | .sidebar-link | .sidebar-link.active</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.sidebar · .sidebar--rail · .sidebar-group · .sidebar-group-label · .sidebar-header · .sidebar-link · .sidebar-link-icon<!-- record:classes end --></span></div></div>
   <p class="comp-desc">The application sidebar. <code>.sidebar</code> is the full 240px form with labeled links and grouped sections. Add <code>.sidebar--rail</code> for the collapsed, icon-only rail at <code>--sidebar-w</code> (56px). Active state is <code>.sidebar-link.active</code>; icons use <code>currentColor</code>, so they inherit <code>--text-tertiary</code> and shift to <code>--text-primary</code> when active. A Shift-branded example lives at <a href="sidebar-rail.html">sidebar-rail.html</a>.</p>
   <div class="demo">
     <div class="demo-canvas" style="display:flex; flex-direction:row; gap:var(--space-24); justify-content:center; align-items:flex-start;">
@@ -927,7 +933,7 @@
   </div>
 
   <h2 class="docs-h2" id="skeleton">Skeleton</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.skeleton</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.skeleton<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Animated shimmer placeholder. Use any width/height — it inherits the rounded corner of its parent or you can set <code>border-radius</code> directly.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width: 380px; margin: 0 auto; gap: var(--space-10);">
@@ -953,7 +959,7 @@
   </div>
 
   <h2 class="docs-h2" id="slider">Slider</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.slider</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.slider · .slider-val · .slider-wrap<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Range input with pill track and circular thumb. Pair with <code>.slider-val</code> for a display-font numeric readout.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width:420px; margin: 0 auto;">
@@ -981,7 +987,7 @@
   </div>
 
   <h2 class="docs-h2" id="spinner">Spinner</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.spinner · .spinner-sm · .spinner-lg</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.spinner · .spinner-lg · .spinner-sm<!-- record:classes end --></span></div></div>
   <p class="comp-desc">An in-progress ring in three sizes. Put it beside a label, or inside a button while it waits. Give it <code>role="status"</code> and an <code>aria-label</code> — the ring itself says nothing.</p>
   <div class="demo">
     <div class="demo-canvas" style="justify-content:center; gap: var(--space-24); align-items:center;">
@@ -1001,7 +1007,7 @@
   </div>
 
   <h2 class="docs-h2" id="status-bar">Status Bar</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.status-bar · .status-stat · .status-stat-label · .status-stat-value · .status-stat-context · .status-bar-rule</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.status-bar · .status-bar-rule · .status-stat · .status-stat-context · .status-stat-label · .status-stat-value<!-- record:classes end --></span></div></div>
   <p class="comp-desc">A row of small stats with rules between them — the strip under a dashboard header. Each <code>.status-stat</code> is a label, a value in tabular numerals, and optional context.</p>
   <div class="demo">
     <div class="demo-canvas" style="padding: var(--space-16);">
@@ -1031,7 +1037,7 @@
   </div>
 
   <h2 class="docs-h2" id="chip">Status Chip</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.chip .chip-ok | .chip-warn | .chip-critical | .chip-info | .chip-stopped</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.chip · .chip-critical · .chip-dot · .chip-info · .chip-ok · .chip-stopped · .chip-warn<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Pill-shaped semantic status indicators. Always pair with a <code>.chip-dot</code> that inherits the chip color.</p>
   <div class="demo">
     <div class="demo-canvas">
@@ -1065,7 +1071,7 @@
   </div>
 
   <h2 class="docs-h2" id="dot">Status Dot</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.dot .dot-green | .dot-warn | .dot-amber | .dot-red | .dot-blue | .dot-muted · .monitoring-dot</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.dot · .dot-amber · .dot-blue · .dot-green · .dot-muted · .dot-red · .dot-warn · .monitoring-dot<!-- record:classes end --></span></div></div>
   <p class="comp-desc">A colored dot that means a state. <code>.dot-*</code> is still; <code>.monitoring-dot</code> pulses for something live right now. Both are decorative — the meaning goes in text beside them, never in the color alone. The <a href="#chip">Status Chip</a> is a dot with its label built in.</p>
   <div class="demo">
     <div class="demo-canvas" style="justify-content:center; gap: var(--space-20); align-items:center; flex-wrap:wrap;">
@@ -1088,7 +1094,7 @@
   </div>
 
   <h2 class="docs-h2" id="switch">Switch</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.switch</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.switch<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Toggle for boolean settings. Use when the state takes effect immediately; use Checkbox when paired with a form submission.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width:360px; margin: 0 auto; gap: var(--space-10);">
@@ -1109,7 +1115,7 @@
   </div>
 
   <h2 class="docs-h2" id="table">Table</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.table · .table-bordered</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.table · .table-bordered<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Borderless by default — relies on light row dividers. Add <code>.table-bordered</code> for a card-wrapped variant.</p>
   <div class="demo">
     <div class="demo-canvas col" style="padding: 0;">
@@ -1161,7 +1167,7 @@
   </div>
 
   <h2 class="docs-h2" id="tabs">Tabs</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tabs-list · .tab · .tab-panel · .tabs-list-pill</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.tab · .tab-panel · .tabs-list · .tabs-list-pill<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Two variants: bottom-border tabs for primary navigation, pill tabs for filter/segment switching.</p>
   <div class="demo">
     <div class="demo-canvas col" style="padding: var(--space-24);">
@@ -1195,7 +1201,7 @@
   </div>
 
   <h2 class="docs-h2" id="tag">Tag &amp; Badge</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tag .tag-danger | .tag-success | .tag-info | .tag-warn | .tag-accent · .badge</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.badge · .tag · .tag-accent · <s>.tag-brand</s> <em>deprecated, use .tag-success</em> · .tag-danger · .tag-info · .tag-success · .tag-warn<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Tags are loud: all-caps, semantic-colored fill. Badges are quiet: muted, used for metadata.</p>
   <div class="demo">
     <div class="demo-canvas">
@@ -1220,7 +1226,7 @@
   </div>
 
   <h2 class="docs-h2" id="textarea">Textarea</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.textarea</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.textarea<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Multiline input, vertically resizable, with a 72px minimum height.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width:480px; margin: 0 auto;">
@@ -1240,7 +1246,7 @@
   </div>
 
   <h2 class="docs-h2" id="toast">Toast</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.toast · .toast-icon · .toast-body · .toast-title · .toast-desc</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.toast · .toast-body · .toast-close · .toast-danger · .toast-desc · .toast-icon · .toast-info · .toast-title · .toast-warn<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Transient feedback. Anchor to a corner (usually bottom-right) and stack.</p>
   <div class="demo">
     <div class="demo-canvas col" style="max-width: 400px; margin: 0 auto; gap: var(--space-8);">
@@ -1263,6 +1269,10 @@
         <svg class="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
         <div class="toast-body"><div class="toast-title">Approaching quota</div><div class="toast-desc">96% of monthly limit used.</div></div>
       </div>
+      <div class="toast toast-info">
+        <svg class="toast-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div class="toast-body"><div class="toast-title">Rollback available</div><div class="toast-desc">The previous dial settings are kept for 24 hours.</div></div>
+      </div>
     </div>
     <div class="demo-toolbar">
       <div class="demo-toolbar-tabs">
@@ -1280,7 +1290,7 @@
   </div>
 
   <h2 class="docs-h2" id="tooltip">Tooltip</h2>
-  <div class="comp-name"><div class="comp-name-left"><span class="comp-class">.tooltip · .tooltip-wrap</span></div></div>
+  <div class="comp-name"><div class="comp-name-left"><span class="comp-class"><!-- record:classes start -->.tooltip · .tooltip-wrap<!-- record:classes end --></span></div></div>
   <p class="comp-desc">Hovers show after a short delay. Always wrap in <code>.tooltip-wrap</code> for the auto-show behavior.</p>
   <div class="demo">
     <div class="demo-canvas" style="gap: var(--space-32); padding: var(--space-48) var(--space-24);">

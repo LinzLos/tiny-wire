@@ -4,6 +4,17 @@ All notable changes to **Tiny Wire** are tracked here. Versioning follows [SemVe
 
 ---
 
+### Unreleased
+
+#### Changed
+
+- **Every component's class list is rendered from `lib/components.css`**, not typed. Fifteen of the thirty-five documented sections listed fewer classes than their family ships — 43 classes unlisted, including all of `.input-group`, `.slider-val`, `.btn-rollback`, `.btn-stop`, and four `.sidebar-*` parts. This was not cosmetic: an agent reading the components page invented a plausible `.sidebar-footer` that does not exist, because the authoritative list was short enough to leave room. The lists now sit between `record:classes` markers and cannot fall behind the CSS.
+- **Back-compat aliases are marked, not hidden.** `.alert-brand`, `.banner-brand`, and `.tag-brand` have been aliases of their `.*-success` counterparts since v1.5, and appeared in no list. They are now shown struck through and labelled with what to use instead — a consumer already using one had no way to learn it was an alias.
+
+#### Added
+
+- **Demos for `.banner-warn` and `.toast-info`.** Both shipped with no example anywhere on the site; every sibling variant had one.
+
 ### v1.6 — 2026-09-20 · "Receipts"
 
 #### Added

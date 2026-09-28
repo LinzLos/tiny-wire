@@ -37,6 +37,14 @@ PARTS = {"field", "helper", "label", "section"}
 ALIASES = {"button": "btn", "divider": "separator"}
 # Families that share one docs section with another family.
 SHARED = {"tabs": {"tab"}, "dot": {"monitoring"}}
+# Shipped on purpose, kept working on purpose, but not the name to reach for.
+# v1.5 moved brand off green; these stayed so nothing broke. Listed, marked,
+# never silently dropped — a consumer using one has no other way to find out.
+DEPRECATED = {
+    "alert-brand": "alert-success",
+    "banner-brand": "banner-success",
+    "tag-brand": "tag-success",
+}
 WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five"}
 
 
@@ -81,9 +89,18 @@ def families():
     return sorted(set(re.findall(r"(?:^|,)\s*\.([a-z][a-z0-9]*)", css, re.M)))
 
 
+def all_classes():
+    """Every full class selector components.css declares — .btn-primary, not btn."""
+    css = strip_comments((ROOT / "lib" / "components.css").read_text())
+    return sorted(set(re.findall(r"(?:^|,)\s*\.([a-z][a-z0-9-]*)", css, re.M)))
+
+
 def sections(page):
     """(heading, classes used under it) for every <h2> on a docs page."""
     text = (ROOT / "docs" / page).read_text()
+    # Strip the class lists this script writes — reading our own output back
+    # makes the render depend on the previous render.
+    text = re.sub(r"<!-- record:classes start -->.*?<!-- record:classes end -->", "", text, flags=re.S)
     out = []
     for chunk in re.split(r"<h2[^>]*>", text)[1:]:
         title = re.sub(r"<[^>]+>", "", chunk.split("</h2>", 1)[0]).replace("&amp;", "&").strip()
@@ -109,6 +126,23 @@ def documented(secs, fams):
                     if n in fams:
                         home.setdefault(n, title)
     return home
+
+
+def render_classes(families_owned, fams):
+    """Every class a section's families ship, bases first then the rest.
+    Deprecated aliases are shown and labelled, not hidden."""
+    names = set(families_owned)
+    for f in list(names):
+        names |= SHARED.get(f, set())
+    owned = sorted(c for c in fams if c in names or any(c.startswith(n + "-") for n in names))
+    owned.sort(key=lambda c: (c not in names, c))
+    out = []
+    for c in owned:
+        if c in DEPRECATED:
+            out.append(f"<s>.{c}</s> <em>deprecated, use .{DEPRECATED[c]}</em>")
+        else:
+            out.append(f".{c}")
+    return " · ".join(out)
 
 
 def shown_inside(fam, secs):
@@ -212,6 +246,28 @@ def splice_block(text, name, body, open_="<!--", close="-->"):
     return text[: i + len(start)] + "\n" + body + "\n" + text[j:], True
 
 
+def splice_class_lists(text, secs, fams, home):
+    """Each section owns one record:classes marker; fill it from the CSS."""
+    section_of = {}
+    for f, title in home.items():
+        section_of.setdefault(title, set()).add(f)
+    start, end = "<!-- record:classes start -->", "<!-- record:classes end -->"
+    parts, pos, i = [], 0, 0
+    titles = [t for t, _ in secs]
+    while True:
+        a = text.find(start, pos)
+        if a < 0:
+            break
+        b = text.find(end, a)
+        title = titles[i] if i < len(titles) else None
+        fam = section_of.get(title)
+        body = render_classes(fam, fams) if fam else text[a + len(start):b]
+        parts.append(text[pos:a + len(start)] + body)
+        pos, i = b, i + 1
+    parts.append(text[pos:])
+    return "".join(parts)
+
+
 def splice_inline(text, name, value, open_="<!--", close="-->"):
     start, end = f"{open_} record:{name} start {close}", f"{open_} record:{name} end {close}"
     pattern = re.compile(re.escape(start) + r".*?" + re.escape(end), re.S)
@@ -284,6 +340,8 @@ def main():
             rendered, _ = splice_block(rendered, "tokens", render_tokens_html(light, dark))
             for key, value in inline.items():
                 rendered, _ = splice_inline(rendered, key, value)
+            if path.name == "components.html":
+                rendered = splice_class_lists(rendered, comp_secs, all_classes(), home)
             lp = latest_pass()
             if lp:
                 rendered, _ = splice_inline(rendered, "latest-pass", lp)
