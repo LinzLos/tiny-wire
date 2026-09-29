@@ -566,29 +566,35 @@ code {
   .docs-logo { padding: var(--space-12) var(--space-16); border-bottom: 0; }
   .theme-toggle-icon { margin-right: var(--space-12); }
   .docs-nav {
-    display: flex; flex-direction: row;
-    overflow-x: auto; padding: var(--space-8) var(--space-12);
-    gap: var(--space-12); scrollbar-width: none;
+    display: flex; flex-direction: row; flex-wrap: wrap;
+    padding: var(--space-8) var(--space-12);
+    gap: var(--space-4);
   }
-  .docs-nav::-webkit-scrollbar { display: none; }
   .docs-nav-group {
     flex: 0 0 auto; padding: 0;
     border-top: 0 !important;
-    display: flex; align-items: center; gap: var(--space-4);
+    display: flex; align-items: center;
   }
-  .docs-nav-group + .docs-nav-group {
-    padding-left: var(--space-12);
-    border-left: 1px solid var(--border-light);
-  }
+  .docs-nav-group + .docs-nav-group { padding-left: 0; border-left: 0; }
+  /* The strip carries group labels only. Carrying every section link made it
+     57 nowrap links, ~3,980px wide in a 375px window — and the scrollbar is
+     hidden, so it read as cut off rather than scrollable. The section links
+     live in the on-page "On this page" nav, which wraps. */
   .docs-nav-group-label {
-    font-size: var(--text-2xs);
-    margin: 0 var(--space-4) 0 0; padding: 0;
+    font-size: var(--text-sm); font-weight: var(--weight-medium);
+    text-transform: none; letter-spacing: normal;
+    color: var(--text-secondary);
+    margin: 0; padding: var(--space-8) var(--space-10);
+    border-radius: var(--radius-sm);
     white-space: nowrap;
   }
-  .docs-nav-link {
-    padding: 4px 8px; white-space: nowrap;
-    font-size: var(--text-sm);
+  /* markCurrentPage() sets .active on the label; only styled here, because on
+     desktop the label is a section heading, not the nav item itself. */
+  .docs-nav-group-label.active {
+    background: var(--surface-muted); color: var(--text-primary);
+    font-weight: var(--weight-semibold);
   }
+  .docs-nav-link { display: none; }
   .docs-theme-toggle { display: none; }
   .docs-main { padding: 32px 24px 64px; }
   .docs-page-header { margin: -32px -24px var(--space-24); padding: var(--space-12) 24px; }

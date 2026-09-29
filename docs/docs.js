@@ -161,6 +161,12 @@
   // ─── Mark current page link ────────────────────────────────────────────
   function markCurrentPage() {
     const page = location.pathname.split('/').pop() || 'index.html';
+    // On mobile the group label IS the nav item, and several groups have no
+    // bare current-page link for markCurrentPage to find below.
+    document.querySelectorAll('.docs-nav-group-label').forEach(l => {
+      const href = l.getAttribute('href');
+      if (href && (href.split('#')[0] || page) === page) l.classList.add('active');
+    });
     document.querySelectorAll('.docs-nav-link').forEach(l => {
       const href = l.getAttribute('href');
       if (!href) return;
